@@ -1,0 +1,23 @@
+{
+  "name": "squakwebapp",
+  "version": "1.0.0",
+  "description": "Companion web app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/owenso/squakwebapp.git"
+  },
+  "author": "Owens O'Brien + Anar Enhsaihan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/owenso/squakwebapp/issues"
+  },
+  "homepage": "https://github.com/owenso/squakwebapp#readme",
+  "dependencies": {
+    "express": "^4.13.1",
+    "nodemon": "^1.3.7"
+  }
+}
