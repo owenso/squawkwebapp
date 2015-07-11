@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/owenso/squakwebapp#readme",
   "dependencies": {
-    "express": "^4.13.1",
-    "nodemon": "^1.3.7"
+    "express": "^4.13.1"
   }
 }
