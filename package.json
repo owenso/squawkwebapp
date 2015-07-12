@@ -17,8 +17,12 @@
   },
   "homepage": "https://github.com/owenso/squakwebapp#readme",
   "dependencies": {
+<<<<<<< HEAD
     "express": "^4.13.1",
     "mongoose": "^4.0.6",
     "nodemon": "^1.3.7"
+=======
+    "express": "^4.13.1"
+>>>>>>> cb0f4140df50e3b2518b7fa8a4d9b52aeec039da
   }
 }
