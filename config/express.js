@@ -1,5 +1,5 @@
 var config = require('./config'),
-		express = require('express'),
+	express = require('express'),
     morgan = require('morgan'),
     compress = require('compression'),
     bodyParser = require('body-parser'),
