@@ -17,6 +17,13 @@
   },
   "homepage": "https://github.com/owenso/squakwebapp#readme",
   "dependencies": {
-    "express": "^4.13.1"
+    "body-parser": "^1.13.2",
+    "compression": "^1.5.1",
+    "ejs": "^2.3.3",
+    "express": "^4.13.1",
+    "express-session": "^1.11.3",
+    "method-override": "^2.3.4",
+    "mongoose": "^4.1.0",
+    "morgan": "^1.6.1"
   }
 }
