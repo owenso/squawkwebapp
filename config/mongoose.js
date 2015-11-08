@@ -6,7 +6,7 @@ module.exports = function(){
 		if (err)
 			console.log("mongoose connection error: " + err);
 		else
-			console.log("mongoose connection sucessful");
+			console.log("mongoose connection successful");
 	});
 	return db;
 };
