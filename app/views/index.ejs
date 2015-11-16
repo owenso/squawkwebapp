@@ -6,6 +6,13 @@
 </head>
 <body>
 	<h1><%=title %></h1>
-		<img src="img/logo.jpg" alt="RI!">
+	<% if (userFullName) { %>
+		<h2>Hello <%=userFullName%> </h2>
+		<a href='/signout'>Sign out</a>
+	<% } else { %>
+		<a href='/signup'>Signup</a>
+		<a href='/signin'>Signin</a>
+		<% } %>
+		<img src="img/logo.jpg" alt="Da Rock!">
 </body>
 </html>
