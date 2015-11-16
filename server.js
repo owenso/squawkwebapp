@@ -6,6 +6,7 @@ var passport = require('./config/passport');
 
 var db = mongoose();
 var app = express();
+var passport = passport();
 
 app.listen(3000);
 module.exports = app;
