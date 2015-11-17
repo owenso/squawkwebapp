@@ -3,17 +3,19 @@ var config = require('./config'),
 
 module.exports = function() {
     var db = mongoose.connect(config.db, function(err) {
-        if (err)
-            console.log("mongoose connection error: " + err);
-        else
-        	var mongoServerLoc = '';
-        		if (config.db.indexOf('mongolab') == -1){
-        			mongoServerLoc = 'local';
-        		} else{
-        			mongoServerLoc = 'mongolabs'
-        		}
-
-            console.log("mongoose connection successful: running on " + mongoServerLoc);
+        if (err){
+            console.log("error connecting to mongolabs: " + err);
+          	mongoose.connect('mongodb://localhost/squawker', function(err){
+          		if (err){
+          			console.log('error connecting to local fallback: ' + err);
+          		} else{
+          			console.log('mongoose connected to local fallback');
+          		}
+          });
+          }
+        else {
+            console.log("mongoose connection to mongolabs successful");
+        }
     });
 
     require('../app/models/user.server.model');
