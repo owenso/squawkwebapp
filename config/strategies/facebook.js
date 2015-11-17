@@ -4,7 +4,7 @@ var passport = require('passport'),
     config = require('../config'),
     users = require('../../app/controllers/users.server.controller');
 
-    
+
 module.exports = function() {
     passport.use(new FacebookStrategy({
             clientID: config.facebook.clientID,
@@ -13,6 +13,7 @@ module.exports = function() {
             passReqToCallback: true
         },
         function(req, accessToken, refreshToken, profile, done) {
+        	console.log(profile);
             var providerData = profile._json;
             providerData.accessToken = accessToken;
             providerData.refreshToken = refreshToken;
