@@ -14,7 +14,6 @@ module.exports = function() {
             profileFields: ['id', 'emails', 'name', 'displayName'/*, 'picture.type(large)'*/]
         },
         function(req, accessToken, refreshToken, profile, done) {
-        	console.log(profile);
             var providerData = profile._json;
             providerData.accessToken = accessToken;
             providerData.refreshToken = refreshToken;
