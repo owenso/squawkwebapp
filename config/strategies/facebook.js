@@ -10,7 +10,8 @@ module.exports = function() {
             clientID: config.facebook.clientID,
             clientSecret: config.facebook.clientSecret,
             callbackURL: config.facebook.callbackURL,
-            passReqToCallback: true
+            passReqToCallback: true,
+            profileFields: ['id', 'emails', 'name', 'displayName'/*, 'picture.type(large)'*/]
         },
         function(req, accessToken, refreshToken, profile, done) {
         	console.log(profile);
@@ -18,6 +19,7 @@ module.exports = function() {
             providerData.accessToken = accessToken;
             providerData.refreshToken = refreshToken;
             var providerUserProfile = {
+           			// we can also get gender and profile picture - picture.type(large)
                 firstName: profile.name.givenName,
                 lastName: profile.name.familyName,
                 fullName: profile.displayName,
