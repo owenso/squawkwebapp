@@ -6,7 +6,14 @@ module.exports = function() {
         if (err)
             console.log("mongoose connection error: " + err);
         else
-            console.log("mongoose connection successful");
+        	var mongoServerLoc = '';
+        		if (config.db.indexOf('mongolab') == -1){
+        			mongoServerLoc = 'local';
+        		} else{
+        			mongoServerLoc = 'mongolabs'
+        		}
+
+            console.log("mongoose connection successful: running on " + mongoServerLoc);
     });
 
     require('../app/models/user.server.model');
