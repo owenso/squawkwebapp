@@ -31,7 +31,8 @@ module.exports = function(app) {
 
     //Routes for facebook oauth
     app.get('/oauth/facebook', passport.authenticate('facebook', {
-        failureRedirect: '/signin'
+        failureRedirect: '/signin',
+        scope: ['email']
     }));
 
     app.get('/oauth/facebook/callback', passport.authenticate('facebook', {
