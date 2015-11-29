@@ -63,7 +63,7 @@ exports.signup = function(req, res, next) {
     }
 };
 
-exports.mobileSignup = function(req, res) {
+exports.mobileSignup = function(req, res, next) {
     var user = new User(req.body);
     var message = null;
     user.provider = 'local';
