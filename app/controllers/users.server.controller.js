@@ -70,7 +70,7 @@ exports.mobileSignup = function(userObject, res) {
     user.save(function(err) {
         if (err) {
             var message = getErrorMessage(err);
-            return res.response(message);
+            return res.send(message);
         }
         req.login(user, function(err) {
             if (err) return next(err);
