@@ -73,8 +73,6 @@ exports.mobileSignup = function(req, res, next) {
             return res.send(message);
         }
         req.login(user, function(err) {
-            console.log(user);
-            console.log(err);
             if (err) return next(err);
             return res.json(user);
         });
