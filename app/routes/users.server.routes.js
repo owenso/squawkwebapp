@@ -13,8 +13,6 @@ module.exports = function(app) {
 
     app.param('userId', users.userByID);
 
-    app.route('/mobileSignup')
-        .post(users.mobileSignup);
         
     app.route('/signup')
         .get(users.renderSignup)
@@ -27,6 +25,20 @@ module.exports = function(app) {
             failureRedirect: '/signin',
             failureFlash: true
         }));
+
+    app.route('/mobileSignup')
+        .post(users.mobileSignup);
+    
+    app.route('/mobileSignin')
+        .post(passport.authenticate('local'), function (err, user){
+            if (err){
+                console.log(err);
+                res.send('ERROR: ' + err);
+            } else {
+                console.log(user);
+                res.send('SUCCESS');
+            }
+        });
 
     app.get('/signout', users.signout);
 
