@@ -74,7 +74,7 @@ exports.mobileSignup = function(req, res, next) {
         }
         req.login(user, function(err) {
             if (err) return next(err);
-            return res.JSON(user);
+            return res.json(user);
         });
     });
 };
