@@ -6,7 +6,6 @@ module.exports = function(app) {
         .post(users.create)
         .get(users.list);
 
-
     app.route('/users/:userId')
         .get(users.read)
         .put(users.update)
@@ -14,6 +13,9 @@ module.exports = function(app) {
 
     app.param('userId', users.userByID);
 
+    app.route('/mobileSignup')
+        .post(users.mobileSignup);
+        
     app.route('/signup')
         .get(users.renderSignup)
         .post(users.signup);
