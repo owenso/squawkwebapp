@@ -29,15 +29,11 @@ module.exports = function(app) {
     app.route('/mobileSignup')
         .post(users.mobileSignup);
     
+
+    //Returns user object if user is sucessfully authenticated, "unauthorized" if user is not
     app.route('/mobileSignin')
-        .post(passport.authenticate('local'), function (err, user){
-            if (err){
-                console.log(err);
-                res.send('ERROR: ' + err);
-            } else {
-                console.log(user);
-                res.send('SUCCESS');
-            }
+        .post(passport.authenticate('local'), function (req, res){
+            res.send(req.user);
         });
 
     app.get('/signout', users.signout);
