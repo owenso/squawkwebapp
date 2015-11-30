@@ -3,4 +3,10 @@
 node_modules
 .idea
 development.js
-.codekit
+
+config.codekit
+/min
+
+.sass-cache
+.sass-cache/*
+*.css.map
