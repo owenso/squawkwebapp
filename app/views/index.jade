@@ -1,0 +1,19 @@
+doctype html
+html(lang="en")
+	head
+		title= title
+	body
+		h1= title
+		if userFullName
+			h2=Hello, #{userFullName}
+			a(href='/signout') Sign Out
+		else
+			a(href='/signup') Sign Up
+			a(href='/signin') Sign In
+	section(ng view)
+	section(ng-include="'example/views/example.client.view.html'")
+	script(type="text/javascript", src="/lib/angular/angular.js")
+	script(type="text/javascript", src="/lib/angular-route/angular-route.js")
+	script(type="text/javascript", src="/example/example.client.module.js")
+	script(type="text/javascript", src="/example/controllers/example.client.controller.js")
+	script(type="text/javascript", src="/application.js")

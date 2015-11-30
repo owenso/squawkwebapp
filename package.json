@@ -23,6 +23,7 @@
     "ejs": "^2.3.3",
     "express": "^4.13.1",
     "express-session": "^1.11.3",
+    "jade": "^1.11.0",
     "method-override": "^2.3.4",
     "mongoose": "^4.1.0",
     "morgan": "^1.6.1",
