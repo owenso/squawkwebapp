@@ -6,7 +6,6 @@ module.exports = function(app) {
         .post(users.create)
         .get(users.list);
 
-
     app.route('/users/:userId')
         .get(users.read)
         .put(users.update)
@@ -14,6 +13,7 @@ module.exports = function(app) {
 
     app.param('userId', users.userByID);
 
+        
     app.route('/signup')
         .get(users.renderSignup)
         .post(users.signup);
@@ -25,6 +25,16 @@ module.exports = function(app) {
             failureRedirect: '/signin',
             failureFlash: true
         }));
+
+    app.route('/mobileSignup')
+        .post(users.mobileSignup);
+    
+
+    //Returns user object if user is sucessfully authenticated, "unauthorized" if user is not
+    app.route('/mobileSignin')
+        .post(passport.authenticate('local'), function (req, res){
+            res.send(req.user);
+        });
 
     app.get('/signout', users.signout);
 

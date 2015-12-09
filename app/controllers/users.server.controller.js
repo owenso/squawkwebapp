@@ -62,6 +62,25 @@ exports.signup = function(req, res, next) {
         return res.redirect('/');
     }
 };
+
+exports.mobileSignup = function(req, res, next) {
+    var user = new User(req.body);
+    var message = null;
+    user.provider = 'local';
+    user.save(function(err) {
+        if (err) {
+            console.log(err);
+            var message = getErrorMessage(err);
+            console.log(message);
+            return res.status(500).send(message);
+        }
+        req.login(user, function(err) {
+            if (err) return next(err);
+            return res.json(user);
+        });
+    });
+};
+
 exports.signout = function(req, res) {
     req.logout();
     res.redirect('/');
