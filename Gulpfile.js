@@ -9,5 +9,6 @@ gulp.task('styles', function() {
 
 //Watch task for changes
 gulp.task('default',function() {
+		//watch this, [do this]
     gulp.watch('./public/scss/**/*.scss',['styles']);
 });
