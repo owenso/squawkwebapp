@@ -69,8 +69,10 @@ exports.mobileSignup = function(req, res, next) {
     user.provider = 'local';
     user.save(function(err) {
         if (err) {
+            console.log(err);
             var message = getErrorMessage(err);
-            return res.send(message);
+            console.log(message);
+            return res.status(500).send(message);
         }
         req.login(user, function(err) {
             if (err) return next(err);
