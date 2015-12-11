@@ -2,11 +2,11 @@ var users = require('../../app/controllers/users.server.controller'),
     passport = require('passport');
 
 module.exports = function(app) {
-    app.route('/users')
+    app.route('/api/users')
         .post(users.create)
         .get(users.list);
 
-    app.route('/users/:userId')
+    app.route('/api/users/:userId')
         .get(users.read)
         .put(users.update)
         .delete(users.delete);
@@ -15,16 +15,20 @@ module.exports = function(app) {
 
         
     app.route('/signup')
-        .get(users.renderSignup)
+        //disabled: angular will handle signup rendering
+        //.get(users.renderSignup)
         .post(users.signup);
 
     app.route('/signin')
-        .get(users.renderSignin)
+        //disabled: angular will handle signin rendering
+        //.get(users.renderSignin)
         .post(passport.authenticate('local', {
-            successRedirect: '/',
-            failureRedirect: '/signin',
+            //successRedirect: '/',
+            //failureRedirect: '/signin',
             failureFlash: true
-        }));
+        }), function (req,res){
+            res.send(req.user);
+        });
 
     app.route('/mobileSignup')
         .post(users.mobileSignup);
@@ -45,11 +49,26 @@ module.exports = function(app) {
         scope: ['email']
     }));
 
-    app.get('/oauth/facebook/callback', passport.authenticate('facebook', {
-        failureRedirect: '/signin',
-        successRedirect: '/'
-    }));
+    // app.get('/oauth/facebook/callback', passport.authenticate('facebook', {
+    //     failureRedirect: '/signin',
+    //     successRedirect: '/'
+    // }, function(err,user){
+    //     //res.JSON(req.user);
+    //     console.log(err);
+    //     console.log(user);
+    // }));
 
+
+    app.get('/oauth/facebook/callback', function(req, res, next) {
+ passport.authenticate('facebook', function(err, user, info) {
+    if (err) { return next(err); }
+    if (!user) { return res.redirect('/login'); }
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      return res.json(user);
+    });
+  })(req, res, next);
+});
 
     //Routes for twitter oauth
     app.get('/oauth/twitter', passport.authenticate('twitter', {

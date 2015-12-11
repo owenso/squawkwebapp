@@ -1,13 +1,6 @@
-var mainApplicationModuleName = "squawker";
-
-var mainApplicationModule = angular.module(mainApplicationModuleName, ['ngRoute', 'example']);
-
-mainApplicationModule.config(['$locationProvider',
+var app = angular.module('squawker', ['ngRoute', 'users']);
+app.config(['$locationProvider',
     function($locationProvider) {
-      $locationProvider.hashPrefix('!');
+        $locationProvider.hashPrefix('!');
     }
 ]);
-
-angular.element(document).ready(function() {
-    angular.bootstrap(document, [mainApplicationModuleName]);
-});

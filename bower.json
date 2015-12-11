@@ -1,5 +1,8 @@
 {
-	"name":"Squawker Web App",
-	"version":"0.0.1",
-	"dependencies": {}
+  "name": "Squawker Web App",
+  "version": "0.0.1",
+  "dependencies": {
+    "angular": "~1.4.8",
+    "angular-route": "~1.4.8"
+  }
 }

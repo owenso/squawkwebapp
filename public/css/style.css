@@ -10,3 +10,9 @@ html {
   background-image: linear-gradient(top, #585862, #8c8c9b);
   filter: progid:DXImageTransform.Microsoft.gradient(start-colourStr='#585862', end-colourStr='#8c8c9b');
   color: white; }
+
+input {
+  color: black; }
+
+button {
+  color: black; }

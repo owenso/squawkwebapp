@@ -1,21 +1,28 @@
 doctype html
-html(lang="en")
+html(lang="en" ng-app='squawker')
 	head
 		title= title
 		link(href='/css/normalize.css', rel='stylesheet')
 		link(href='/css/style.css', rel='stylesheet')
 	body
 		h1= title
-		if userFullName
-			h2=Hello, !{userFullName}
-			a(href='/signout') Sign Out
-		else
-			a(href='/signup') Sign Up
-			a(href='/signin') Sign In
-	section(ng view)
-	section(ng-include="'example/views/example.client.view.html'")
+	div(id="userbar" ng-controller="UserController")
+		div(ng-show="!currentId")
+			div(id='message')
+				p {{message}}
+			form(ng-submit = "logIn()")
+				input(ng-model="user.username" type="text" name="user" placeholder="Username")
+				input(ng-model="user.password" type="password" name="pass" placeholder="Password")
+				input(id = "form-button" type="submit" value="Login")
+				a(href="/oauth/facebook") Sign in with Facebook
+		div(ng-show="currentId")
+			button(ng-click = "logOut()") Log Out
+	section(ng-view)
 	script(type="text/javascript", src="/lib/angular/angular.js")
 	script(type="text/javascript", src="/lib/angular-route/angular-route.js")
-	script(type="text/javascript", src="/example/example.client.module.js")
-	script(type="text/javascript", src="/example/controllers/example.client.controller.js")
+	script(type="text/javascript", src="/users/users.client.module.js")
+	script(type="text/javascript", src="/users/controllers/users.client.controller.js")
+	script(type="text/javascript", src="/users/controllers/profile.client.controller.js")
+	script(type="text/javascript", src="/users/config/users.client.routes.js")
+	script(type="text/javascript", src="/users/services/users.client.service.js")
 	script(type="text/javascript", src="/application.js")
