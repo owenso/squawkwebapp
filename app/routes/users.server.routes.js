@@ -27,6 +27,7 @@ module.exports = function(app) {
             //failureRedirect: '/signin',
             failureFlash: true
         }), function (req,res){
+            res.cookie = req.session.passport.user;
             res.send(req.user);
         });
 
@@ -52,23 +53,20 @@ module.exports = function(app) {
     // app.get('/oauth/facebook/callback', passport.authenticate('facebook', {
     //     failureRedirect: '/signin',
     //     successRedirect: '/'
-    // }, function(err,user){
-    //     //res.JSON(req.user);
-    //     console.log(err);
-    //     console.log(user);
     // }));
 
-
-    app.get('/oauth/facebook/callback', function(req, res, next) {
- passport.authenticate('facebook', function(err, user, info) {
-    if (err) { return next(err); }
-    if (!user) { return res.redirect('/login'); }
-    req.logIn(user, function(err) {
-      if (err) { return next(err); }
-      return res.json(user);
-    });
-  })(req, res, next);
-});
+    app.get('/oauth/facebook/callback',
+        passport.authenticate('facebook', { failureRedirect: '/' }),
+        function(req, res) 
+        {
+            console.log('we b logged in!');
+            console.log(req.user._id);
+            res.cookie('authenticated', 'true',{ maxAge: 60 * 1000 });
+            res.cookie('userid', req.user._id,{ maxAge: 60 * 1000 });
+            console.log(res.cookie);
+            res.json(req.user);
+        }
+    );
 
     //Routes for twitter oauth
     app.get('/oauth/twitter', passport.authenticate('twitter', {

@@ -1,10 +1,9 @@
-angular.module('users').controller('ProfileController', ['$scope', 'UserService','$rootScope', function($scope, UserService, $rootScope) {
+angular.module('users').controller('ProfileController', ['$scope', 'UserService','$rootScope', '$cookies', function($scope, UserService, $rootScope, $cookies) {
     var getUserData = function() {
-        console.log('profile controller function running');
+        console.log($cookies.getAll());
         UserService.getUserById($rootScope.currentId)
             .success(function(data) {
                 $scope.userData = data;
-                console.log(data);
             });
     };
     getUserData();
