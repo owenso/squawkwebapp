@@ -4,15 +4,14 @@ var User = require('mongoose').model('User'),
 
 var getErrorMessage = function(err) {
     var message = '';
-
     if (err.code) {
-        switch (err.code) {
-            case 11000:
-            case 11001:
-                message = "Username already exists";
-                break;
-            default:
-                message = "Something went wrong.";
+        if (err.code == 11000) {
+            var field = err.errmsg.split(".$")[1];
+            field = field.split(" dup key")[0];
+            field = field.substring(0, field.lastIndexOf("_"));
+            message = "An account with this " + field + " already exists.";
+        } else{
+            message = "Sorry! Something went wrong, please try again later.";
         }
     } else {
         for (var errName in err.errors) {
@@ -80,9 +79,7 @@ exports.signup = function(req, res, next) {
     user.provider = 'local';
     user.save(function(err) {
         if (err) {
-            console.log(err);
             var message = getErrorMessage(err);
-            console.log(message);
             return res.status(500).send(message);
         }
         req.login(user, function(err) {
@@ -136,24 +133,24 @@ exports.userByID = function(req, res, next, id) {
     });
 };
 
-exports.uniqueCheck = function(req,res,next) {
-    User.findOne( { $or:[ {'username':req.body.username}, {'email':req.body.email} ]}, function(err, user) {
-        if(user){
-            if(user.email== req.body.email && user.username == req.body.username){
-                res.send('An account already exists with that username and email.');
-            }
-            else if(user.email == req.body.email){
-                res.send('An account already exists with that email address.');
-            }
-            else if(user.username == req.body.username){
-                res.send('Sorry, that username is taken.');
-            }
-        }
-        else{
-            res.send(false);
-        }
-    });
-};
+// exports.uniqueCheck = function(req,res,next) {
+//     User.findOne( { $or:[ {'username':req.body.username}, {'email':req.body.email} ]}, function(err, user) {
+//         if(user){
+//             if(user.email == req.body.email && user.username == req.body.username){
+//                 res.send('An account already exists with that username and email.');
+//             }
+//             else if(user.email == req.body.email){
+//                 res.send('An account already exists with that email address.');
+//             }
+//             else if(user.username == req.body.username){
+//                 res.send('Sorry, that username is taken.');
+//             }
+//         }
+//         else{
+//             res.send(false);
+//         }
+//     });
+// };
 
 exports.update = function(req, res, next) {
     User.findByIdAndUpdate(req.user.id, req.body, {

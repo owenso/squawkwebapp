@@ -32,16 +32,27 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
 
     userFac.signUpOne = function(userData){
         $http
-            .post('/api/checkunique', {'username':userData.username, 'email':userData.email})
-            .success(function(data, status, headers, config){
-                if (data === false) {
-                    this.newUser = userData;
-                    $location.path('/signup2');
-                }
-                else{
-                    $rootScope.message = data;
-                }
+            .post('/api/signup', userData)
+            .success(function(data, status, headers, config) {
+                $cookies.put('currentId',data._id);
+                $location.path("/signup2");
+                $rootScope.authenticated = true;
+            })
+            .error(function(data, status, headers, config) {
+                $cookies.remove('currentId');
+                $rootScope.message = data;
             });
+        // $http
+        //     .post('/api/checkunique', {'username':userData.username, 'email':userData.email})
+        //     .success(function(data, status, headers, config){
+        //         if (data === false) {
+        //             this.newUser = userData;
+        //             $location.path('/signup2');
+        //         }
+        //         else{
+        //             $rootScope.message = data;
+        //         }
+        //     });
     };
 
     userFac.signUpTwo = function(knownLang){

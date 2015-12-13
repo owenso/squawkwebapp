@@ -17,8 +17,8 @@ module.exports = function(app) {
 
     app.param('userId', users.userByID);
 
-    app.route('/api/checkunique/')
-        .post(users.uniqueCheck);
+    // app.route('/api/checkunique/')
+    //     .post(users.uniqueCheck);
 
     app.route('/api/signup')
         //disabled: angular will handle signup rendering
