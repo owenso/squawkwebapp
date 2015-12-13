@@ -3,17 +3,23 @@ var users = require('../../app/controllers/users.server.controller'),
 
 module.exports = function(app) {
     app.route('/api/users')
+        //create
         .post(users.create)
+        //index
         .get(users.list);
 
     app.route('/api/users/:userId')
+        //show
         .get(users.read)
+        //update
         .put(users.update)
         .delete(users.delete);
 
     app.param('userId', users.userByID);
 
-        
+    app.route('/api/checkunique/')
+        .post(users.uniqueCheck);
+
     app.route('/api/signup')
         //disabled: angular will handle signup rendering
         //.get(users.renderSignup)
@@ -27,12 +33,12 @@ module.exports = function(app) {
             //failureRedirect: '/signin',
             failureFlash: true
         }), function (req,res){
-            res.cookie = req.session.passport.user;
             res.send(req.user);
         });
 
-    app.route('/mobileSignup')
-        .post(users.mobileSignup);
+    //disabled, both can use above signup route
+    // app.route('/mobileSignup')
+    //     .post(users.mobileSignup);
     
 
     //Returns user object if user is sucessfully authenticated, "unauthorized" if user is not
@@ -68,26 +74,26 @@ module.exports = function(app) {
         }
     );
 
-    //Routes for twitter oauth
-    app.get('/oauth/twitter', passport.authenticate('twitter', {
-        failureRedirect: '/signin'
-    }));
-    app.get('/oauth/twitter/callback', passport.authenticate('twitter', {
-        failureRedirect: '/signin',
-        successRedirect: '/'
-    }));
+//     //Routes for twitter oauth
+//     app.get('/oauth/twitter', passport.authenticate('twitter', {
+//         failureRedirect: '/signin'
+//     }));
+//     app.get('/oauth/twitter/callback', passport.authenticate('twitter', {
+//         failureRedirect: '/signin',
+//         successRedirect: '/'
+//     }));
 
 
-    //Routes for google oauth
-    app.get('/oauth/google', passport.authenticate('google', {
-        failureRedirect: '/signin',
-        scope: [
-            'https://www.googleapis.com/auth/userinfo.profile',
-            'https://www.googleapis.com/auth/userinfo.email'
-        ],
-    }));
-    app.get('/oauth/google/callback', passport.authenticate('google', {
-        failureRedirect: '/signin',
-        successRedirect: '/'
-    }));
+//     //Routes for google oauth
+//     app.get('/oauth/google', passport.authenticate('google', {
+//         failureRedirect: '/signin',
+//         scope: [
+//             'https://www.googleapis.com/auth/userinfo.profile',
+//             'https://www.googleapis.com/auth/userinfo.email'
+//         ],
+//     }));
+//     app.get('/oauth/google/callback', passport.authenticate('google', {
+//         failureRedirect: '/signin',
+//         successRedirect: '/'
+//     }));
 };

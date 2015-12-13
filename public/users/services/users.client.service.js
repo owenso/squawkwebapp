@@ -26,13 +26,22 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
             })
             .error(function(data, status, headers, config) {
                 $cookies.remove('currentId');
-                $scope.message = 'Error: Invalid user or password';
+                $rootScope.message = data;
             });
     };
 
     userFac.signUpOne = function(userData){
-        this.newUser = userData;
-        $location.path('/signup2');
+        $http
+            .post('/api/checkunique', {'username':userData.username, 'email':userData.email})
+            .success(function(data, status, headers, config){
+                if (data === false) {
+                    this.newUser = userData;
+                    $location.path('/signup2');
+                }
+                else{
+                    $rootScope.message = data;
+                }
+            });
     };
 
     userFac.signUpTwo = function(knownLang){
@@ -51,9 +60,7 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
                 $rootScope.authenticated = true;
             })
             .error(function(data, status, headers, config) {
-                console.log(data);
-                console.log(status);
-                $scope.message = 'Error: Invalid user or password';
+                $rootScope.message = data;
             });
     };
     return userFac;

@@ -22,48 +22,59 @@ var getErrorMessage = function(err) {
     }
     return message;
 };
-exports.renderSignin = function(req, res, next) {
-    if (!req.user) {
-        res.render('signin', {
-            title: 'Sign-in Form',
-            messages: req.flash('error') || req.flash('info')
-        });
-    } else {
-        return res.redirect('/');
-    }
-};
-exports.renderSignup = function(req, res, next) {
-    if (!req.user) {
-        res.render('signup', {
-            title: 'Sign-up Form',
-            messages: req.flash('error')
-        });
-    } else {
-        return res.redirect('/');
-    }
-};
-exports.signup = function(req, res, next) {
-    if (!req.user) {
-        var user = new User(req.body);
-        var message = null;
-        user.provider = 'local';
-        user.save(function(err) {
-            if (err) {
-                var message = getErrorMessage(err);
-                req.flash('error', message);
-                return res.redirect('/signup');
-            }
-            req.login(user, function(err) {
-                if (err) return next(err);
-                return res.redirect('/');
-            });
-        });
-    } else {
-        return res.redirect('/');
-    }
-};
 
-exports.mobileSignup = function(req, res, next) {
+// Disabled, server is not handling rendering
+
+
+// exports.renderSignin = function(req, res, next) {
+//     if (!req.user) {
+//         res.render('signin', {
+//             title: 'Sign-in Form',
+//             messages: req.flash('error') || req.flash('info')
+//         });
+//     } else {
+//         return res.redirect('/');
+//     }
+// };
+// exports.renderSignup = function(req, res, next) {
+//     if (!req.user) {
+//         res.render('signup', {
+//             title: 'Sign-up Form',
+//             messages: req.flash('error')
+//         });
+//     } else {
+//         return res.redirect('/');
+//     }
+// };
+
+
+
+
+
+// Former web signup, disabled because of angular
+// exports.signup = function(req, res, next) {
+//     if (!req.user) {
+//         var user = new User(req.body);
+//         var message = null;
+//         user.provider = 'local';
+//         user.save(function(err) {
+//             if (err) {
+//                 console.log(err);
+//                 var message = getErrorMessage(err);
+//                 req.flash('error', message);
+//                 return res.redirect('/signup');
+//             }
+//             req.login(user, function(err) {
+//                 if (err) return next(err);
+//                 return res.redirect('/');
+//             });
+//         });
+//     } else {
+//         return res.redirect('/');
+//     }
+// };
+
+exports.signup = function(req, res, next) {
     var user = new User(req.body);
     var message = null;
     user.provider = 'local';
@@ -125,6 +136,25 @@ exports.userByID = function(req, res, next, id) {
     });
 };
 
+exports.uniqueCheck = function(req,res,next) {
+    User.findOne( { $or:[ {'username':req.body.username}, {'email':req.body.email} ]}, function(err, user) {
+        if(user){
+            if(user.email== req.body.email && user.username == req.body.username){
+                res.send('An account already exists with that username and email.');
+            }
+            else if(user.email == req.body.email){
+                res.send('An account already exists with that email address.');
+            }
+            else if(user.username == req.body.username){
+                res.send('Sorry, that username is taken.');
+            }
+        }
+        else{
+            res.send(false);
+        }
+    });
+};
+
 exports.update = function(req, res, next) {
     User.findByIdAndUpdate(req.user.id, req.body, {
         new: true
@@ -147,6 +177,9 @@ exports.delete = function(req, res, next) {
     });
 };
 
+
+
+//need to check
 exports.saveOAuthUserProfile = function(req, profile, done) {
 	User.findOne({
 		provider: profile.provider, 

@@ -9,7 +9,12 @@ angular.module('users').controller('UserController', ['$scope', 'UserService', f
     };
 
     $scope.signUpOne = function(){
-    	UserService.signUpOne($scope.newUser);
+        if($scope.signUp1.$valid){
+    	   UserService.signUpOne($scope.newUser);
+        }
+        else{
+            $scope.message = "Please fix the errors and try again.";
+        }
     };
 
     $scope.signUpTwo = function(x){
