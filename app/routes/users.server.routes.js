@@ -13,6 +13,7 @@ module.exports = function(app) {
         .get(users.read)
         //update
         .put(users.update)
+        .patch(users.updateOne)
         .delete(users.delete);
 
     app.param('userId', users.userByID);

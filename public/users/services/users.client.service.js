@@ -1,4 +1,4 @@
-angular.module('users').factory('UserService', ['$http','$cookies','$location', '$rootScope', function($http,$cookies,$location,$rootScope) {
+angular.module('users').factory('UserService', ['$http','$cookies','$location', '$rootScope', '$window', function($http,$cookies,$location,$rootScope, $window) {
     var userFac = {};
 
     userFac.newUser = {};
@@ -10,7 +10,8 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
         $http
             .get('/signout')
             .success(function(data, status, headers, config) {
-                $cookies.remove('currentId');
+                console.log($cookies.getAll());
+                $cookies.remove("currentId");
                 delete $rootScope.authenticated;
             });
         $location.path("/");
@@ -21,8 +22,12 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
             .post('/api/signin', userObject)
             .success(function(data, status, headers, config) {
                 $cookies.put('currentId',data._id);
-                $location.path("/profile");
                 $rootScope.authenticated = true;
+                if(data.knownLang === undefined || data.learnLang === undefined){
+                    $location.path('/signup2');
+                } else {
+                    $window.location.href="/main/";
+                }
             })
             .error(function(data, status, headers, config) {
                 $cookies.remove('currentId');
@@ -42,36 +47,28 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
                 $cookies.remove('currentId');
                 $rootScope.message = data;
             });
-        // $http
-        //     .post('/api/checkunique', {'username':userData.username, 'email':userData.email})
-        //     .success(function(data, status, headers, config){
-        //         if (data === false) {
-        //             this.newUser = userData;
-        //             $location.path('/signup2');
-        //         }
-        //         else{
-        //             $rootScope.message = data;
-        //         }
-        //     });
     };
 
     userFac.signUpTwo = function(knownLang){
-        this.newUser.knownLang = knownLang;
-        $location.path('/signup3');
-    };
-
-    userFac.signUpThree = function(learnLang){
-        this.newUser.learnLang = learnLang;
-
         $http
-            .post('/api/signup', this.newUser)
-            .success(function(data, status, headers, config) {
-                $cookies.put('currentId',data._id);
-                $location.path("/");
-                $rootScope.authenticated = true;
+            .put('api/users/' + $cookies.get('currentId'), {'knownLang':knownLang})
+            .success(function(data, status, headers, config){
+                $location.path('/signup3');
             })
             .error(function(data, status, headers, config) {
-                $rootScope.message = data;
+                console.log(data);
+            });
+        };
+
+    userFac.signUpThree = function(learnLang){
+        $http
+            .put('api/users/' + $cookies.get('currentId'), {'learnLang':learnLang})
+            .success(function(data, status, headers, config){
+                console.log(data);
+                $window.location.href="/main/";
+            })
+            .error(function(data, status, headers, config) {
+                console.log(data);
             });
     };
     return userFac;

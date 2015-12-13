@@ -90,7 +90,10 @@ exports.signup = function(req, res, next) {
 };
 
 exports.signout = function(req, res) {
+    console.log('inhere');
     req.logout();
+    req.logOut();
+    req.session.destroy();
     res.redirect('/');
 };
 
@@ -162,6 +165,13 @@ exports.update = function(req, res, next) {
             res.json(user);
         }
     });
+};
+
+exports.updateOne = function(req,res, lang){
+    console.log(req.body);
+    console.log(req.user);
+    console.log(lang);
+
 };
 
 exports.delete = function(req, res, next) {
