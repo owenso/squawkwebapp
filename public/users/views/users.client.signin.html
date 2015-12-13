@@ -1,17 +1,19 @@
-<form ng-submit="logIn()">
+<div id="signup-page">
+    <form id="signin-form" ng-submit="logIn()">
+        <div>
+            <i class="fa fa-user"></i>
+            <input ng-model="user.username" type="text" name="user" placeholder="Username" />
+        </div>
+        <div>
+            <i class="fa fa-lock"></i>
+            <input ng-model="user.password" type="password" name="pass" placeholder="Password" />
+        </div>
+        <div>
+            <input id="form-button" type="submit" value="Sign in" />
+        </div>
+    </form>
+        <a id="facebook-button" href="/oauth/facebook"><span>Facebook Connect</span></a>
     <div>
-        <input ng-model="user.username" type="text" name="user" placeholder="Username" />
+        <p id="signup-link">Don't have an account? <a href="#/signup">Sign Up.</a></p>
     </div>
-    <div>
-        <input ng-model="user.password" type="password" name="pass" placeholder="Password" />
-    </div>
-    <div>
-        <input id="form-button" type="submit" value="Login" />
-    </div>
-</form>
-<div>
-    <a href="/oauth/facebook">Sign in with Facebook</a>
-</div>
-<div>
-	<p>Don't have an account? <a href="#/signup">Sign Up.</a></p>
 </div>
