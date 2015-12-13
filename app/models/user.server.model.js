@@ -1,6 +1,6 @@
 var mongoose = require('mongoose'),
 		crypto = require('crypto'),
-    Schema = mongoose.Schema;
+        Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
     firstName: String,
@@ -10,6 +10,8 @@ var UserSchema = new Schema({
         index: true,
         match: [/.+\@.+\..+/, "Please fill a valid e-mail address"]
     },
+    knownLang: String,
+    learnLang: String,
     username: {
         type: String,
         unique: true,
@@ -40,6 +42,7 @@ var UserSchema = new Schema({
     },
     role: {
         type: String,
+        default: 'User',
         enum: ['Admin', 'Owner', 'User']
     },
     website: {

@@ -14,12 +14,12 @@ module.exports = function(app) {
     app.param('userId', users.userByID);
 
         
-    app.route('/signup')
+    app.route('/api/signup')
         //disabled: angular will handle signup rendering
         //.get(users.renderSignup)
         .post(users.signup);
 
-    app.route('/signin')
+    app.route('/api/signin')
         //disabled: angular will handle signin rendering
         //.get(users.renderSignin)
         .post(passport.authenticate('local', {

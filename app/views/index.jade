@@ -5,17 +5,9 @@ html(lang="en" ng-app='squawker')
 		link(href='/css/normalize.css', rel='stylesheet')
 		link(href='/css/style.css', rel='stylesheet')
 	body
-		h1= title
+		h1 #[a(href="#/") Parakeet] 
 	div(id="userbar" ng-controller="UserController")
-		div(ng-show="!currentId")
-			div(id='message')
-				p {{message}}
-			form(ng-submit = "logIn()")
-				input(ng-model="user.username" type="text" name="user" placeholder="Username")
-				input(ng-model="user.password" type="password" name="pass" placeholder="Password")
-				input(id = "form-button" type="submit" value="Login")
-				a(href="/oauth/facebook") Sign in with Facebook
-		div(ng-show="currentId")
+		div(ng-show="authenticated")
 			button(ng-click = "logOut()") Log Out
 	section(ng-view)
 	script(type="text/javascript", src="/lib/angular/angular.js")

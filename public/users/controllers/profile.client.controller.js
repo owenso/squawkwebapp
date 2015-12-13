@@ -1,7 +1,8 @@
 angular.module('users').controller('ProfileController', ['$scope', 'UserService','$rootScope', '$cookies', function($scope, UserService, $rootScope, $cookies) {
+
+	console.log($cookies.getAll());
     var getUserData = function() {
-        console.log($cookies.getAll());
-        UserService.getUserById($rootScope.currentId)
+        UserService.getUserById($cookies.get('currentId'))
             .success(function(data) {
                 $scope.userData = data;
             });

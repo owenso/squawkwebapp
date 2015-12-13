@@ -1,11 +1,32 @@
 angular.module('users').config(['$routeProvider',
     function($routeProvider) {
-        $routeProvider.
-        when('/profile', {
+        $routeProvider
+        .when('/', {
+            templateUrl: '/users/views/users.client.signin.html',
+            controller: 'UserController'
+        })
+
+        .when('/signup', {
+            templateUrl: 'users/views/users.client.signup.html',
+            controller: 'UserController'
+        })
+
+        .when('/signup2', {
+            templateUrl: 'users/views/users.client.signup2.html',
+            controller: 'UserController'
+        })
+
+        .when('/signup3', {
+            templateUrl: 'users/views/users.client.signup3.html',
+            controller: 'UserController'
+        })
+
+        .when('/profile', {
             templateUrl: 'users/views/users.client.userprofile.html',
             controller: 'ProfileController'
-        }).
-        otherwise({
+        })
+
+        .otherwise({
             redirectTo: '/'
         });
     }

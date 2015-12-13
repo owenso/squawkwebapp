@@ -1,0 +1,17 @@
+<form ng-submit="logIn()">
+    <div>
+        <input ng-model="user.username" type="text" name="user" placeholder="Username" />
+    </div>
+    <div>
+        <input ng-model="user.password" type="password" name="pass" placeholder="Password" />
+    </div>
+    <div>
+        <input id="form-button" type="submit" value="Login" />
+    </div>
+</form>
+<div>
+    <a href="/oauth/facebook">Sign in with Facebook</a>
+</div>
+<div>
+	<p>Don't have an account? <a href="#/signup">Sign Up.</a></p>
+</div>
