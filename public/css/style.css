@@ -2265,3 +2265,9 @@ a {
     #main-body #main-nav-bar #right-main-nav-bar {
       float: right;
       padding-right: 1em; }
+
+#requests-page {
+  color: black; }
+
+#profile-page {
+  color: black; }
