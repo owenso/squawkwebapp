@@ -5,7 +5,7 @@ html(lang="en" ng-app='squawker')
 		link(href='/css/normalize.css', rel='stylesheet')
 		link(href='/css/style.css', rel='stylesheet')
 	body
-	if req.user
+	if user
 		div(id="userbar" ng-controller="UserController")
 				button(ng-click = "logOut()") Log Out
 	section(ng-view)

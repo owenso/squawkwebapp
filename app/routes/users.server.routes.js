@@ -53,27 +53,27 @@ module.exports = function(app) {
 
     //Routes for facebook oauth
     app.get('/oauth/facebook', passport.authenticate('facebook', {
-        failureRedirect: '/signin',
+        failureRedirect: '/',
         scope: ['email']
     }));
 
-    // app.get('/oauth/facebook/callback', passport.authenticate('facebook', {
-    //     failureRedirect: '/signin',
-    //     successRedirect: '/'
-    // }));
+    app.get('/oauth/facebook/callback', passport.authenticate('facebook', {
+        failureRedirect: '/',
+        successRedirect: '/main/'
+    }));
 
-    app.get('/oauth/facebook/callback',
-        passport.authenticate('facebook', { failureRedirect: '/' }),
-        function(req, res) 
-        {
-            console.log('we b logged in!');
-            console.log(req.user._id);
-            res.cookie('authenticated', 'true',{ maxAge: 60 * 1000 });
-            res.cookie('userid', req.user._id,{ maxAge: 60 * 1000 });
-            console.log(res.cookie);
-            res.json(req.user);
-        }
-    );
+    // app.get('/oauth/facebook/callback',
+    //     passport.authenticate('facebook', { failureRedirect: '/' }),
+    //     function(req, res) 
+    //     {
+    //         console.log('we b logged in!');
+    //         console.log(req.user._id);
+    //         res.cookie('authenticated', 'true',{ maxAge: 60 * 1000 });
+    //         res.cookie('userid', req.user._id,{ maxAge: 60 * 1000 });
+    //         console.log(res.cookie);
+    //         res.json(req.user);
+    //     }
+    // );
 
 //     //Routes for twitter oauth
 //     app.get('/oauth/twitter', passport.authenticate('twitter', {

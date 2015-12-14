@@ -5,10 +5,6 @@ html(lang="en" ng-app='squawker')
 		link(href='/css/normalize.css', rel='stylesheet')
 		link(href='/css/style.css', rel='stylesheet')
 	body(id="sign-body")
-		h1 #[a(href="#/") Parakeet]
-	if userFullName 
-		div(id="userbar" ng-controller="UserController")
-				button(ng-click = "logOut()") Log Out
 	div(id="sign-views")
 		section(ng-view)
 	script(type="text/javascript", src="/lib/angular/angular.js")

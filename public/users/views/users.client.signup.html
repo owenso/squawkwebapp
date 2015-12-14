@@ -1,23 +1,27 @@
-<div>{{message}}</div>
-<form name='signUp1' ng-submit="signUpOne()">
+<h1><a href="/">Parakeet</a></h1>
+
+<div class='signup-message'>{{message}}</div>
+<form autocomplete="off" class="sign-form" name='signUp1' ng-submit="signUpOne()">
     <div>
-        <input required type="text" name="username" placeholder="Username" ng-model="newUser.username"/>
+        <i class="fa fa-user"></i>
+        <input required type="text" name="username" placeholder="Username" ng-model="newUser.username" />
     </div>
     <div>
-        <input required type="email" name="email" placeholder="Email" ng-model="newUser.email"/>
+        <i class="fa fa-envelope"></i>
+        <input required type="email" name="email" placeholder="Email" ng-model="newUser.email" />
         <div ng-show="signUp1.email.$touched">
-            <span class="error" ng-show="signUp1.email.$error.email" >Not a valid email address!</span>
+            <span class="signup-message" ng-show="signUp1.email.$error.email">Not a valid email address!</span>
         </div>
     </div>
     <div>
-        <input required type="password" name="password" placeholder="Password" ng-model="newUser.password" ng-minlength="6"/>
+        <i class="fa fa-lock"></i>
+        <input required type="password" name="password" placeholder="Password" ng-model="newUser.password" ng-minlength="6" />
         <div ng-show="signUp1.password.$touched">
-            <span class="error" ng-show="signUp1.password.$error.minlength" >Password should be at least 6 characters!</span>
+            <span class="signup-message" ng-show="signUp1.password.$error.minlength">Password should be at least 6 characters!</span>
         </div>
     </div>
     <div>
         <input id="form-button" type="submit" value="Sign Up" />
     </div>
 </form>
-<br>
-<a href="/oauth/facebook">Sign in with Facebook</a>
+<a class="facebook-button" href="/oauth/facebook"><span>Facebook Connect</span></a>

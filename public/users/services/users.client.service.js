@@ -13,8 +13,8 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
                 console.log($cookies.getAll());
                 $cookies.remove("currentId");
                 delete $rootScope.authenticated;
+                $window.location.href="/";
             });
-        $location.path("/");
     };
 
     userFac.logIn = function(userObject) {
