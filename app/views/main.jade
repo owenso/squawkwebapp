@@ -4,11 +4,17 @@ html(lang="en" ng-app='squawker')
 		title= title
 		link(href='/css/normalize.css', rel='stylesheet')
 		link(href='/css/style.css', rel='stylesheet')
-	body
-	if user
-		div(id="userbar" ng-controller="UserController")
-				button(ng-click = "logOut()") Log Out
-	section(ng-view)
+	body(id="main-body")
+	div(id="main-nav-bar" ng-controller="MainController")
+		div(id="left-main-nav-bar")
+			img(src= user.userImg)
+			h2 Requests
+			h2 Conversations
+		div(id="center-main-nav-bar")
+			h2 Parakeet
+		div(id="right-main-nav-bar")
+			h2 Settings
+	section(id="main-view" ng-view)
 	script(type="text/javascript", src="/lib/angular/angular.js")
 	script(type="text/javascript", src="/lib/angular-route/angular-route.js")
 	script(type="text/javascript", src="/lib/angular-cookies/angular-cookies.js")

@@ -167,12 +167,6 @@ exports.update = function(req, res, next) {
     });
 };
 
-exports.updateOne = function(req,res, lang){
-    console.log(req.body);
-    console.log(req.user);
-    console.log(lang);
-
-};
 
 exports.delete = function(req, res, next) {
     req.user.remove(function(err) {

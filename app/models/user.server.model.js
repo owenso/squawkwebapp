@@ -13,6 +13,10 @@ var UserSchema = new Schema({
     },
     knownLang: String,
     learnLang: String,
+    userImg: {
+        type: String,
+        default: '/img/parakeet.png'
+    },
     username: {
         type: String,
         unique: true,
@@ -46,20 +50,7 @@ var UserSchema = new Schema({
         default: 'User',
         enum: ['Admin', 'Owner', 'User']
     },
-    website: {
-        type: String,
-        get: function(url) {
-            if (!url) {
-                return url;
-            } else {
-                if (url.indexOf('http://') !== 0 && url.indexOf('https://') !== 0) {
-                    url = 'http://' + url;
-                }
-
-                return url;
-            }
-        }
-    }
+    requests: []
 });
 
 UserSchema.virtual('fullName').get(function() {
