@@ -2242,30 +2242,26 @@ a {
     background: #393939;
     position: relative;
     width: 100%;
-    height: 5%;
-    padding-top: 1em; }
+    height: 4%;
+    padding: .5em 0; }
     #main-body #main-nav-bar h2 {
       display: inline-block;
-      margin: 0 1em;
-      padding-top: 2%;
+      margin: .5em 1em;
       font-size: 1.25em;
       font-weight: normal; }
-    #main-body #main-nav-bar #left-main-nav-bar {
+    #main-body #main-nav-bar img {
       float: left;
-      vertical-align: top; }
-      #main-body #main-nav-bar #left-main-nav-bar img {
-        width: 50px;
-        display: inline-block;
-        border-radius: 50%;
-        margin: 0 1em;
-        vertical-align: top; }
+      height: 50px;
+      border-radius: 50%;
+      margin: 0 1em; }
+    #main-body #main-nav-bar #left-main-nav-bar {
+      float: left; }
     #main-body #main-nav-bar #center-main-nav-bar {
       position: absolute;
       left: 50%;
-      width: 40px;
-      margin-left: -20px;
-      text-align: center;
-      vertical-align: top; }
+      width: 120px;
+      margin-left: -60px;
+      text-align: center; }
     #main-body #main-nav-bar #right-main-nav-bar {
       float: right;
-      vertical-align: top; }
+      padding-right: 1em; }

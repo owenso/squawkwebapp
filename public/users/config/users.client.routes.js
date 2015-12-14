@@ -21,11 +21,6 @@ angular.module('users').config(['$routeProvider',
             controller: 'UserController'
         })
 
-        .when('/profile', {
-            templateUrl: 'users/views/users.client.userprofile.html',
-            controller: 'ProfileController'
-        })
-
         .otherwise({
             redirectTo: '/'
         });

@@ -5,9 +5,10 @@ html(lang="en" ng-app='squawker')
 		link(href='/css/normalize.css', rel='stylesheet')
 		link(href='/css/style.css', rel='stylesheet')
 	body(id="main-body")
-	div(id="main-nav-bar" ng-controller="MainController")
+	div(id="main-nav-bar")
+		a(href='/main/#/profile')
+			img(src= user.userImg ng-controller="ProfileController")
 		div(id="left-main-nav-bar")
-			img(src= user.userImg)
 			h2 Requests
 			h2 Conversations
 		div(id="center-main-nav-bar")
@@ -15,6 +16,8 @@ html(lang="en" ng-app='squawker')
 		div(id="right-main-nav-bar")
 			h2 Settings
 	section(id="main-view" ng-view)
+
+	
 	script(type="text/javascript", src="/lib/angular/angular.js")
 	script(type="text/javascript", src="/lib/angular-route/angular-route.js")
 	script(type="text/javascript", src="/lib/angular-cookies/angular-cookies.js")
@@ -27,7 +30,7 @@ html(lang="en" ng-app='squawker')
 
 	script(type="text/javascript", src="/users/users.client.module.js")
 	script(type="text/javascript", src="/users/controllers/users.client.controller.js")
-	script(type="text/javascript", src="/users/controllers/profile.client.controller.js")
+	script(type="text/javascript", src="/main/controllers/profile.client.controller.js")
 	script(type="text/javascript", src="/users/config/users.client.routes.js")
 	script(type="text/javascript", src="/users/services/users.client.service.js")
 
