@@ -4,4 +4,5 @@ exports.render = function(req, res) {
         title: 'Sqawker',
         user: req.user
     });
+
 };
