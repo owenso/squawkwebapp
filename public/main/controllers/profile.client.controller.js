@@ -4,6 +4,9 @@ angular.module('main').controller('ProfileController', ['$scope', 'MainService',
     var getUserData = function() {
         MainService.getUserById($cookies.get('currentId'))
             .success(function(data) {
+                if (data.fullName === "undefined undefined"){
+                    data.fullName = null;
+                }
                 $scope.userData = data;
             });
     };
