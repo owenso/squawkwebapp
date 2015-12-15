@@ -1,3 +1,5 @@
-angular.module('main').controller('MainController', ['$scope', 'MainService', function($scope, MainService) {
-	console.log('main controller loaded');
+angular.module('main').controller('MainController', ['$scope', 'MainService', '$location', '$rootScope', function($scope, MainService, $location, $rootScope) {
+	  $rootScope.currentUrl = $location.path();
+	  
+
 }]);

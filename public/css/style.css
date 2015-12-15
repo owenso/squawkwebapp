@@ -2242,18 +2242,21 @@ a {
     background: #393939;
     position: relative;
     width: 100%;
-    height: 4%;
+    height: 50px;
     padding: .5em 0; }
     #main-body #main-nav-bar h2 {
       display: inline-block;
       margin: .5em 1em;
       font-size: 1.25em;
-      font-weight: normal; }
+      font-weight: normal;
+      position: relative; }
     #main-body #main-nav-bar img {
       float: left;
       height: 50px;
       border-radius: 50%;
       margin: 0 1em; }
+    #main-body #main-nav-bar .active {
+      border-bottom: 2px solid white; }
     #main-body #main-nav-bar #left-main-nav-bar {
       float: left; }
     #main-body #main-nav-bar #center-main-nav-bar {

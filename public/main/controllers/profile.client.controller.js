@@ -1,4 +1,5 @@
-angular.module('users').controller('ProfileController', ['$scope', 'MainService','$rootScope', '$cookies', function($scope, MainService, $rootScope, $cookies) {
+angular.module('users').controller('ProfileController', ['$scope', 'MainService','$rootScope', '$cookies', '$location', function($scope, MainService, $rootScope, $cookies, $location) {
+		 $rootScope.currentUrl = $location.path();
 
     var getUserData = function() {
         MainService.getUserById($cookies.get('currentId'))

@@ -5,18 +5,21 @@ html(lang="en" ng-app='squawker')
 		link(href='/css/normalize.css', rel='stylesheet')
 		link(href='/css/style.css', rel='stylesheet')
 	body(id="main-body")
-	div(id="main-nav-bar")
+	div(id="main-nav-bar" ng-controller="MainController")
 		a(href='/main/#/profile')
 			img(src= user.userImg)
 		div(id="left-main-nav-bar")
-			a(href='/main/#/requests')
-				h2 Requests
-			h2 Conversations
+			a(href='/main/#/requests' )
+				h2(ng-class="{'active': currentUrl == '/requests' || currentUrl == '/'}") Requests
+			a(href='/main/#/conversations' )
+				h2(ng-class="{'active': currentUrl == '/conversations'}") Conversations
 		div(id="center-main-nav-bar")
 			h2 Parakeet
 		div(id="right-main-nav-bar")
-			h2 Settings
+			a(href='/main/#/settings' )
+				h2(ng-class="{'active': currentUrl == '/settings'}") Settings
 	section(id="main-view" ng-view)
+
 
 
 	script(type="text/javascript", src="/lib/angular/angular.js")

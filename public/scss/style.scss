@@ -186,19 +186,23 @@ a {
         background: #393939;
         position: relative;
         width: 100%;
-        height: 4%;
+        height: 50px;
         padding: .5em 0;
         h2 {
             display: inline-block;
             margin: .5em 1em;
             font-size: 1.25em;
-            font-weight:normal;
+            font-weight: normal;
+            position: relative;
         }
         img {
-            float:left;
+            float: left;
             height: 50px;
             border-radius: 50%;
             margin: 0 1em;
+        }
+        .active {
+            border-bottom: 2px solid white;
         }
         #left-main-nav-bar {
             float: left;
@@ -212,18 +216,15 @@ a {
         }
         #right-main-nav-bar {
             float: right;
-            padding-right:1em;
+            padding-right: 1em;
         }
     }
 }
 
-#requests-page{
-    color:black;
+#requests-page {
+    color: black;
 }
 
-
-#profile-page{
-    color:black;
+#profile-page {
+    color: black;
 }
-
-
