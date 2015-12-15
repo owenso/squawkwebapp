@@ -10,14 +10,14 @@ html(lang="en" ng-app='squawker')
 			img(src= user.userImg)
 		div(id="left-main-nav-bar")
 			a(href='/main/#/requests' )
-				h2(ng-class="{'active': currentUrl == '/requests' || currentUrl == '/'}") Requests
+				h2(ng-class="{'active': currentUrl == '/requests' || currentUrl == '/'}") REQUESTS
 			a(href='/main/#/conversations' )
-				h2(ng-class="{'active': currentUrl == '/conversations'}") Conversations
+				h2(ng-class="{'active': currentUrl == '/conversations'}") CONVERSATIONS
 		div(id="center-main-nav-bar")
 			h2 Parakeet
 		div(id="right-main-nav-bar")
 			a(href='/main/#/settings' )
-				h2(ng-class="{'active': currentUrl == '/settings'}") Settings
+				h2(ng-class="{'active': currentUrl == '/settings'}") SETTINGS
 	section(id="main-view" ng-view)
 
 

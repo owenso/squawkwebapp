@@ -1,7 +1,12 @@
 <div id="profile-page">
 	<img src={{userData.userImg}}>
 	<h1>{{userData.fullName}}</h1>
+	<h2>{{userData.username}}</h2>
 	<p>Email: {{userData.email}}</p>
 	<p>Native Language: {{userData.knownLang}}</p>
 	<p>Desired Language: {{userData.learnLang}}</p>
 </div>
+
+<button ng-click="logOut()" style="color:black">Log Out</button>
+
+

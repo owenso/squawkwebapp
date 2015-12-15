@@ -21,31 +21,27 @@ module.exports = function(app) {
         .get(users.getCurrentId);
 
     app.route('/api/signup')
-        //disabled: angular will handle signup rendering
-        //.get(users.renderSignup)
         .post(users.signup);
 
     app.route('/api/signin')
-        //disabled: angular will handle signin rendering
-        //.get(users.renderSignin)
-        .post(passport.authenticate('local', {
-            //successRedirect: '/',
-            //failureRedirect: '/signin',
-            failureFlash: true
-        }), function (req,res){
+        .post(passport.authenticate('local'), function (req,res){
             res.send(req.user);
         });
+
 
     //disabled, both can use above signup route
     // app.route('/mobileSignup')
     //     .post(users.mobileSignup);
     
 
+
     //Returns user object if user is sucessfully authenticated, "unauthorized" if user is not
-    app.route('/mobileSignin')
-        .post(passport.authenticate('local'), function (req, res){
-            res.send(req.user);
-        });
+    //Disabled, can just use regular sign in route
+
+    // app.route('/mobileSignin')
+    //     .post(passport.authenticate('local'), function (req, res){
+    //         res.send(req.user);
+    //     });
 
     app.get('/signout', users.signout);
 
@@ -61,18 +57,6 @@ module.exports = function(app) {
         successRedirect: '/main/'
     }));
 
-    // app.get('/oauth/facebook/callback',
-    //     passport.authenticate('facebook', { failureRedirect: '/' }),
-    //     function(req, res) 
-    //     {
-    //         console.log('we b logged in!');
-    //         console.log(req.user._id);
-    //         res.cookie('authenticated', 'true',{ maxAge: 60 * 1000 });
-    //         res.cookie('userid', req.user._id,{ maxAge: 60 * 1000 });
-    //         console.log(res.cookie);
-    //         res.json(req.user);
-    //     }
-    // );
 
 //     //Routes for twitter oauth
 //     app.get('/oauth/twitter', passport.authenticate('twitter', {

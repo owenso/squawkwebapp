@@ -66,9 +66,7 @@ exports.signup = function(req, res, next) {
 };
 
 exports.signout = function(req, res) {
-    console.log('inhere');
     req.logout();
-    req.logOut();
     req.session.destroy();
     res.redirect('/');
 };

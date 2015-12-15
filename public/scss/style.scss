@@ -190,10 +190,11 @@ a {
         padding: .5em 0;
         h2 {
             display: inline-block;
-            margin: .5em 1em;
-            font-size: 1.25em;
+            margin: .75em 1em .5em 1em;
+            font-size: 1em;
             font-weight: normal;
             position: relative;
+            color:#909090;
         }
         img {
             float: left;
@@ -203,6 +204,7 @@ a {
         }
         .active {
             border-bottom: 2px solid white;
+            color:white;
         }
         #left-main-nav-bar {
             float: left;
@@ -213,6 +215,12 @@ a {
             width: 120px;
             margin-left: -60px;
             text-align: center;
+
+            h2{
+                font-size: 1.25em;
+                color:white;
+                margin:.5em 1em;
+            }
         }
         #right-main-nav-bar {
             float: right;

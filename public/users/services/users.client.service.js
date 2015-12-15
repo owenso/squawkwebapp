@@ -10,7 +10,6 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
         $http
             .get('/signout')
             .success(function(data, status, headers, config) {
-                console.log($cookies.getAll());
                 $cookies.remove("currentId");
                 delete $rootScope.authenticated;
                 $window.location.href="/";
@@ -21,9 +20,9 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
         $http
             .post('/api/signin', userObject)
             .success(function(data, status, headers, config) {
-                $cookies.put('currentId',data._id);
                 $rootScope.authenticated = true;
                 if(data.knownLang === undefined || data.learnLang === undefined){
+                    $cookies.put('currentId',data._id);
                     $location.path('/signup2');
                 } else {
                     $window.location.href="/main/";
@@ -31,7 +30,11 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
             })
             .error(function(data, status, headers, config) {
                 $cookies.remove('currentId');
-                $rootScope.message = data;
+                if(data == 'Unauthorized'){
+                    $rootScope.message = 'Incorrect Username or Password.';
+                }else{
+                    $rootScope.message = data;
+                }
             });
     };
 
@@ -71,7 +74,7 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
         $http
             .put('api/users/' + $cookies.get('currentId'), {'learnLang':learnLang})
             .success(function(data, status, headers, config){
-                console.log(data);
+                $cookies.remove("currentId");
                 $window.location.href="/main/";
             })
             .error(function(data, status, headers, config) {

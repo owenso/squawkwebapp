@@ -2246,17 +2246,19 @@ a {
     padding: .5em 0; }
     #main-body #main-nav-bar h2 {
       display: inline-block;
-      margin: .5em 1em;
-      font-size: 1.25em;
+      margin: .75em 1em .5em 1em;
+      font-size: 1em;
       font-weight: normal;
-      position: relative; }
+      position: relative;
+      color: #909090; }
     #main-body #main-nav-bar img {
       float: left;
       height: 50px;
       border-radius: 50%;
       margin: 0 1em; }
     #main-body #main-nav-bar .active {
-      border-bottom: 2px solid white; }
+      border-bottom: 2px solid white;
+      color: white; }
     #main-body #main-nav-bar #left-main-nav-bar {
       float: left; }
     #main-body #main-nav-bar #center-main-nav-bar {
@@ -2265,6 +2267,10 @@ a {
       width: 120px;
       margin-left: -60px;
       text-align: center; }
+      #main-body #main-nav-bar #center-main-nav-bar h2 {
+        font-size: 1.25em;
+        color: white;
+        margin: .5em 1em; }
     #main-body #main-nav-bar #right-main-nav-bar {
       float: right;
       padding-right: 1em; }
