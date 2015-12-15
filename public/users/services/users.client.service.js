@@ -51,12 +51,19 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
 
     userFac.signUpTwo = function(knownLang){
         $http
-            .put('api/users/' + $cookies.get('currentId'), {'knownLang':knownLang})
+            .get('api/currentUserId')
             .success(function(data, status, headers, config){
-                $location.path('/signup3');
-            })
-            .error(function(data, status, headers, config) {
-                console.log(data);
+                $cookies.put('currentId',data);
+                $rootScope.authenticated = true;
+
+            $http
+                .put('api/users/' + $cookies.get('currentId'), {'knownLang':knownLang})
+                .success(function(data, status, headers, config){
+                    $location.path('/signup3');
+                })
+                .error(function(data, status, headers, config) {
+                    console.log(data);
+                });
             });
         };
 

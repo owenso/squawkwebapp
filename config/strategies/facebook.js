@@ -11,14 +11,14 @@ module.exports = function() {
             clientSecret: config.facebook.clientSecret,
             callbackURL: config.facebook.callbackURL,
             passReqToCallback: true,
-            profileFields: ['id', 'emails', 'name', 'displayName'/*, 'picture.type(large)'*/]
+            profileFields: ['id', 'emails', 'name', 'displayName', 'picture.type(large)']
         },
         function(req, accessToken, refreshToken, profile, done) {
+            console.log(profile._json.picture.data.url);
             var providerData = profile._json;
             providerData.accessToken = accessToken;
             providerData.refreshToken = refreshToken;
             var providerUserProfile = {
-           			// we can also get gender and profile picture - picture.type(large)
                 firstName: profile.name.givenName,
                 lastName: profile.name.familyName,
                 fullName: profile.displayName,
@@ -26,7 +26,8 @@ module.exports = function() {
                 username: profile.username,
                 provider: 'facebook',
                 providerId: profile.id,
-                providerData: providerData
+                providerData: providerData,
+                userImg:profile._json.picture.data.url
             };
             users.saveOAuthUserProfile(req, providerUserProfile, done);
         }));

@@ -22,30 +22,6 @@ var getErrorMessage = function(err) {
     return message;
 };
 
-// Disabled, server is not handling rendering
-
-
-// exports.renderSignin = function(req, res, next) {
-//     if (!req.user) {
-//         res.render('signin', {
-//             title: 'Sign-in Form',
-//             messages: req.flash('error') || req.flash('info')
-//         });
-//     } else {
-//         return res.redirect('/');
-//     }
-// };
-// exports.renderSignup = function(req, res, next) {
-//     if (!req.user) {
-//         res.render('signup', {
-//             title: 'Sign-up Form',
-//             messages: req.flash('error')
-//         });
-//     } else {
-//         return res.redirect('/');
-//     }
-// };
-
 
 
 
@@ -123,6 +99,10 @@ exports.read = function(req, res) {
     res.json(req.user);
 };
 
+exports.getCurrentId = function(req,res) {
+    res.json (req.user._id);
+};
+
 exports.userByID = function(req, res, next, id) {
     User.findOne({
         _id: id
@@ -136,32 +116,15 @@ exports.userByID = function(req, res, next, id) {
     });
 };
 
-// exports.uniqueCheck = function(req,res,next) {
-//     User.findOne( { $or:[ {'username':req.body.username}, {'email':req.body.email} ]}, function(err, user) {
-//         if(user){
-//             if(user.email == req.body.email && user.username == req.body.username){
-//                 res.send('An account already exists with that username and email.');
-//             }
-//             else if(user.email == req.body.email){
-//                 res.send('An account already exists with that email address.');
-//             }
-//             else if(user.username == req.body.username){
-//                 res.send('Sorry, that username is taken.');
-//             }
-//         }
-//         else{
-//             res.send(false);
-//         }
-//     });
-// };
-
 exports.update = function(req, res, next) {
     User.findByIdAndUpdate(req.user.id, req.body, {
         new: true
     }, function(err, user) {
         if (err) {
+            console.log(err);
             return next(err);
         } else {
+            console.log(user);
             res.json(user);
         }
     });
@@ -201,7 +164,7 @@ exports.saveOAuthUserProfile = function(req, profile, done) {
 								var message = _this.getErrorMessage(err);
 
 								req.flash('error', message);
-								return res.redirect('/signup');
+								return res.redirect('/');
 							}
 
 							return done(err, user);

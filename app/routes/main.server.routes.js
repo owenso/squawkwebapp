@@ -1,11 +1,14 @@
-module.exports = function(app){
-	var main = require('../controllers/main.server.controller');
-	// app.get('/main/', main.render);
+module.exports = function(app) {
+    var main = require('../controllers/main.server.controller');
 
-	  function isAuthenticated(req, res, next) {
-    if (req.user)
-        return next();
-    res.redirect('/');
-}
-  app.get('/main', isAuthenticated, main.render);
+    function isMainAuthenticated(req, res, next) {
+        if (!req.user) {
+            res.redirect('/');
+        } else if (req.user.knownLang === undefined) {
+            res.redirect('/#/signup2');
+        } else if (req.user) {
+            return next();
+        }
+    }
+    app.get('/main', isMainAuthenticated, main.render);
 };
