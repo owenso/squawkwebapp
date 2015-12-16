@@ -2165,7 +2165,7 @@ a {
   color: yellow; }
 
 #sign-body {
-  height: 700px;
+  height: 500px;
   width: 900px;
   margin: 0 auto;
   position: relative;
@@ -2275,8 +2275,48 @@ a {
       float: right;
       padding-right: 1em; }
 
+#img-menu-nav ul {
+  margin: 0;
+  background: #555;
+  color: #fff;
+  text-shadow: 0 -1px 0 #000;
+  list-style-type: none;
+  padding: 0;
+  position: absolute;
+  top: 55px;
+  left: 0;
+  width: 100px;
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transiton: opacity 0.2s;
+  -moz-transition: opacity 0.2s;
+  -ms-transition: opacity 0.2s;
+  -o-transition: opacity 0.2s;
+  -transition: opacity 0.2s; }
+  #img-menu-nav ul li {
+    height: 20px;
+    text-align: center;
+    padding: 15px 0; }
+    #img-menu-nav ul li h2 {
+      color: #909090; }
+  #img-menu-nav ul li:hover {
+    background-color: #7d7d81; }
+  #img-menu-nav ul li:hover ul {
+    display: block;
+    opacity: 1;
+    visibility: visible; }
+
+#img-menu-nav:hover ul {
+  display: block;
+  opacity: 1;
+  visibility: visible; }
+
 #requests-page {
   color: black; }
 
 #profile-page {
+  color: black; }
+
+#conversations-page {
   color: black; }

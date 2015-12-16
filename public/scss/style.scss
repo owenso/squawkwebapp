@@ -122,7 +122,7 @@ a {
 }
 
 #sign-body {
-    height: 700px;
+    height: 500px;
     width: 900px;
     margin: 0 auto;
     @include vertical-align;
@@ -194,7 +194,7 @@ a {
             font-size: 1em;
             font-weight: normal;
             position: relative;
-            color:#909090;
+            color: #909090;
         }
         img {
             float: left;
@@ -204,7 +204,7 @@ a {
         }
         .active {
             border-bottom: 2px solid white;
-            color:white;
+            color: white;
         }
         #left-main-nav-bar {
             float: left;
@@ -215,11 +215,10 @@ a {
             width: 120px;
             margin-left: -60px;
             text-align: center;
-
-            h2{
+            h2 {
                 font-size: 1.25em;
-                color:white;
-                margin:.5em 1em;
+                color: white;
+                margin: .5em 1em;
             }
         }
         #right-main-nav-bar {
@@ -229,10 +228,61 @@ a {
     }
 }
 
+#img-menu-nav {
+    ul {
+        margin: 0;
+        background: #555;
+        color: #fff;
+        text-shadow: 0 -1px 0 #000;
+        list-style-type: none;
+        padding: 0;
+        position: absolute;
+        top: 55px;
+        left: 0;
+        width: 100px;
+        display: block;
+        opacity: 0;
+        visibility: hidden;
+        -webkit-transiton: opacity 0.2s;
+        -moz-transition: opacity 0.2s;
+        -ms-transition: opacity 0.2s;
+        -o-transition: opacity 0.2s;
+        -transition: opacity 0.2s;
+
+        li{
+            height:20px;
+            text-align: center;
+            padding:15px 0;
+            
+            h2{
+                color:#909090;
+            }
+        }
+        li:hover{
+            background-color: $accentgrey;
+        }
+        li:hover ul {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+
+#img-menu-nav:hover ul {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
 #requests-page {
     color: black;
 }
 
 #profile-page {
+    color: black;
+}
+
+#conversations-page {
     color: black;
 }

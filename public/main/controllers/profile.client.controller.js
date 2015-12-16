@@ -11,9 +11,7 @@ angular.module('main').controller('ProfileController', ['$scope', 'MainService',
             });
     };
 
-    $scope.logOut = function() {
-    	MainService.logOut();
-    };
+
 
     getUserData();
 }]);

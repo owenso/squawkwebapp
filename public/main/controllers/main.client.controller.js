@@ -2,4 +2,7 @@ angular.module('main').controller('MainController', ['$scope', 'MainService', '$
 	  $rootScope.currentUrl = $location.path();
 	  MainService.getLoggedUser();
 
+	  $scope.logOut = function() {
+    	MainService.logOut();
+    };
 }]);

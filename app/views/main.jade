@@ -6,8 +6,13 @@ html(lang="en" ng-app='squawker')
 		link(href='/css/style.css', rel='stylesheet')
 	body(id="main-body")
 	div(id="main-nav-bar" ng-controller="MainController")
-		a(href='/main/#/profile')
-			img(src= user.userImg)
+		div(id="img-menu-nav")
+			img(class="nav-profile-img" src= user.userImg)
+			ul
+				li 
+					a(href='/main/#/profile') View Profile
+				li 
+					a(href='#' ng-click="logOut()") Signout
 		div(id="left-main-nav-bar")
 			a(href='/main/#/requests' )
 				h2(ng-class="{'active': currentUrl == '/requests' || currentUrl == '/'}") REQUESTS
@@ -25,7 +30,7 @@ html(lang="en" ng-app='squawker')
 	script(type="text/javascript", src="/lib/angular/angular.js")
 	script(type="text/javascript", src="/lib/angular-route/angular-route.js")
 	script(type="text/javascript", src="/lib/angular-cookies/angular-cookies.js")
-	
+
 	script(type="text/javascript", src="/main/main.client.module.js")
 	script(type="text/javascript", src="/main/controllers/main.client.controller.js")
 	script(type="text/javascript", src="/main/config/main.client.routes.js")
