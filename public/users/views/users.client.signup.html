@@ -16,7 +16,7 @@
     <div>
         <i class="fa fa-lock"></i>
         <input required type="password" name="password" placeholder="Password" ng-model="newUser.password" ng-minlength="6" />
-        <div ng-show="signUp1.password.$touched">
+        <div ng-show="signUp1.$submitted || signUp1.password.$touched">
             <span class="signup-message" ng-show="signUp1.password.$error.minlength">Password should be at least 6 characters!</span>
         </div>
     </div>
