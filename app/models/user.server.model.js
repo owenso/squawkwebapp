@@ -2,6 +2,8 @@ var mongoose = require('mongoose'),
 		crypto = require('crypto'),
         Schema = mongoose.Schema;
 
+        
+//Note: validations are not case sensitive!!!
 var UserSchema = new Schema({
     firstName: String,
     lastName: String,
