@@ -2097,6 +2097,9 @@ a {
   text-decoration: none;
   color: white; }
 
+h2 {
+  font-weight: normal; }
+
 .sign-form input {
   width: 300px;
   margin: 10px 0;
@@ -2243,11 +2246,12 @@ a {
     position: relative;
     width: 100%;
     height: 50px;
-    padding: .5em 0; }
+    padding: .5em 0;
+    box-shadow: 0 2px 2px -2px gray; }
     #main-body #main-nav-bar h2 {
       display: inline-block;
-      margin: .75em 1em .5em 1em;
-      font-size: 1em;
+      margin: 1.3em 1.5em .5em 1.5em;
+      font-size: .8em;
       font-weight: normal;
       position: relative;
       color: #909090; }
@@ -2268,9 +2272,9 @@ a {
       margin-left: -60px;
       text-align: center; }
       #main-body #main-nav-bar #center-main-nav-bar h2 {
-        font-size: 1.25em;
+        font-size: 1.05em;
         color: white;
-        margin: .5em 1em; }
+        margin: .8em 1em; }
     #main-body #main-nav-bar #right-main-nav-bar {
       float: right;
       padding-right: 1em; }
@@ -2312,11 +2316,52 @@ a {
   opacity: 1;
   visibility: visible; }
 
-#requests-page {
-  color: black; }
+#main-view {
+  color: black;
+  height: 100%; }
+  #main-view a {
+    color: black; }
 
-#profile-page {
-  color: black; }
+#profile-panel {
+  width: 320px;
+  box-shadow: 2px 0px 2px -2px gray;
+  min-height: 100%; }
+  #profile-panel img {
+    border-radius: 50%;
+    width: 100px;
+    position: relative;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+    top: -50px; }
+  #profile-panel #profile-tabs {
+    margin: -30px 0 0 0;
+    list-style-type: none;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    text-align: center;
+    padding: 0 40px 0 30px;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+            justify-content: space-between; }
+    #profile-panel #profile-tabs a {
+      color: #909090;
+      font-size: .5em; }
+    #profile-panel #profile-tabs span {
+      font-size: 2.5em; }
+    #profile-panel #profile-tabs i {
+      font-size: .3em; }
+    #profile-panel #profile-tabs .selected-tab {
+      color: black; }
 
-#conversations-page {
-  color: black; }
+#profile-name-block {
+  color: white;
+  background-color: #393939;
+  text-align: center;
+  height: 150px; }
+  #profile-name-block h2 {
+    margin-top: 0px;
+    padding-top: 40px; }

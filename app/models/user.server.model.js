@@ -52,7 +52,15 @@ var UserSchema = new Schema({
         default: 'User',
         enum: ['Admin', 'Owner', 'User']
     },
-    requests: []
+    requestData: {
+        completed: {type: Number, default: 0},
+        answered: {type: Number, default: 0},
+        pending: {type: Number, default: 0},
+        total: {type: Number, default: 0}
+    },
+    createdRequestIds: [],
+    answeredRequestIds: [],
+    conversations: []
 });
 
 UserSchema.virtual('fullName').get(function() {
