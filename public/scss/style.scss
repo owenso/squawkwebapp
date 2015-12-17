@@ -198,8 +198,17 @@ h2 {
             margin: 1.3em 1.5em .5em 1.5em;
             font-size: .8em;
             font-weight: normal;
-            position: relative;
             color: #909090;
+        }
+        i{
+            color: #909090;
+            position: absolute;
+            top:45px;
+            left:70px;
+            z-index: 5;
+        }
+        h2:hover {
+            color: white;
         }
         img {
             float: left;
@@ -236,110 +245,90 @@ h2 {
 #img-menu-nav {
     ul {
         margin: 0;
-        background: #555;
-        color: #fff;
-        text-shadow: 0 -1px 0 #000;
         list-style-type: none;
-        padding: 0;
+        padding: 10px 0 0 0;
         position: absolute;
-        top: 55px;
+        top: 56px;
         left: 0;
-        width: 100px;
+        max-height: 0;
+        overflow: hidden;
+        width: 110px;
         display: block;
-        opacity: 0;
-        visibility: hidden;
-        -webkit-transiton: opacity 0.2s;
-        -moz-transition: opacity 0.2s;
-        -ms-transition: opacity 0.2s;
-        -o-transition: opacity 0.2s;
-        -transition: opacity 0.2s;
-
-        li{
-            height:20px;
+        -webkit-transition: max-height ease 0.8s;
+        -moz-transition: max-height ease 0.8s;
+        transition: max-height ease 0.8s;
+        li {
+            background: #393939;
+            height: 20px;
             text-align: center;
-            padding:15px 0;
-            
-            h2{
-                color:#909090;
-            }
+            padding: 15px 0;
+            border-right: 1px solid $accentgrey;
+            border-bottom: 1px solid $accentgrey;
         }
-        li:hover{
-            background-color: $accentgrey;
-        }
-        li:hover ul {
-            display: block;
-            opacity: 1;
-            visibility: visible;
+        h2 {
+            margin: 0 !important;
         }
     }
 }
 
 #img-menu-nav:hover ul {
-    display: block;
-    opacity: 1;
-    visibility: visible;
+    max-height: 200px;
 }
 
-#main-view{
-    color: black;
-    height:100%;
+#img-menu-nav:hover .fa-caret-down {
+    visibility: hidden;
+}
 
-    a{
-        color:black;
+#main-view {
+    color: black;
+    height: 100%;
+    a {
+        color: black;
     }
 }
 
 #profile-panel {
-    width:320px;
+    width: 320px;
     box-shadow: 2px 0px 2px -2px gray;
-    min-height:100%;
-
+    min-height: 100%;
     img {
         border-radius: 50%;
-        width:100px;
-        position:relative;
-        left:50%;
+        width: 100px;
+        position: relative;
+        left: 50%;
         transform: translateX(-50%);
-        top:-50px;
+        top: -50px;
     }
-
-    #profile-tabs{
-        margin:-30px 0 0 0;
+    #profile-tabs {
+        margin: -30px 0 0 0;
         list-style-type: none;
         display: flex;
         text-align: center;
-        padding:0 40px 0 30px;
+        padding: 0 40px 0 30px;
         justify-content: space-between;
-
-        a{
-            color:#909090;
+        a {
+            color: #909090;
             font-size: .5em;
-
         }
-        span{
+        span {
             font-size: 2.5em;
         }
-        i{
+        i {
             font-size: .3em;
         }
-
-        .selected-tab{
-            color:black;
+        .selected-tab {
+            color: black;
         }
-
     }
-
 }
 
 #profile-name-block {
-    color:white;
+    color: white;
     background-color: #393939;
     text-align: center;
-    height:150px;
-
-    h2{
+    height: 150px;
+    h2 {
         margin-top: 0px;
         padding-top: 40px;
     }
 }
-

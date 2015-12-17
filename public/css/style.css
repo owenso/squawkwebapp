@@ -2253,8 +2253,15 @@ h2 {
       margin: 1.3em 1.5em .5em 1.5em;
       font-size: .8em;
       font-weight: normal;
-      position: relative;
       color: #909090; }
+    #main-body #main-nav-bar i {
+      color: #909090;
+      position: absolute;
+      top: 45px;
+      left: 70px;
+      z-index: 5; }
+    #main-body #main-nav-bar h2:hover {
+      color: white; }
     #main-body #main-nav-bar img {
       float: left;
       height: 50px;
@@ -2281,40 +2288,32 @@ h2 {
 
 #img-menu-nav ul {
   margin: 0;
-  background: #555;
-  color: #fff;
-  text-shadow: 0 -1px 0 #000;
   list-style-type: none;
-  padding: 0;
+  padding: 10px 0 0 0;
   position: absolute;
-  top: 55px;
+  top: 56px;
   left: 0;
-  width: 100px;
+  max-height: 0;
+  overflow: hidden;
+  width: 110px;
   display: block;
-  opacity: 0;
-  visibility: hidden;
-  -webkit-transiton: opacity 0.2s;
-  -moz-transition: opacity 0.2s;
-  -ms-transition: opacity 0.2s;
-  -o-transition: opacity 0.2s;
-  -transition: opacity 0.2s; }
+  -webkit-transition: max-height ease 0.8s;
+  transition: max-height ease 0.8s; }
   #img-menu-nav ul li {
+    background: #393939;
     height: 20px;
     text-align: center;
-    padding: 15px 0; }
-    #img-menu-nav ul li h2 {
-      color: #909090; }
-  #img-menu-nav ul li:hover {
-    background-color: #7d7d81; }
-  #img-menu-nav ul li:hover ul {
-    display: block;
-    opacity: 1;
-    visibility: visible; }
+    padding: 15px 0;
+    border-right: 1px solid #7d7d81;
+    border-bottom: 1px solid #7d7d81; }
+  #img-menu-nav ul h2 {
+    margin: 0 !important; }
 
 #img-menu-nav:hover ul {
-  display: block;
-  opacity: 1;
-  visibility: visible; }
+  max-height: 200px; }
+
+#img-menu-nav:hover .fa-caret-down {
+  visibility: hidden; }
 
 #main-view {
   color: black;

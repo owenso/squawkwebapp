@@ -8,11 +8,14 @@ html(lang="en" ng-app='squawker')
 	div(id="main-nav-bar" ng-controller="MainController")
 		div(id="img-menu-nav")
 			img(class="nav-profile-img" src= user.userImg)
+			i(class="fa fa-caret-down")
 			ul
 				li 
-					a(href='/main/#/profile') View Profile
+					a(href='/main/#/profile') 
+						h2 VIEW PROFILE
 				li 
-					a(href='#' ng-click="logOut()") Signout
+					a(href='#' ng-click="logOut()") 
+						h2 SIGNOUT
 		div(id="left-main-nav-bar")
 			a(href='/main/#/requests' )
 				h2(ng-class="{'active': currentUrl == '/requests' || currentUrl == '/'}") REQUESTS
