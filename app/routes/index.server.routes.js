@@ -5,8 +5,10 @@ module.exports = function(app) {
         if (req.user) {
             console.log('user found');
             if (req.user.knownLang === undefined) {
+                console.log(req.user.knownLang);
                 res.redirect('/#/signup2');
             } else {
+                console.log('redirecting to main');
                 res.redirect('/main/');
             }
         } else {
