@@ -2,17 +2,10 @@ module.exports = function(app) {
     var index = require('../controllers/index.server.controller');
 
     function isIndexAuthenticated(req, res, next) {
+        //need to handle redirect to signup2
         if (req.user) {
-            console.log('user found');
-            if (req.user.knownLang === undefined) {
-                console.log(req.user.knownLang);
-                res.redirect('/#/signup2');
-            } else {
-                console.log('redirecting to main');
-                res.redirect('/main/');
-            }
+            res.redirect('/main/');
         } else {
-            console.log('user not found');
             return next();
         }
     }

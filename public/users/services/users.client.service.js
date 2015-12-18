@@ -23,8 +23,10 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
                 $rootScope.authenticated = true;
                 if(data.knownLang === undefined || data.learnLang === undefined){
                     $cookies.put('currentId',data._id);
+                    $rootScope.authenticated = true;
                     $location.path('/signup2');
                 } else {
+                    $rootScope.authenticated = true;
                     $window.location.href="/main/";
                 }
             })
