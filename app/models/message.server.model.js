@@ -14,9 +14,5 @@ var MessageSchema = new Schema({
     audioLength: String
 });
 
-UserSchema.set('toJSON', {
-    getters: true,
-    virtuals: true
-});
 
 mongoose.model('Message', MessageSchema);

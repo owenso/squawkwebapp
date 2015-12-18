@@ -19,9 +19,5 @@ var ConversationSchema = new Schema({
     language: String
 });
 
-UserSchema.set('toJSON', {
-    getters: true,
-    virtuals: true
-});
 
 mongoose.model('Conversation', ConversationSchema);
