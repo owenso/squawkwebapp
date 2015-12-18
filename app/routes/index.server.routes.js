@@ -1,7 +1,13 @@
-module.exports = function(app){
-	var index = require('../controllers/index.server.controller');
-	app.get('/', index.render);
+module.exports = function(app) {
+    var index = require('../controllers/index.server.controller');
 
-	// When we hit the root route, a method on the index controller will
-	// be run, which will render a template on the browser page
+    function isIndexAuthenticated(req, res, next) {
+        //need to handle redirect to signup2
+        if (req.user) {
+            res.redirect('/main/');
+        } else {
+            return next();
+        }
+    }
+    app.get('/', isIndexAuthenticated, index.render);
 };

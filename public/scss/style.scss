@@ -1,0 +1,334 @@
+$lgrey: #8c8c9b;
+$dgrey: #585862;
+$accentgrey: #7d7d81;
+@import "font-awesome/font-awesome.scss";
+@import url(https://fonts.googleapis.com/css?family=Lato);
+
+/************************************************************
+
+
+                        SIGN-UP/SIGN-IN 
+
+************************************************************/
+
+// Background Gradient: Top to Bottom
+@mixin bg-gradient-t2b($start-colour, $end-colour) {
+    background-color: $start-colour;
+    background-image: -webkit-gradient(linear, left top, left bottom, from($start-colour), to($end-colour));
+    background-image: -webkit-linear-gradient(to bottom right, $start-colour, $end-colour);
+    background-image: -moz-linear-gradient(to bottom right, $start-colour, $end-colour);
+    background-image: -ms-linear-gradient(to bottom right, $start-colour, $end-colour);
+    background-image: -o-linear-gradient(to bottom right, $start-colour, $end-colour);
+    background-image: linear-gradient(to bottom right, $start-colour, $end-colour);
+    filter: progid:DXImageTransform.Microsoft.gradient(start-colourStr='#{$start-colour}', end-colourStr='#{$end-colour}');
+}
+
+@mixin center-children {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin vertical-align {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+html {
+    font-family: 'Lato', sans-serif;
+    width: 100%;
+    height: 100%;
+    @include bg-gradient-t2b($dgrey, $lgrey);
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+h2 {
+    font-weight: normal;
+}
+
+.sign-form {
+    input {
+        width: 300px;
+        margin: 10px 0;
+        padding: 10px 20px;
+        border-color: transparent;
+        border-bottom: 1px solid $accentgrey;
+        font-size: 15px;
+        background-color: transparent;
+    }
+    input:focus {
+        outline: none;
+    }
+    input::-webkit-input-placeholder {
+        padding-left: 5px;
+        font-size: 15px;
+        color: white;
+    }
+    input:-moz-placeholder {
+        /* Firefox 18- */
+        padding-left: 5px;
+        font-size: 15px;
+        color: white;
+    }
+    input::-moz-placeholder {
+        /* Firefox 19+ */
+        padding-left: 5px;
+        font-size: 15px;
+        color: white;
+    }
+    input:-ms-input-placeholder {
+        padding-left: 5px;
+        font-size: 15px;
+        color: white;
+    }
+    i {
+        color: white;
+    }
+    #form-button {
+        background-color: #404041;
+        color: white;
+        width: 360px;
+        height: 50px;
+        border: 0;
+    }
+}
+
+.facebook-button {
+    width: 360px;
+    margin: 20px 0;
+    height: 50px;
+    border: 1px solid white;
+    display: inline-block;
+    text-align: center;
+    span {
+        position: relative;
+        top: 30%;
+        transform: translateY(-50%);
+    }
+}
+
+#signup-link {
+    text-align: center;
+    color: #b3b6bb;
+    font-size: .75em;
+}
+
+.signup-message {
+    width: 100%;
+    text-align: center;
+    color: yellow;
+}
+
+#sign-body {
+    height: 500px;
+    width: 900px;
+    margin: 0 auto;
+    @include vertical-align;
+    h1 {
+        font-size: 3em;
+        text-align: center;
+        font-weight: normal;
+    }
+}
+
+#sign-views {
+    @include center-children
+}
+
+.signup-step {
+    text-align: center;
+    i {
+        font-size: .75em;
+        margin: 5px;
+    }
+    p {
+        font-size: 1.25em;
+    }
+    .page-off {
+        color: #cfcfcf;
+    }
+}
+
+.signup-lang-menu {
+    ul {
+        margin: 4em 0;
+        list-style: none;
+        padding: 0;
+    }
+    li {
+        background-color: #404041;
+        font-size: 1.25em;
+        text-align: center;
+        color: white;
+        width: 360px;
+        height: 50px;
+        cursor: pointer;
+        cursor: hand;
+        margin: 0 0 10px 0;
+        @include center-children;
+    }
+}
+
+
+/************************************************************
+
+
+                        MAIN 
+
+************************************************************/
+
+#main-body {
+    background: #f9f9f9;
+    height: 100%;
+    #main-nav-bar {
+        background: #393939;
+        position: relative;
+        width: 100%;
+        height: 50px;
+        padding: .5em 0;
+        box-shadow: 0 2px 2px -2px gray;
+        h2 {
+            display: inline-block;
+            margin: 1.3em 1.5em .5em 1.5em;
+            font-size: .8em;
+            font-weight: normal;
+            color: #909090;
+        }
+        i{
+            color: #909090;
+            position: absolute;
+            top:45px;
+            left:70px;
+            z-index: 5;
+        }
+        h2:hover {
+            color: white;
+        }
+        img {
+            float: left;
+            height: 50px;
+            border-radius: 50%;
+            margin: 0 1em;
+        }
+        .active {
+            border-bottom: 2px solid white;
+            color: white;
+        }
+        #left-main-nav-bar {
+            float: left;
+        }
+        #center-main-nav-bar {
+            position: absolute;
+            left: 50%;
+            width: 120px;
+            margin-left: -60px;
+            text-align: center;
+            h2 {
+                font-size: 1.05em;
+                color: white;
+                margin: .8em 1em;
+            }
+        }
+        #right-main-nav-bar {
+            float: right;
+            padding-right: 1em;
+        }
+    }
+}
+
+#img-menu-nav {
+    ul {
+        margin: 0;
+        list-style-type: none;
+        padding: 10px 0 0 0;
+        position: absolute;
+        top: 56px;
+        left: 0;
+        max-height: 0;
+        overflow: hidden;
+        width: 110px;
+        display: block;
+        -webkit-transition: max-height ease 0.8s;
+        -moz-transition: max-height ease 0.8s;
+        transition: max-height ease 0.8s;
+        li {
+            background: #393939;
+            height: 20px;
+            text-align: center;
+            padding: 15px 0;
+            border-right: 1px solid $accentgrey;
+            border-bottom: 1px solid $accentgrey;
+        }
+        h2 {
+            margin: 0 !important;
+        }
+    }
+}
+
+#img-menu-nav:hover ul {
+    max-height: 200px;
+}
+
+#img-menu-nav:hover .fa-caret-down {
+    visibility: hidden;
+}
+
+#main-view {
+    color: black;
+    height: 100%;
+    a {
+        color: black;
+    }
+}
+
+#profile-panel {
+    width: 320px;
+    box-shadow: 2px 0px 2px -2px gray;
+    min-height: 100%;
+    img {
+        border-radius: 50%;
+        width: 100px;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        top: -50px;
+    }
+    #profile-tabs {
+        margin: -30px 0 0 0;
+        list-style-type: none;
+        display: flex;
+        text-align: center;
+        padding: 0 40px 0 30px;
+        justify-content: space-between;
+        a {
+            color: #909090;
+            font-size: .5em;
+        }
+        span {
+            font-size: 2.5em;
+        }
+        i {
+            font-size: .3em;
+        }
+        .selected-tab {
+            color: black;
+        }
+    }
+}
+
+#profile-name-block {
+    color: white;
+    background-color: #393939;
+    text-align: center;
+    height: 150px;
+    h2 {
+        margin-top: 0px;
+        padding-top: 40px;
+    }
+}

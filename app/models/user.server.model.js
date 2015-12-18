@@ -1,14 +1,23 @@
 var mongoose = require('mongoose'),
 		crypto = require('crypto'),
-    Schema = mongoose.Schema;
+        Schema = mongoose.Schema;
 
+        
+//Note: validations are not case sensitive!!!
 var UserSchema = new Schema({
     firstName: String,
     lastName: String,
     email: {
         type: String,
+        unique: true,
         index: true,
-        match: [/.+\@.+\..+/, "Please fill a valid e-mail address"]
+        match: [/.+\@.+\..+/, "Please enter a valid e-mail address"]
+    },
+    knownLang: String,
+    learnLang: String,
+    userImg: {
+        type: String,
+        default: '/img/parakeet.png'
     },
     username: {
         type: String,
@@ -38,24 +47,24 @@ var UserSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    modified: {
+        type: Date,
+        default:Date.now
+    },
     role: {
         type: String,
+        default: 'User',
         enum: ['Admin', 'Owner', 'User']
     },
-    website: {
-        type: String,
-        get: function(url) {
-            if (!url) {
-                return url;
-            } else {
-                if (url.indexOf('http://') !== 0 && url.indexOf('https://') !== 0) {
-                    url = 'http://' + url;
-                }
-
-                return url;
-            }
-        }
-    }
+    requestData: {
+        completed: {type: Number, default: 0},
+        answered: {type: Number, default: 0},
+        pending: {type: Number, default: 0},
+        total: {type: Number, default: 0}
+    },
+    createdRequestIds: [],
+    answeredRequestIds: [],
+    conversations: []
 });
 
 UserSchema.virtual('fullName').get(function() {

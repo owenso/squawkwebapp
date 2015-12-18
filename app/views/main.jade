@@ -1,0 +1,52 @@
+doctype html
+html(lang="en" ng-app='squawker')
+	head
+		title= title
+		link(href='/css/normalize.css', rel='stylesheet')
+		link(href='/css/style.css', rel='stylesheet')
+	body(id="main-body")
+	div(id="main-nav-bar" ng-controller="MainController")
+		div(id="img-menu-nav")
+			img(class="nav-profile-img" src= user.userImg)
+			i(class="fa fa-caret-down")
+			ul
+				li 
+					a(href='/main/#/profile') 
+						h2 VIEW PROFILE
+				li 
+					a(href='#' ng-click="logOut()") 
+						h2 SIGNOUT
+		div(id="left-main-nav-bar")
+			a(href='/main/#/requests' )
+				h2(ng-class="{'active': currentUrl == '/requests' || currentUrl == '/'}") REQUESTS
+			a(href='/main/#/conversations' )
+				h2(ng-class="{'active': currentUrl == '/conversations'}") CONVERSATIONS
+		div(id="center-main-nav-bar")
+			h2 Parakeet
+		div(id="right-main-nav-bar")
+			a(href='/main/#/settings' )
+				h2(ng-class="{'active': currentUrl == '/settings'}") SETTINGS
+	section(id="main-view" ng-view)
+
+
+
+	script(type="text/javascript", src="/lib/angular/angular.js")
+	script(type="text/javascript", src="/lib/angular-route/angular-route.js")
+	script(type="text/javascript", src="/lib/angular-cookies/angular-cookies.js")
+
+	script(type="text/javascript", src="/main/main.client.module.js")
+	script(type="text/javascript", src="/main/controllers/main.client.controller.js")
+	script(type="text/javascript", src="/main/config/main.client.routes.js")
+	script(type="text/javascript", src="/main/services/main.client.service.js")
+
+
+	script(type="text/javascript", src="/users/users.client.module.js")
+	script(type="text/javascript", src="/users/controllers/users.client.controller.js")
+	script(type="text/javascript", src="/main/controllers/profile.client.controller.js")
+	script(type="text/javascript", src="/users/config/users.client.routes.js")
+	script(type="text/javascript", src="/users/services/users.client.service.js")
+
+	script(type="text/javascript", src="../node_modules/msr/MediaStreamRecorder.js")
+	script(type="text/javascript", src="/js/audio-record.js")
+
+	script(type="text/javascript", src="/application.js")

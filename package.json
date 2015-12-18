@@ -20,16 +20,24 @@
     "body-parser": "^1.13.2",
     "compression": "^1.5.1",
     "connect-flash": "^0.1.1",
-    "ejs": "^2.3.3",
     "express": "^4.13.1",
     "express-session": "^1.11.3",
+    "jade": "^1.11.0",
     "method-override": "^2.3.4",
     "mongoose": "^4.1.0",
     "morgan": "^1.6.1",
+    "msr": "^1.2.9",
     "passport": "^0.3.0",
     "passport-facebook": "^2.0.0",
     "passport-google-oauth": "^0.2.0",
     "passport-local": "^1.0.0",
-    "passport-twitter": "^1.0.3"
+    "passport-twitter": "^1.0.3",
+    "recordrtc": "^5.2.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-sass": "^2.1.0"
   }
 }
