@@ -4,9 +4,9 @@
 		</div>
     <img src={{userData.userImg}}>
     <ul id="profile-tabs">
-        <li><a href ng-click="tab = 1" ng-class="{'selected-tab': tab == 1}"><span>{{userData.requestData.completed}}</span><br>COMPLETED<br></a><i class="fa fa-circle" ng-show="tab === 1"></i></li>
-        <li><a href ng-click="tab = 2" ng-class="{'selected-tab': tab == 2}"><span>{{userData.requestData.answered}}</span><br>ANSWERED<br></a><i class="fa fa-circle" ng-show="tab === 2"></i></li>
-        <li><a href ng-click="tab = 3" ng-class="{'selected-tab': tab == 3}"><span>{{userData.requestData.pending}}</span><br>PENDING<br></a><i class="fa fa-circle" ng-show="tab === 3"></i></li>
+        <a href ng-click="tab = 1" ng-class="{'selected-tab': tab == 1}"><li><span>{{userData.requestData.completed}}</span><br>COMPLETED<br><i class="fa fa-circle" ng-show="tab === 1"></i></li></a>
+        <a href ng-click="tab = 2" ng-class="{'selected-tab': tab == 2}"><li><span>{{userData.requestData.answered}}</span><br>ANSWERED<br><i class="fa fa-circle" ng-show="tab === 2"></i></li></a>
+        <a href ng-click="tab = 3" ng-class="{'selected-tab': tab == 3}"><li><span>{{userData.requestData.pending}}</span><br>PENDING<br><i class="fa fa-circle" ng-show="tab === 3"></i></li></a>
     </ul>
     <div class="profile-request-panel" ng-show="tab === 1">
     	<h4>Completed</h4>
