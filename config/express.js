@@ -27,10 +27,6 @@ module.exports = function(db) {
     app.use(bodyParser.json());
     app.use(methodOverride());
 
-    // var mongoStore = new MongoStore({
-    //     db: db.connection.db
-    // });
-
     app.use(session({
     	saveUninitialized: true,
     	resave: true,
