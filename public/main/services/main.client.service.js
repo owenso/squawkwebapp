@@ -17,12 +17,12 @@ angular.module('main').factory('MainService', ['$http','$cookies','$location', '
     };
 
     mainFac.logOut = function() {
+        $cookies.remove("currentId");
+        delete $rootScope.authenticated;
         $http
             .get('/signout')
             .success(function(data, status, headers, config) {
                 console.log($cookies.getAll());
-                $cookies.remove("currentId");
-                delete $rootScope.authenticated;
                 $window.location.href="/";
             });
     };

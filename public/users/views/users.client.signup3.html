@@ -7,11 +7,6 @@
 
 <div class="signup-lang-menu">
     <ul>
-        <li ng-click="signUpThree('English')"><span>English</span></li>
-        <li ng-click="signUpThree('French')"><span>French</span></li>
-        <li ng-click="signUpThree('German')"><span>German</span></li>
-        <li ng-click="signUpThree('Italian')"><span>Italian</span></li>
-        <li ng-click="signUpThree('Russian')"><span>Russian</span></li>
-        <li ng-click="signUpThree('Spanish')"><span>Spanish</span></li>
+        <li ng-repeat="language in languages" ng-click="signUpThree(language)" ng-if="language!=knownLang"><span>{{language}}</span></li>
     </ul>
 </div>

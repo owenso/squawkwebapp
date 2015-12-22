@@ -7,12 +7,12 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
     };
 
     userFac.logOut = function() {
+        $cookies.remove("currentId");
+        delete $rootScope.authenticated;
         $http
             .get('/signout')
             .success(function(data, status, headers, config) {
-                $cookies.remove("currentId");
-                delete $rootScope.authenticated;
-                $window.location.href="/";
+                console.log('this ran');
             });
     };
 
@@ -60,6 +60,7 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
             .success(function(data, status, headers, config){
                 $cookies.put('currentId',data);
                 $rootScope.authenticated = true;
+                $rootScope.knownLang = knownLang;
 
             $http
                 .put('api/users/' + $cookies.get('currentId'), {'knownLang':knownLang})

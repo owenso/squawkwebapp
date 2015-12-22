@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
 
         
 var MessageSchema = new Schema({
-    author: ObjectId,
+    author: String,
     filetype: String,
     url: String,
     created: {

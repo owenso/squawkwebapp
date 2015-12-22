@@ -19,6 +19,8 @@ module.exports = function() {
     });
 
     require('../app/models/user.server.model');
-    
+    require('../app/models/conversation.server.model');
+    require('../app/models/message.server.model');
+
     return db;
 };

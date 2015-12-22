@@ -6,9 +6,10 @@ var config = require('./config'),
     methodOverride = require('method-override'),
     session = require('express-session'),
     flash = require('connect-flash'),
-    passport = require('passport');
+    passport = require('passport'),
+    MongoStore = require('connect-mongo')(session);
 
-module.exports = function() {
+module.exports = function(db) {
     var app = express();
 
     if (process.env.NODE_ENV === 'development') {
@@ -29,7 +30,10 @@ module.exports = function() {
     app.use(session({
     	saveUninitialized: true,
     	resave: true,
-    	secret: config.sessionSecret
+    	secret: config.sessionSecret,
+        store: new MongoStore({
+        mongooseConnection: db.connection
+    })
     }));
 
     app.set('views', './app/views');
