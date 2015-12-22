@@ -3,7 +3,10 @@ module.exports = function(app) {
 
     function isIndexAuthenticated(req, res, next) {
         //need to handle redirect to signup2
-        if (req.user) {
+        if (req.session.needLangs) {
+            delete req.session.needLangs;
+            return next();
+        } else if (req.user) {
             res.redirect('/main/');
         } else {
             return next();

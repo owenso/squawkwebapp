@@ -9,17 +9,7 @@ angular.module('users').config(['$routeProvider',
 
         .when('/', {
             templateUrl: '/users/views/users.client.signin.html',
-            controller: 'UserController',
-            resolve: {
-                    "check": function($rootScope, $location) {
-                        if ($rootScope.authenticated) {
-                            console.log('ok');
-                        } else {
-                            $location.path('/'); //redirect user to home.
-                            alert("You don't have access here");
-                        }
-                    }
-                }
+            controller: 'UserController'
         })
 
         .when('/signup', {
