@@ -3,9 +3,9 @@ var mongoose = require('mongoose'),
 
         
 var ConversationSchema = new Schema({
-    author: ObjectId,
+    author: String,
     title: String,
-    request: ObjectId,
+    request: String,
     created: {
         type: Date,
         default: Date.now
