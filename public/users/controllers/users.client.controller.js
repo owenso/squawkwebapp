@@ -1,5 +1,7 @@
 angular.module('users').controller('UserController', ['$scope', 'UserService', function($scope, UserService) {
 
+    $scope.languages = ["English", "French", "German", "Russian", "Italian", "Spanish"];
+
     $scope.logIn = function() {
     	UserService.logIn($scope.user);
     };

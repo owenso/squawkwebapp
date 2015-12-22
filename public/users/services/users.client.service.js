@@ -60,6 +60,7 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
             .success(function(data, status, headers, config){
                 $cookies.put('currentId',data);
                 $rootScope.authenticated = true;
+                $rootScope.knownLang = knownLang;
 
             $http
                 .put('api/users/' + $cookies.get('currentId'), {'knownLang':knownLang})
@@ -76,7 +77,7 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
         $http
             .put('api/users/' + $cookies.get('currentId'), {'learnLang':learnLang})
             .success(function(data, status, headers, config){
-                $cookies.remove("currentId");
+                //$cookies.remove("currentId");
                 $window.location.href="/main/";
             })
             .error(function(data, status, headers, config) {
