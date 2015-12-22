@@ -9,6 +9,7 @@ module.exports = function(app) {
         } else if (req.user) {
             res.redirect('/main/');
         } else {
+            delete req.session.currentId;
             return next();
         }
     }

@@ -66,8 +66,9 @@ exports.signup = function(req, res, next) {
 };
 
 exports.signout = function(req, res) {
-    req.logout();
-    delete req.session;
+    req.logOut();
+    req.session.destroy();
+    res.clearCookie('connect.sid', { path: '/' });
     res.redirect('/');
 };
 
