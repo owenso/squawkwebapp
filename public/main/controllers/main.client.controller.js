@@ -29,9 +29,11 @@ angular.module('main').controller('MainController', ['$scope', 'MainService', '$
     };
 
     $scope.saveRecording = function () {
-			console.log($scope.blob.length);
-			// var wavblob = MainService.toWav($scope.blob);
-			//MainService.saveRecording(wavblob);
+			// console.log($scope.blob.length);
+            // $scope.mediaRecorder.save($scope.blob);
+			// MainService.toWav($scope.blob);
+   //          var wavTest= './8875977779.wav';
+			MainService.saveRecording($scope.blob);
     };
 
     $scope.recording = false;
