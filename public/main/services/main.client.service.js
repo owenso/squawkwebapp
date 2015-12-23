@@ -26,5 +26,14 @@ angular.module('main').factory('MainService', ['$http','$cookies','$location', '
                 $window.location.href="/";
             });
     };
+
+
+
+    //recording
+
+    mainFac.saveRecording = function (){
+
+    };
+    
     return mainFac;
 }]);

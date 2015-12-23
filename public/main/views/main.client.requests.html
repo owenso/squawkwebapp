@@ -1,14 +1,18 @@
 <div id="requests-page">
 
 Requests Page Loaded
-
-
-
-        <button id="start-recording">Start</button>
-        <button id="stop-recording" disabled>Stop</button>
-
-        <button id="pause-recording" disabled>Pause</button>
-        <button id="resume-recording" disabled>Resume</button>
-
-        <button id="save-recording" disabled>Save</button>
+        <button ng-click="startRecording()">Start</button>
+        <button ng-click="stopRecording()">Stop</button>
+        <button ng-if='recordingDone' ng-click="saveRecording()">Save</button>
+			<div ng-if='recordingDone'>
+        <audio ng-src={{audioRecording}} controls>
+				Your browser does not support the audio element.
+				</audio>
+			</div>
+			<div ng-if ='recording'>
+				<i class="fa fa-microphone recording-in-progress"></i>
+				<timer interval="1000">{{mminutes}}:{{sseconds}}</timer>
+			</div>
 </div>
+
+

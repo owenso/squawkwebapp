@@ -333,3 +333,28 @@ h2 {
         padding-top: 40px;
     }
 }
+
+
+
+
+
+
+/**************************************
+
+        Audio Recording
+
+**************************************/
+
+
+
+.recording-in-progress {
+    animation-name: blinker;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(1,0,0,1);
+    animation-duration: 1s;
+    color:red;
+}
+
+@keyframes blinker { 
+  from { opacity: 1.0; } to { opacity: 0.0; }
+}

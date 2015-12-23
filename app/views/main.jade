@@ -33,6 +33,7 @@ html(lang="en" ng-app='squawker')
 	script(type="text/javascript", src="/lib/angular/angular.js")
 	script(type="text/javascript", src="/lib/angular-route/angular-route.js")
 	script(type="text/javascript", src="/lib/angular-cookies/angular-cookies.js")
+	script(type="text/javascript", src="/lib/angular-timer/dist/angular-timer.min.js")
 
 	script(type="text/javascript", src="/main/main.client.module.js")
 	script(type="text/javascript", src="/main/controllers/main.client.controller.js")
@@ -46,7 +47,14 @@ html(lang="en" ng-app='squawker')
 	script(type="text/javascript", src="/users/config/users.client.routes.js")
 	script(type="text/javascript", src="/users/services/users.client.service.js")
 
-	script(type="text/javascript", src="../node_modules/msr/MediaStreamRecorder.js")
-	script(type="text/javascript", src="/js/audio-record.js")
+		//for audio recording
+	script(type="text/javascript", src="/lib/MediaStreamRecorder/MediaStreamRecorder.js")
 
+
+		//for angular-timer directive
+	script(type="text/javascript", src="/lib/momentjs/min/moment.min.js")
+	script(type="text/javascript", src="/lib/momentjs/min/locales.min.js")
+	script(type="text/javascript", src="/lib/humanize-duration/humanize-duration.js")
+
+	
 	script(type="text/javascript", src="/application.js")

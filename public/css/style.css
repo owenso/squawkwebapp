@@ -2365,3 +2365,31 @@ h2 {
   #profile-name-block h2 {
     margin-top: 0px;
     padding-top: 40px; }
+
+/**************************************
+
+        Audio Recording
+
+**************************************/
+.recording-in-progress {
+  -webkit-animation-name: blinker;
+          animation-name: blinker;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-timing-function: cubic-bezier(1, 0, 0, 1);
+          animation-timing-function: cubic-bezier(1, 0, 0, 1);
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  color: red; }
+
+@-webkit-keyframes blinker {
+  from {
+    opacity: 1.0; }
+  to {
+    opacity: 0.0; } }
+
+@keyframes blinker {
+  from {
+    opacity: 1.0; }
+  to {
+    opacity: 0.0; } }
