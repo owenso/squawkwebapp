@@ -29,9 +29,9 @@ angular.module('main').controller('MainController', ['$scope', 'MainService', '$
     };
 
     $scope.saveRecording = function () {
-      VoicememoResource.addMemo($scope.memoTitle, $scope.audioRecording).then(function () {
-        console.log('save completed', arguments);
-      });
+			console.log($scope.blob.length);
+			// var wavblob = MainService.toWav($scope.blob);
+			//MainService.saveRecording(wavblob);
     };
 
     $scope.recording = false;
@@ -39,7 +39,7 @@ angular.module('main').controller('MainController', ['$scope', 'MainService', '$
 
     function onMediaSuccess(stream) {
         $scope.mediaRecorder = new MediaStreamRecorder(stream);
-        $scope.mediaRecorder.mimeType = 'audio/ogg';
+        $scope.mediaRecorder.mimeType = 'audio/wav';
         $scope.mediaRecorder.audioChannels = 1;
         $scope.mediaRecorder.ondataavailable = function(blob) {
             var blobURL = URL.createObjectURL(blob);
@@ -47,6 +47,7 @@ angular.module('main').controller('MainController', ['$scope', 'MainService', '$
             console.log(blobURL);
             $scope.audioRecording = $sce.trustAsResourceUrl(blobURL);
             $scope.recordingDone = true;
+            $scope.blob = blob;
         };
     }
 
