@@ -6,6 +6,23 @@ angular.module('main').controller('MainController', ['$scope', 'MainService', '$
         MainService.logOut();
     };
 
+
+    $scope.submitAudio = function(){
+    	console.log('submitting audio');
+    };
+
+    $scope.submitImage = function(){
+    	console.log('submitting image');
+  	  var recObject = {
+        author: $cookies.get('currentId'),
+        filetype: 'image',
+        //url: String, //////////remove and add later
+        title: $scope.title,
+        description:$scope.description,
+      };
+      console.log(recObject);
+    };
+
     ///recording
 
     var setupRecording = function() {
@@ -28,6 +45,7 @@ angular.module('main').controller('MainController', ['$scope', 'MainService', '$
         $scope.recording = false;
     };
 
+
     $scope.saveRecording = function () {
         var recObject = {
             author: $cookies.get('currentId'),
@@ -47,6 +65,9 @@ angular.module('main').controller('MainController', ['$scope', 'MainService', '$
         $scope.mediaRecorder = new MediaStreamRecorder(stream);
         $scope.mediaRecorder.mimeType = 'audio/wav';
         $scope.mediaRecorder.audioChannels = 1;
+        $scope.mediaRecorder.onstop = function() {
+    			console.log('recording has been stopped.');
+				};
         $scope.mediaRecorder.ondataavailable = function(blob) {
             var blobURL = URL.createObjectURL(blob);
             console.log('data available', blob);

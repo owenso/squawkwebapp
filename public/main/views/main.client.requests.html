@@ -1,6 +1,6 @@
 <div id="requests-page">
     Requests Page Loaded
-    <form class="new-request-form" ng-submit="">
+    <form class="new-request-form" ng-submit="filetype == 'Audio' ? submitAudio() : submitImage()">
     		<input ng-model="title" type="text" name="title" placeholder="Title">
     		<input ng-model="description" type="textarea" name="description" placeholder="Description">
     		<label>
@@ -28,5 +28,6 @@
 	            <timer interval="1000">{{mminutes}}:{{sseconds}}</timer>
 	        </div>
         </div>
+        <input id="form-button" type="submit" value="Make Request" />
     </form>
 </div>
