@@ -1,18 +1,32 @@
 <div id="requests-page">
-
-Requests Page Loaded
-        <button ng-click="startRecording()">Start</button>
-        <button ng-click="stopRecording()">Stop</button>
-        <button ng-if='recordingDone' ng-click="saveRecording()">Save</button>
-			<div ng-if='recordingDone'>
-        <audio ng-src={{audioRecording}} controls>
-				Your browser does not support the audio element.
-				</audio>
-			</div>
-			<div ng-if ='recording'>
-				<i class="fa fa-microphone recording-in-progress"></i>
-				<timer interval="1000">{{mminutes}}:{{sseconds}}</timer>
-			</div>
+    Requests Page Loaded
+    <form class="new-request-form" ng-submit="">
+    		<input ng-model="title" type="text" name="title" placeholder="Title">
+    		<input ng-model="description" type="textarea" name="description" placeholder="Description">
+    		<label>
+    			<input type="radio" ng-model="filetype" name="filetype" value="Image">
+					Image
+    		</label>
+    		<label>
+    			<input type="radio" ng-model="filetype" name="filetype" value="Audio">
+					Audio
+    		</label>
+    		<div ng-show="filetype == 'Image'">
+    			  <input type="file" name="Image" accept="image/*">
+    		</div>
+    		<div ng-show="filetype == 'Audio'">
+	        <button ng-click="startRecording()">Start</button>
+	        <button ng-click="stopRecording()">Stop</button>
+	        <button ng-if='recordingDone' ng-click="saveRecording()">Save</button>
+	        <div ng-if='recordingDone'>
+	            <audio ng-src={{audioRecording}} controls>
+	                Your browser does not support the audio element.
+	            </audio>
+	        </div>
+	        <div ng-if='recording'>
+	            <i class="fa fa-microphone recording-in-progress"></i>
+	            <timer interval="1000">{{mminutes}}:{{sseconds}}</timer>
+	        </div>
+        </div>
+    </form>
 </div>
-
-

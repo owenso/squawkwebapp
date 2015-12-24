@@ -1,6 +1,6 @@
 var Message = require('mongoose').model('Message');
 
-exports.create = function (req, res, next){
+exports.createNewRequest = function (req, res, next){
     var message = new Message(req.body);
 
     message.save(function(err) {

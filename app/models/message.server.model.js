@@ -10,7 +10,8 @@ var MessageSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    text: String,
+    title:String,
+    description: String,
     audioLength: String
 });
 

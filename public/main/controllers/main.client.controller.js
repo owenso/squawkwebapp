@@ -1,4 +1,4 @@
-angular.module('main').controller('MainController', ['$scope', 'MainService', '$location', '$rootScope', '$sce', '$timeout', function($scope, MainService, $location, $rootScope, $sce, $timeout) {
+angular.module('main').controller('MainController', ['$scope', 'MainService', '$location', '$rootScope', '$sce', '$timeout', '$cookies', function($scope, MainService, $location, $rootScope, $sce, $timeout, $cookies) {
     $rootScope.currentUrl = $location.path();
     MainService.getLoggedUser();
 
@@ -14,7 +14,7 @@ angular.module('main').controller('MainController', ['$scope', 'MainService', '$
         };
         navigator.getUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
     };
-
+    
     $scope.startRecording = function() {
         $scope.recording = true;
         $scope.recordingDone = false;
@@ -29,11 +29,15 @@ angular.module('main').controller('MainController', ['$scope', 'MainService', '$
     };
 
     $scope.saveRecording = function () {
-			// console.log($scope.blob.length);
-            // $scope.mediaRecorder.save($scope.blob);
-			// MainService.toWav($scope.blob);
-   //          var wavTest= './8875977779.wav';
-			MainService.saveRecording($scope.blob);
+        var recObject = {
+            author: $cookies.get('currentId'),
+            filetype: 'audio',
+            url: String, //////////remove and add later
+            title: $scope.title,
+            description:$scope.description,
+            audioLength: String
+        };
+		MainService.saveRecording($scope.blob, recObject);
     };
 
     $scope.recording = false;

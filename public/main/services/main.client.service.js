@@ -30,16 +30,17 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
 
 
     //recording
-    mainFac.saveRecording = function(sourceBlob) {
+    mainFac.saveRecording = function(sourceBlob, messageObject) {
 
         var reader = new FileReader();
+        var _this = this;
 
         reader.onloadend = function(e) {
             var convBlob = new Int16Array(e.target.result);
             var lib = new lamejs();
             var mp3Data = [];
             var mp3encoder = new lib.Mp3Encoder(1, 44100, 128); //mono 44.1khz encode to 128kbps
-            var samples = convBlob; //one second of silence replace that with your own samples
+            var samples = convBlob;
             var mp3Tmp = mp3encoder.encodeBuffer(samples); //encode mp3
 
             //Push encode buffer to mp3Data variable
@@ -56,6 +57,9 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
                 type: 'audio/mp3'
             });
             var blobURL = URL.createObjectURL(blob);
+
+            _this.blob = blob;
+            _this.blobURL = blobURL;
         };
         reader.readAsArrayBuffer(sourceBlob);
     };
