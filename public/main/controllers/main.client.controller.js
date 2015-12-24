@@ -1,4 +1,4 @@
-angular.module('main').controller('MainController', ['$scope', 'MainService', '$location', '$rootScope', '$sce', '$timeout', '$cookies', function($scope, MainService, $location, $rootScope, $sce, $timeout, $cookies) {
+angular.module('main').controller('MainController', ['$scope', 'MainService', '$location', '$rootScope', '$sce', '$timeout', '$cookies', 'Upload', function($scope, MainService, $location, $rootScope, $sce, $timeout, $cookies, Upload) {
     $rootScope.currentUrl = $location.path();
     MainService.getLoggedUser();
 
@@ -6,12 +6,6 @@ angular.module('main').controller('MainController', ['$scope', 'MainService', '$
         MainService.logOut();
     };
 
-
-
-    $scope.submitRequest = function(){
-    	console.log('submitting request');
-    		
-    	};
 
     ///recording
 
@@ -21,7 +15,7 @@ angular.module('main').controller('MainController', ['$scope', 'MainService', '$
         };
         navigator.getUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
     };
-    
+
     $scope.startRecording = function() {
         $scope.recording = true;
         $scope.recordingDone = false;
@@ -36,16 +30,16 @@ angular.module('main').controller('MainController', ['$scope', 'MainService', '$
     };
 
 
-    $scope.saveRecording = function () {
+    $scope.saveRecording = function() {
         var recObject = {
             author: $cookies.get('currentId'),
             filetype: 'audio',
             url: String, //////////remove and add later
             title: $scope.title,
-            description:$scope.description,
+            description: $scope.description,
             audioLength: String
         };
-		MainService.saveRecording($scope.blob, recObject);
+        MainService.saveRecording($scope.blob, recObject);
     };
 
     $scope.recording = false;
@@ -56,8 +50,8 @@ angular.module('main').controller('MainController', ['$scope', 'MainService', '$
         $scope.mediaRecorder.mimeType = 'audio/wav';
         $scope.mediaRecorder.audioChannels = 1;
         $scope.mediaRecorder.onstop = function() {
-    			console.log('recording has been stopped.');
-				};
+            console.log('recording has been stopped.');
+        };
         $scope.mediaRecorder.ondataavailable = function(blob) {
             var blobURL = URL.createObjectURL(blob);
             console.log('data available', blob);
@@ -72,4 +66,32 @@ angular.module('main').controller('MainController', ['$scope', 'MainService', '$
         console.error('Error:', e);
     }
 
+
+    //file submitting
+
+
+    function upload(dataUrl) {
+        console.log(dataUrl);
+        Upload.upload({
+            url: '/api/upload',
+            data: {
+                file: Upload.dataUrltoBlob(dataUrl)
+            },
+        }).then(function(response) {
+            $timeout(function() {
+                $scope.result = response.data;
+            });
+        }, function(response) {
+            if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
+        }, function(evt) {
+            $scope.progress = parseInt(100.0 * evt.loaded / evt.total);
+        });
+    }
+
+    $scope.submitRequest = function() {
+        console.log('submitting request');
+        console.log(requestForm.image.$valid);
+        upload($scope.image.$ngfDataUrl);
+        if (requestForm.image.$valid && $scope.image) {}
+    };
 }]);

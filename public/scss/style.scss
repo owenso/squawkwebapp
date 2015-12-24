@@ -358,3 +358,29 @@ h2 {
 @keyframes blinker { 
   from { opacity: 1.0; } to { opacity: 0.0; }
 }
+
+
+
+
+
+
+/**************************************
+
+Request Form
+
+************************************/
+
+
+form .progress {
+    line-height: 15px;
+}
+.progress {
+    display: inline-block;
+    width: 100px;
+    border: 3px groove #CCC;
+}
+.progress div {
+    font-size: smaller;
+    background: orange;
+    width: 0;
+}
