@@ -3,14 +3,13 @@ var mongoose = require('mongoose'),
 
         
 var ConversationSchema = new Schema({
-    author: String,
-    title: String,
-    request: String,
+    authorId: String,
+    requestId: String,
     created: {
         type: Date,
         default: Date.now
     },
-    messages: [],
+    messageResponseIds: [],
     status: {
         completed: {type:Boolean, default: false},
         answered: {type:Boolean, default: false},

@@ -7,21 +7,11 @@ angular.module('main').controller('MainController', ['$scope', 'MainService', '$
     };
 
 
-    $scope.submitAudio = function(){
-    	console.log('submitting audio');
-    };
 
-    $scope.submitImage = function(){
-    	console.log('submitting image');
-  	  var recObject = {
-        author: $cookies.get('currentId'),
-        filetype: 'image',
-        //url: String, //////////remove and add later
-        title: $scope.title,
-        description:$scope.description,
-      };
-      console.log(recObject);
-    };
+    $scope.submitRequest = function(){
+    	console.log('submitting request');
+    		
+    	};
 
     ///recording
 

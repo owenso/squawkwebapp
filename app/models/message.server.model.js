@@ -4,15 +4,14 @@ var mongoose = require('mongoose'),
         
 var MessageSchema = new Schema({
     author: String,
-    filetype: String,
-    url: String,
+    audioUrl: String,
+    imageUrl: String,
     created: {
         type: Date,
         default: Date.now
     },
     title:String,
-    description: String,
-    audioLength: String
+    description: String
 });
 
 
