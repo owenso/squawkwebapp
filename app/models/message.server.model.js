@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
 
         
 var MessageSchema = new Schema({
-    author: String,
+    authorId: String,
     audioUrl: String,
     imageUrl: String,
     created: {

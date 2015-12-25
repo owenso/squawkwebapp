@@ -67,12 +67,12 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
 
 
 
-    mainFac.uploadToS3 = function(uploaded) {
+    mainFac.uploadToS3 = function(uploaded, formObject) {
         var fileExt;
         if (uploaded.name) {
             fileExt = uploaded.name.split('.').pop();
         } else {
-            fileExt = '.mp3';
+            fileExt = 'mp3';
         }
         var query = {
             filetype: fileExt,
@@ -101,12 +101,20 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
                     console.log('progress: ' + parseInt(100.0 * evt.loaded / evt.total));
                     $rootScope.progress = parseInt(100.0 * evt.loaded / evt.total);
                 }).success(function(data, status, headers, config) {
+
                     $rootScope.result = data;
 
                     var parseResponse = data.match('<Location>(.*)</Location>');
-                    _this.uploadedURL = parseResponse[1];
+                    var uploadedURL = parseResponse[1];
 
-                    console.log(data);
+                    if (fileExt == 'mp3'){
+                        formObject.audioUrl = uploadedURL;
+                    } else {
+                        formObject.imageUrl = uploadedURL;
+                    }
+                    console.log(formObject);
+
+                    _this.postNewRequest(formObject);
 
                 }).error(function() {
 

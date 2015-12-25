@@ -59,25 +59,20 @@ angular.module('main').controller('MainController', ['$scope', 'MainService', '$
         console.log('submitting request');
         console.log($scope.upload);
         console.log(requestForm.image.$valid);
-        var requestType;
-
-        if ($scope.upload == 'image'){
-        	requestType = 'image';
-	        MainService.uploadToS3($scope.image);
-        } else if ($scope.upload == 'voice'){
-        	requestType = 'voice';
-        	MainService.saveRecording($scope.blob);
-        } else {
-        	requestType = 'text';
-        }
 
         var formObject = {
-        		author: $cookies.get('currentId'),
+        		authorId: $cookies.get('currentId'),
             title: $scope.title,
             description: $scope.description,
         };
 
-        //MainService.postNewRequest(formObject);
+        if ($scope.upload == 'image'){
+	        MainService.uploadToS3($scope.image, formObject);
+        } else if ($scope.upload == 'voice'){
+        	MainService.saveRecording($scope.blob, formObject);
+        } else {
+        	MainService.postNewRequest(formObject);
+        }
 
     };
 }]);
