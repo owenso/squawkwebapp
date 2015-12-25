@@ -1,4 +1,4 @@
-angular.module('main').factory('MainService', ['$http', '$cookies', '$location', '$rootScope', '$window', function($http, $cookies, $location, $rootScope, $window) {
+angular.module('main').factory('MainService', ['$http', '$cookies', '$location', '$rootScope', '$window','Upload', function($http, $cookies, $location, $rootScope, $window, Upload) {
     var mainFac = {};
 
     mainFac.newUser = {};
@@ -63,6 +63,48 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
         };
         reader.readAsArrayBuffer(sourceBlob);
     };
+
+    mainFac.uploadToS3 = function(uploadedImage){
+        var query = {
+            filetype: uploadedImage.name.split('.').pop(),
+            userId: $cookies.get('currentId'),
+            type: uploadedImage.type
+        };
+
+        $http.post('/signing', query)
+            .success(function(result) {
+                Upload.upload({
+                    url: result.url, //s3Url
+                    //url:'/tracker',
+                    transformRequest: function(data, headersGetter) {
+                        var headers = headersGetter();
+                        delete headers.Authorization;
+                        return data;
+                    },
+                    // fields: result.fields, //credentials
+                    data:result.fields,
+                    method: 'POST',
+                    headers:{'Content-Type':result.fields['Content-Type']},
+                    file: uploadedImage
+                }).progress(function(evt) {
+                    console.log('progress: ' + parseInt(100.0 * evt.loaded / evt.total));
+                }).success(function(data, status, headers, config) {
+                    // file is uploaded successfully
+                    console.log('file ' + config.file.name + 'is uploaded successfully. Response: ' + data);
+                }).error(function() {
+
+                });
+            })
+            .error(function(data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                console.log('ERROR:');
+                console.log(headers);
+                console.log(status);
+                console.log(data);
+            });
+
+        };
 
     return mainFac;
 }]);

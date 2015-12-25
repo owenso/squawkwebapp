@@ -1,4 +1,4 @@
-angular.module('main').controller('MainController', ['$scope', 'MainService', '$location', '$rootScope', '$sce', '$timeout', '$cookies', 'Upload', function($scope, MainService, $location, $rootScope, $sce, $timeout, $cookies, Upload) {
+angular.module('main').controller('MainController', ['$scope', 'MainService', '$location', '$rootScope', '$sce', '$timeout', '$cookies', function($scope, MainService, $location, $rootScope, $sce, $timeout, $cookies) {
     $rootScope.currentUrl = $location.path();
     MainService.getLoggedUser();
 
@@ -70,28 +70,28 @@ angular.module('main').controller('MainController', ['$scope', 'MainService', '$
     //file submitting
 
 
-    function upload(dataUrl) {
-        console.log(dataUrl);
-        Upload.upload({
-            url: '/api/upload',
-            data: {
-                file: Upload.dataUrltoBlob(dataUrl)
-            },
-        }).then(function(response) {
-            $timeout(function() {
-                $scope.result = response.data;
-            });
-        }, function(response) {
-            if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
-        }, function(evt) {
-            $scope.progress = parseInt(100.0 * evt.loaded / evt.total);
-        });
-    }
+    // function upload(dataUrl) {
+    //     console.log(dataUrl);
+    //     Upload.upload({
+    //         url: '/api/upload',
+    //         data: {
+    //             file: Upload.dataUrltoBlob(dataUrl)
+    //         },
+    //     }).then(function(response) {
+    //         $timeout(function() {
+    //             $scope.result = response.data;
+    //         });
+    //     }, function(response) {
+    //         if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
+    //     }, function(evt) {
+    //         $scope.progress = parseInt(100.0 * evt.loaded / evt.total);
+    //     });
+    // }
 
     $scope.submitRequest = function() {
         console.log('submitting request');
         console.log(requestForm.image.$valid);
-        upload($scope.image.$ngfDataUrl);
-        if (requestForm.image.$valid && $scope.image) {}
+        MainService.uploadToS3($scope.image);
+
     };
 }]);
