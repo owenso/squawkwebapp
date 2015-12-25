@@ -1,9 +1,10 @@
 var mongoose = require('mongoose'),
-        Schema = mongoose.Schema;
+        Schema = mongoose.Schema,
+        deepPopulate = require('mongoose-deep-populate')(mongoose);
 
         
 var MessageSchema = new Schema({
-    authorId: String,
+    authorId: { type: Schema.Types.ObjectId, ref: 'User' },
     audioUrl: String,
     imageUrl: String,
     created: {
@@ -14,5 +15,6 @@ var MessageSchema = new Schema({
     description: String
 });
 
+MessageSchema.plugin(deepPopulate);
 
 mongoose.model('Message', MessageSchema);

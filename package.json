@@ -28,6 +28,7 @@
     "method-override": "^2.3.4",
     "moment": "^2.10.6",
     "mongoose": "^4.1.0",
+    "mongoose-deep-populate": "^2.0.3",
     "morgan": "^1.6.1",
     "msr": "^1.2.9",
     "node-uuid": "^1.4.7",

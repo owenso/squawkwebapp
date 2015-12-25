@@ -30,7 +30,7 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
 
 
     //recording
-    mainFac.saveRecording = function(sourceBlob) {
+    mainFac.saveRecording = function(sourceBlob, formObject) {
 
         var reader = new FileReader();
         var _this = this;
@@ -56,7 +56,7 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
                 type: 'audio/mp3'
             });
             var blobURL = URL.createObjectURL(blob);
-            _this.uploadToS3(blob);
+            _this.uploadToS3(blob, formObject);
             _this.blob = blob;
             _this.blobURL = blobURL;
         };
@@ -80,6 +80,7 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
             type: uploaded.type
         };
         var _this = this;
+                    console.log(formObject);
 
         $http
             .post('/signing', query)
@@ -112,7 +113,6 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
                     } else {
                         formObject.imageUrl = uploadedURL;
                     }
-                    console.log(formObject);
 
                     _this.postNewRequest(formObject);
 
