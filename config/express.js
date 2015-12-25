@@ -47,6 +47,7 @@ module.exports = function(db) {
     require('../app/routes/users.server.routes.js')(app);
     require('../app/routes/main.server.routes.js')(app);
     require('../app/routes/messages.server.routes.js')(app);
+    require('../app/routes/conversation.server.routes.js')(app);
 
 
     app.use(express.static('./public'));

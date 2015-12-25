@@ -1,4 +1,4 @@
-angular.module('main').factory('MainService', ['$http', '$cookies', '$location', '$rootScope', '$window','Upload', function($http, $cookies, $location, $rootScope, $window, Upload) {
+angular.module('main').factory('MainService', ['$http', '$cookies', '$location', '$rootScope', '$window', 'Upload', function($http, $cookies, $location, $rootScope, $window, Upload) {
     var mainFac = {};
 
     mainFac.newUser = {};
@@ -30,7 +30,7 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
 
 
     //recording
-    mainFac.saveRecording = function(sourceBlob, messageObject) {
+    mainFac.saveRecording = function(sourceBlob) {
 
         var reader = new FileReader();
         var _this = this;
@@ -52,45 +52,62 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
             // mp3Data contains now the complete mp3Data
             mp3Data.push(mp3Tmp);
 
-            console.debug(mp3Data);
             var blob = new Blob(mp3Data, {
                 type: 'audio/mp3'
             });
             var blobURL = URL.createObjectURL(blob);
-
+            _this.uploadToS3(blob);
             _this.blob = blob;
             _this.blobURL = blobURL;
         };
         reader.readAsArrayBuffer(sourceBlob);
     };
 
-    mainFac.uploadToS3 = function(uploadedImage){
-        var query = {
-            filetype: uploadedImage.name.split('.').pop(),
-            userId: $cookies.get('currentId'),
-            type: uploadedImage.type
-        };
 
-        $http.post('/signing', query)
+
+
+
+    mainFac.uploadToS3 = function(uploaded) {
+        var fileExt;
+        if (uploaded.name) {
+            fileExt = uploaded.name.split('.').pop();
+        } else {
+            fileExt = '.mp3';
+        }
+        var query = {
+            filetype: fileExt,
+            userId: $cookies.get('currentId'),
+            type: uploaded.type
+        };
+        var _this = this;
+
+        $http
+            .post('/signing', query)
             .success(function(result) {
                 Upload.upload({
                     url: result.url, //s3Url
-                    //url:'/tracker',
                     transformRequest: function(data, headersGetter) {
                         var headers = headersGetter();
                         delete headers.Authorization;
                         return data;
                     },
-                    // fields: result.fields, //credentials
-                    data:result.fields,
+                    data: result.fields, //credentials
                     method: 'POST',
-                    headers:{'Content-Type':result.fields['Content-Type']},
-                    file: uploadedImage
+                    headers: {
+                        'Content-Type': result.fields['Content-Type']
+                    },
+                    file: uploaded
                 }).progress(function(evt) {
                     console.log('progress: ' + parseInt(100.0 * evt.loaded / evt.total));
+                    $rootScope.progress = parseInt(100.0 * evt.loaded / evt.total);
                 }).success(function(data, status, headers, config) {
-                    // file is uploaded successfully
-                    console.log('file ' + config.file.name + 'is uploaded successfully. Response: ' + data);
+                    $rootScope.result = data;
+
+                    var parseResponse = data.match('<Location>(.*)</Location>');
+                    _this.uploadedURL = parseResponse[1];
+
+                    console.log(data);
+
                 }).error(function() {
 
                 });
@@ -98,13 +115,28 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
             .error(function(data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
+                $rootScope.errorMsg = status + ': ' + data;
                 console.log('ERROR:');
                 console.log(headers);
                 console.log(status);
                 console.log(data);
             });
 
-        };
+    };
+
+
+    mainFac.postNewRequest = function(object) {
+        $http
+            .post('/api/newRequest', object)
+            .success(function(data, status, headers, config) {
+                console.log('new request');
+                console.log(data);
+            })
+            .error(function(data, status, headers, config) {
+                console.log('Error');
+                console.log(data);
+            });
+    };
 
     return mainFac;
 }]);

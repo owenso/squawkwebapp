@@ -7,23 +7,15 @@ var uuid = require('node-uuid');
 //var s3Url = 'https://' + creds.aws.bucket + '.s3-' + creds.aws.region + '.amazonaws.com';
 var s3Url = 'https://s3.amazonaws.com/'+ creds.aws.bucket;
 
-exports.createNewRequest = function (req, res, next){
-    var message = new Message(req.body);
 
-    message.save(function(err) {
-        if (err) {
-            return next(err);
-        } else {
-            res.json(message);
-        }
-    });
-};
 
 exports.s3Signing = function(req, res) {
 		var request = req.body;
     var fileName = uuid.v4()+'.'+ request.filetype;
     var kind = request.type.split('/').shift();
+
     var path = 'uploads' + '/' + kind + '/' + request.userId + '/' + fileName;
+    
     var readType = 'public-read';
     var expiration = moment().add(15, 'm').toDate(); //15 minutes
 

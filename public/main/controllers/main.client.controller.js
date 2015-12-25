@@ -30,18 +30,6 @@ angular.module('main').controller('MainController', ['$scope', 'MainService', '$
     };
 
 
-    $scope.saveRecording = function() {
-        var recObject = {
-            author: $cookies.get('currentId'),
-            filetype: 'audio',
-            url: String, //////////remove and add later
-            title: $scope.title,
-            description: $scope.description,
-            audioLength: String
-        };
-        MainService.saveRecording($scope.blob, recObject);
-    };
-
     $scope.recording = false;
     setupRecording();
 
@@ -67,31 +55,29 @@ angular.module('main').controller('MainController', ['$scope', 'MainService', '$
     }
 
 
-    //file submitting
-
-
-    // function upload(dataUrl) {
-    //     console.log(dataUrl);
-    //     Upload.upload({
-    //         url: '/api/upload',
-    //         data: {
-    //             file: Upload.dataUrltoBlob(dataUrl)
-    //         },
-    //     }).then(function(response) {
-    //         $timeout(function() {
-    //             $scope.result = response.data;
-    //         });
-    //     }, function(response) {
-    //         if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
-    //     }, function(evt) {
-    //         $scope.progress = parseInt(100.0 * evt.loaded / evt.total);
-    //     });
-    // }
-
     $scope.submitRequest = function() {
         console.log('submitting request');
+        console.log($scope.upload);
         console.log(requestForm.image.$valid);
-        MainService.uploadToS3($scope.image);
+        var requestType;
+
+        if ($scope.upload == 'image'){
+        	requestType = 'image';
+	        MainService.uploadToS3($scope.image);
+        } else if ($scope.upload == 'voice'){
+        	requestType = 'voice';
+        	MainService.saveRecording($scope.blob);
+        } else {
+        	requestType = 'text';
+        }
+
+        var formObject = {
+        		author: $cookies.get('currentId'),
+            title: $scope.title,
+            description: $scope.description,
+        };
+
+        //MainService.postNewRequest(formObject);
 
     };
 }]);

@@ -1,4 +1,4 @@
-<div id="requests-page" ng-init="upload = 1">
+<div id="requests-page" ng-init="upload = 'none'">
     Requests Page Loaded
     <form id="new-request-form" name="requestForm" ng-submit="submitRequest()">
         <div>
@@ -13,18 +13,18 @@
                 <input ng-model="description" type="textarea" name="description" />
             </label>
         </div>
-        <div class="request-upload-panel" ng-show="upload === 1">
+        <div class="request-upload-panel" ng-show="upload == 'none'">
             <ul>
-                <a href ng-click="upload = 2">
+                <a href ng-click="upload = 'image'">
                     <li>Upload Photo</li>
                 </a>
-                <a href ng-click="upload = 3">
+                <a href ng-click="upload = 'voice'">
                     <li>Record Voice Note</li>
                 </a>
             </ul>
         </div>
         <!--  -->
-        <div class="request-upload-panel" ng-show="upload === 2">
+        <div class="request-upload-panel" ng-show="upload == 'image'">
             <button ngf-select name="image" ng-model="image" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100">
                 Select Picture
             </button>
@@ -39,10 +39,9 @@
         </div>
 
         <!--  -->
-        <div class="request-upload-panel" ng-show="upload === 3">
-            <button ng-click="startRecording()">Start</button>
-            <button ng-click="stopRecording()">Stop</button>
-            <button ng-if='recordingDone' ng-click="saveRecording()">Save</button>
+        <div class="request-upload-panel" ng-show="upload == 'voice'">
+            <a href ng-click="startRecording()">Start</a>
+            <a href ng-click="stopRecording()">Stop</a>
             <div ng-if='recordingDone'>
                 <audio ng-src={{audioRecording}} controls>
                     Your browser does not support the audio element.
