@@ -8,10 +8,13 @@ var db = mongoose();
 var app = express(db);
 var passport = passport();
 
-app.listen(3000);
+var port = process.env.PORT || 3000;
+
+
+app.listen(port);
 module.exports = app;
 
-console.log('Server running at port 3000');
+console.log('Server running at port:' + port);
 
 
 

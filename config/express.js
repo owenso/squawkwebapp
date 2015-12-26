@@ -18,6 +18,9 @@ module.exports = function(db) {
     } else if (process.env.NODE_ENV === 'production') {
     	console.log("Running in production mode!");
     	app.use(compress());
+    } else if (procces.env.NODE_ENV === 'staging') {
+        console.log("Running in staging mode!");
+        app.use(compress());
     }
 
     app.use(bodyParser.urlencoded({
