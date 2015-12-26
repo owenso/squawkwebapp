@@ -9,7 +9,6 @@ exports.render = function(req, res) {
     req.session.lastVisit = new Date();
 
     res.render('index', {
-        title: 'Sqawker',
-        userFullName: req.user ? req.user.fullName : ''
+        userId: JSON.stringify(req.user._id)
     });
 };

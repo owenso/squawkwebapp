@@ -1,13 +1,13 @@
 doctype html
 html(lang="en" ng-app='squawker')
 	head
-		title= title
+		title= Parakeet
 		link(href='/css/normalize.css', rel='stylesheet')
 		link(href='/css/style.css', rel='stylesheet')
 	body(id="main-body")
 	div(id="main-nav-bar" ng-controller="MainController")
 		div(id="img-menu-nav")
-			img(class="nav-profile-img" src= user.userImg)
+			img(class="nav-profile-img" src= userImg)
 			i(class="fa fa-caret-down")
 			ul
 				li 
@@ -29,7 +29,8 @@ html(lang="en" ng-app='squawker')
 	section(id="main-view" ng-view)
 
 
-
+	script.
+		window.userId = !{userId} || 'null'
 	script(type="text/javascript", src="/lib/angular/angular.js")
 	script(type="text/javascript", src="/lib/angular-route/angular-route.min.js")
 	script(type="text/javascript", src="/lib/angular-cookies/angular-cookies.min.js")
