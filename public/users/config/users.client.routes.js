@@ -13,17 +13,17 @@ angular.module('users').config(['$routeProvider',
         })
 
         .when('/signup', {
-            templateUrl: 'users/views/users.client.signup.html',
+            templateUrl: '/users/views/users.client.signup.html',
             controller: 'UserController'
         })
 
         .when('/signup2', {
-            templateUrl: 'users/views/users.client.signup2.html',
+            templateUrl: '/users/views/users.client.signup2.html',
             controller: 'UserController'
         })
 
         .when('/signup3', {
-            templateUrl: 'users/views/users.client.signup3.html',
+            templateUrl: '/users/views/users.client.signup3.html',
             controller: 'UserController'
         })
 

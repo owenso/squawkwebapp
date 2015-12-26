@@ -77,10 +77,7 @@ angular.module('main').controller('MainController', ['$scope', 'MainService', '$
     };
 
     $scope.showNewRequest = function() {
-        ModalService.showModal({
-            templateUrl: '/views/main.client.newrequestmodal.html',
-            controller: "ModalController"
-        });
+        MainService.showModal();
     };
 
 }]);

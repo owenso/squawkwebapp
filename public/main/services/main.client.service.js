@@ -1,4 +1,4 @@
-angular.module('main').factory('MainService', ['$http', '$cookies', '$location', '$rootScope', '$window', 'Upload', function($http, $cookies, $location, $rootScope, $window, Upload) {
+angular.module('main').factory('MainService', ['$http', '$cookies', '$location', '$rootScope', '$window', 'Upload', 'ModalService', function($http, $cookies, $location, $rootScope, $window, Upload, ModalService) {
     var mainFac = {};
 
     mainFac.newUser = {};
@@ -8,12 +8,9 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
     };
 
     mainFac.getLoggedUser = function() {
-        $http
-            .get('../api/currentUserId')
-            .success(function(data, status, headers, config) {
-                $cookies.put('currentId', data);
-                $rootScope.authenticated = true;
-            });
+        var data  = $window.userId;
+        $cookies.put('currentId', data);
+        $rootScope.authenticated = true;
     };
 
     mainFac.logOut = function() {
@@ -144,6 +141,13 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
                 console.log('Error');
                 console.log(data);
             });
+    };
+
+    mainFac.showModal = function(){
+        ModalService.showModal({
+            templateUrl: '/request_modal/views/requestmodal.client.newrequestmodal.html',
+            controller: "RequestModalController"
+        });
     };
 
     return mainFac;

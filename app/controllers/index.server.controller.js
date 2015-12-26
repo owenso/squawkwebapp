@@ -7,8 +7,8 @@ exports.render = function(req, res) {
         console.log(req.session.lastVisit);
     }
     req.session.lastVisit = new Date();
-
+    var urlRoot = require('../../config/config');
     res.render('index', {
-        userId: JSON.stringify(req.user._id)
+        root: urlRoot.urlRoot
     });
 };
