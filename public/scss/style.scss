@@ -200,11 +200,11 @@ h2 {
             font-weight: normal;
             color: #909090;
         }
-        i{
+        i {
             color: #909090;
             position: absolute;
-            top:45px;
-            left:70px;
+            top: 45px;
+            left: 70px;
             z-index: 5;
         }
         h2:hover {
@@ -335,33 +335,28 @@ h2 {
 }
 
 
-
-
-
-
 /**************************************
 
         Audio Recording
 
 **************************************/
 
-
-
 .recording-in-progress {
     animation-name: blinker;
     animation-iteration-count: infinite;
-    animation-timing-function: cubic-bezier(1,0,0,1);
+    animation-timing-function: cubic-bezier(1, 0, 0, 1);
     animation-duration: 1s;
-    color:red;
+    color: red;
 }
 
-@keyframes blinker { 
-  from { opacity: 1.0; } to { opacity: 0.0; }
+@keyframes blinker {
+    from {
+        opacity: 1.0;
+    }
+    to {
+        opacity: 0.0;
+    }
 }
-
-
-
-
 
 
 /**************************************
@@ -381,7 +376,13 @@ Request Modal
     height: 45vh;
     z-index: 100;
     font-size: 2.5vh;
+    color: black;
+    
+    a {
+        color: black;
+    }
 }
+
 #fade {
     position: fixed;
     left: 0%;
@@ -395,17 +396,16 @@ Request Modal
     z-index: 90;
 }
 
-
-
-
 form .progress {
     line-height: 15px;
 }
+
 .progress {
     display: inline-block;
     width: 100px;
     border: 3px groove #CCC;
 }
+
 .progress div {
     font-size: smaller;
     background: orange;

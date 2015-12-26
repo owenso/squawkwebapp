@@ -2409,7 +2409,10 @@ Request Modal
   width: 70vw;
   height: 45vh;
   z-index: 100;
-  font-size: 2.5vh; }
+  font-size: 2.5vh;
+  color: black; }
+  #overlay a {
+    color: black; }
 
 #fade {
   position: fixed;
