@@ -1,6 +1,6 @@
 angular.module('requestModal').controller('RequestModalController', ['$scope', 'ModalService','$rootScope', '$cookies', 'close', 'RequestModalService','$sce', '$timeout',function($scope, ModalService, $rootScope, $cookies, close, RequestModalService, $sce, $timeout) {
       $scope.close = close;
-
+      $rootScope.progress = 0;
 
     ///recording
 
@@ -55,6 +55,7 @@ angular.module('requestModal').controller('RequestModalController', ['$scope', '
         console.log($scope.upload);
         console.log(requestForm.image.$valid);
 
+        RequestModalService.redirect(close);
         var formObject = {
             authorId: $cookies.get('currentId'),
             title: $scope.title,
@@ -68,7 +69,6 @@ angular.module('requestModal').controller('RequestModalController', ['$scope', '
         } else {
             RequestModalService.postNewRequest(formObject);
         }
-
     };
 
 }]);

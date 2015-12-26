@@ -2401,18 +2401,31 @@ Request Modal
 ************************************/
 #overlay {
   position: fixed;
-  left: 15%;
+  left: 35%;
   top: 20%;
   padding: 1% 2%;
   border: 2px solid black;
   background-color: #CFD8DC;
-  width: 70vw;
+  width: 30vw;
   height: 45vh;
   z-index: 100;
   font-size: 2.5vh;
   color: black; }
   #overlay a {
     color: black; }
+  #overlay .x-close {
+    font-size: 6vh;
+    position: absolute;
+    top: 2%;
+    right: 2%; }
+  #overlay #progress-number {
+    top: 50%;
+    bottom: auto;
+    left: 50%;
+    -webkit-transform: translateY(-50%) translateX(-50%);
+            transform: translateY(-50%) translateX(-50%);
+    font-size: 1em;
+    position: absolute; }
 
 #fade {
   position: fixed;
@@ -2425,16 +2438,3 @@ Request Modal
   width: 100%;
   height: 100%;
   z-index: 90; }
-
-form .progress {
-  line-height: 15px; }
-
-.progress {
-  display: inline-block;
-  width: 100px;
-  border: 3px groove #CCC; }
-
-.progress div {
-  font-size: smaller;
-  background: orange;
-  width: 0; }

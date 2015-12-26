@@ -1,4 +1,4 @@
-angular.module('requestModal').factory('RequestModalService', ['$http', '$cookies', '$location', '$rootScope', '$window', 'Upload', function($http, $cookies, $location, $rootScope, $window, Upload) {
+angular.module('requestModal').factory('RequestModalService', ['$http', '$cookies', '$location', '$rootScope', '$window', 'Upload', 'ModalService', function($http, $cookies, $location, $rootScope, $window, Upload, ModalService) {
     var reqModalFac = {};
 
     reqModalFac.newUser = {};
@@ -119,6 +119,15 @@ angular.module('requestModal').factory('RequestModalService', ['$http', '$cookie
                 console.log('Error');
                 console.log(data);
             });
+    };
+
+    reqModalFac.redirect = function(close) {
+    	close();
+    	 ModalService.showModal({
+            templateUrl: '/request_modal/views/requestmodal.client.submitted.html',
+            controller: "RequestModalController"
+      });
+
     };
     
     return reqModalFac;

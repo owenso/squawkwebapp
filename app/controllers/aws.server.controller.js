@@ -14,7 +14,7 @@ exports.s3Signing = function(req, res) {
     var fileName = uuid.v4()+'.'+ request.filetype;
     var kind = request.type.split('/').shift();
 
-    var path = 'uploads' + '/' + kind + '/' + request.userId + '/' + fileName;
+    var path = 'uploads' + '/' + request.userId + '/' + kind + '/' + fileName;
     
     var readType = 'public-read';
     var expiration = moment().add(15, 'm').toDate(); //15 minutes

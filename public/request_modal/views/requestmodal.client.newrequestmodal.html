@@ -49,11 +49,6 @@
                 <i class="fa fa-microphone recording-in-progress"></i>
                 <timer interval="1000">{{mminutes}}:{{sseconds}}</timer>
             </div>
-             <span class="progress" ng-show="progress >= 0">
-                <div style="width:{{progress}}%" ng-bind="progress + '%'"></div>
-            </span>
-            <span ng-show="result">Upload Successful</span>
-            <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
         </div>
         <div>
             <input id="form-button" type="submit" value="Submit Request" />
