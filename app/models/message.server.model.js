@@ -7,6 +7,7 @@ var MessageSchema = new Schema({
     authorId: { type: Schema.Types.ObjectId, ref: 'User' },
     audioUrl: String,
     imageUrl: String,
+    imageUrlTh: String,
     created: {
         type: Date,
         default: Date.now

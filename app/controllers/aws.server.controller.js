@@ -1,7 +1,7 @@
 var Message = require('mongoose').model('Message');
 var creds = require('../../config/config');
 var crypto = require('crypto');
-var moment = require('../../public/lib/momentjs/moment.js');
+var moment = require('../../public/lib/moment/min/moment.min.js');
 var uuid = require('node-uuid');
 
 //var s3Url = 'https://' + creds.aws.bucket + '.s3-' + creds.aws.region + '.amazonaws.com';
@@ -11,7 +11,7 @@ var s3Url = 'https://s3.amazonaws.com/'+ creds.aws.bucket;
 
 exports.s3Signing = function(req, res) {
 	var request = req.body;
-    var fileName = uuid.v4()+'.'+ request.filetype;
+    var fileName = uuid.v4();
     var kind = request.type.split('/').shift();
 
     var path = 'uploads' + '/' + request.userId + '/' + kind + '/' + fileName;
@@ -46,7 +46,7 @@ exports.s3Signing = function(req, res) {
     var credentials = {
         url: s3Url,
         fields: {
-            key: path,
+            key: path +'.'+ request.filetype,
             AWSAccessKeyId: creds.aws.accessKeyID,
             acl: readType,
             policy: base64Policy,

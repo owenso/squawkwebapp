@@ -1,4 +1,4 @@
-angular.module('requestModal').controller('RequestModalController', ['$scope', 'ModalService','$rootScope', '$cookies', 'close', 'RequestModalService','$sce', '$timeout',function($scope, ModalService, $rootScope, $cookies, close, RequestModalService, $sce, $timeout) {
+angular.module('requestModal').controller('RequestModalController', ['$scope', 'ModalService','$rootScope', '$cookies', 'close', 'RequestModalService','$sce', '$timeout', '$document', function($scope, ModalService, $rootScope, $cookies, close, RequestModalService, $sce, $timeout, $document) {
       $scope.close = close;
       $rootScope.progress = 0;
 
@@ -55,7 +55,6 @@ angular.module('requestModal').controller('RequestModalController', ['$scope', '
         console.log($scope.upload);
         console.log(requestForm.image.$valid);
 
-        RequestModalService.redirect(close);
         var formObject = {
             authorId: $cookies.get('currentId'),
             title: $scope.title,
@@ -63,12 +62,22 @@ angular.module('requestModal').controller('RequestModalController', ['$scope', '
         };
 
         if ($scope.upload == 'image'){
-            RequestModalService.uploadToS3($scope.image, formObject);
+            var images = $document.find('img');
+            var thumblink = images[images.length-1].currentSrc;
+            RequestModalService.uploadToS3($scope.image, formObject, thumblink);
         } else if ($scope.upload == 'voice'){
             RequestModalService.saveRecording($scope.blob, formObject);
         } else {
             RequestModalService.postNewRequest(formObject);
         }
+        RequestModalService.redirect(close);
+    };
+
+    $scope.theory = function(){
+
+
+        console.log(thumblink);
+
     };
 
 }]);

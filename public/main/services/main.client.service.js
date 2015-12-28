@@ -13,6 +13,18 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
         $rootScope.authenticated = true;
     };
 
+    mainFac.getRequests = function () {
+        $http
+            .get('/api/showRequests/')
+            .success(function(data, status, headers) {
+                $rootScope.requests = data;
+                console.log(data)
+            })
+            .error(function(data, status, headers, config) {
+                console.log(data);
+            });
+    };
+
     mainFac.logOut = function() {
         $cookies.remove("currentId");
         delete $rootScope.authenticated;
@@ -28,6 +40,17 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
         ModalService.showModal({
             templateUrl: '/request_modal/views/requestmodal.client.newrequestmodal.html',
             controller: "RequestModalController"
+        });
+    };
+
+    mainFac.showImageModal = function(x){
+        ModalService.showModal({
+            templateUrl: '/main/views/main.client.imagemodal.html',
+            controller: "ImageModalController",
+            inputs: {
+                url: x
+            }
+
         });
     };
 

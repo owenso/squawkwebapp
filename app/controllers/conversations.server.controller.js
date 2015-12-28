@@ -17,9 +17,11 @@ exports.createNewRequest = function(req, res, next) {
 
             conversation.save(function(err) {
                 if (err) {
+                    res.status(500);
                     return next(err);
                 } else {
                     console.log(conversation);
+                    res.sendStatus(200);
                 }
             });
 
@@ -36,6 +38,7 @@ exports.findRequestByKnownLanguage = function(req, res, next) {
         })
     		.populate('authorId')
         .deepPopulate('requestId.authorId messageResponseIds.authorId')
+        .sort({created: -1})
         .exec(function(err, data) {
             if (err) {
                 console.log(err);

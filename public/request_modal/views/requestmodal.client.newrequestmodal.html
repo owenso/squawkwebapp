@@ -29,7 +29,7 @@
                 Select Picture
             </button>
             <div>
-                <img ngf-thumbnail="image" ngf-size="{height: 200, quality: 0.9}">
+                <img name="previewThumb" ng-model="previewThumb" id="previewThumb" ngf-thumbnail="image" ngf-size="{height: 300, quality: 0.9}">
             </div>
             <span class="progress" ng-show="progress >= 0">
                 <div style="width:{{progress}}%" ng-bind="progress + '%'"></div>

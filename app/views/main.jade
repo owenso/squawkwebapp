@@ -1,7 +1,7 @@
 doctype html
 html(lang="en" ng-app='squawker')
 	head
-		title= Parakeet
+		title= "Parakeet"
 		link(href='/css/normalize.css', rel='stylesheet')
 		link(href='/css/style.css', rel='stylesheet')
 
@@ -27,8 +27,8 @@ html(lang="en" ng-app='squawker')
 		meta(name='msapplication-wide310x150logo', content='http://mstile-310x150.png')
 		meta(name='msapplication-square310x310logo', content='http://mstile-310x310.png')
 
-	body(id="main-body")
-	div(id="main-nav-bar" ng-controller="MainController")
+	body(id="main-body" ng-controller="MainController")
+	div(id="main-nav-bar")
 		div(id="img-menu-nav")
 			img(class="nav-profile-img" src= userImg)
 			i(class="fa fa-caret-down")
@@ -65,6 +65,7 @@ html(lang="en" ng-app='squawker')
 	script(type="text/javascript", src="/main/controllers/main.client.controller.js")
 	script(type="text/javascript", src="/main/config/main.client.routes.js")
 	script(type="text/javascript", src="/main/services/main.client.service.js")
+	script(type="text/javascript", src="/main/controllers/main.imagemodal.client.controller.js")
 
 
 	script(type="text/javascript", src="/users/users.client.module.js")
@@ -83,13 +84,14 @@ html(lang="en" ng-app='squawker')
 	script(type="text/javascript", src="/lib/lamejs/lame.all.js")
 
 		//for angular-timer directive
-	script(type="text/javascript", src="/lib/momentjs/min/moment.min.js")
-	script(type="text/javascript", src="/lib/momentjs/min/locales.min.js")
+	script(type="text/javascript", src="/lib/moment/min/moment.min.js")
+	script(type="text/javascript", src="/lib/moment/min/locales.min.js")
 	script(type="text/javascript", src="/lib/humanize-duration/humanize-duration.js")
-
+		//for date difference
+	script(type="text/javascript", src="/lib/angular-moment/angular-moment.min.js")
 		//for circular progress bars
 	script(type="text/javascript", src="/lib/angular-svg-round-progressbar/build/roundProgress.min.js")
-		
+
 		//for angular file upload
 	script(type="text/javascript", src="/lib/ng-file-upload/ng-file-upload.min.js")
 	script(type="text/javascript", src="/lib/ng-file-upload/ng-file-upload-shim.min.js")

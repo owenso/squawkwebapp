@@ -42,7 +42,7 @@ angular.module('requestModal').factory('RequestModalService', ['$http', '$cookie
 
 
 
-    reqModalFac.uploadToS3 = function(uploaded, formObject) {
+    reqModalFac.uploadToS3 = function(uploaded, formObject, thumblink) {
         var fileExt;
         if (uploaded.name) {
             fileExt = uploaded.name.split('.').pop();
@@ -55,11 +55,51 @@ angular.module('requestModal').factory('RequestModalService', ['$http', '$cookie
             type: uploaded.type
         };
         var _this = this;
-                    console.log(formObject);
+        console.log(formObject);
 
         $http
             .post('/signing', query)
             .success(function(result) {
+                if (thumblink) {
+                    //if thumbnail blob url is found, perform an xml request to get the file and upload it
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('GET', thumblink, true);
+                    xhr.responseType = 'blob';
+                    xhr.onload = function(e) {
+                        if (this.status == 200) {
+                            var myBlob = this.response;
+                            // myBlob is now the blob that the object URL pointed to.
+                            var thumbResult = result;
+                            thumbResult.fields.key = thumbResult.fields.key.substr(0, thumbResult.fields.key.lastIndexOf(".")) + "_th." + fileExt;
+                            Upload.upload({
+                                url: result.url,
+                                transformRequest: function(data, headersGetter) {
+                                    var headers = headersGetter();
+                                    delete headers.Authorization;
+                                    return data;
+                                },
+                                data: thumbResult.fields,
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': result.fields['Content-Type']
+                                },
+                                file: myBlob
+                            }).success(function(data, status, headers, config) {
+                                console.log(data);
+                                var parseResponse = data.match('<Location>(.*)</Location>');
+                                var uploadedURL = parseResponse[1];
+
+                                formObject.imageUrlTh = uploadedURL;
+
+                            }).error(function(data) {
+                                console.log(data);
+                            });
+                        }
+                    };
+                    xhr.send();
+
+                }
+                console.log(result);
                 Upload.upload({
                     url: result.url, //s3Url
                     transformRequest: function(data, headersGetter) {
@@ -79,16 +119,14 @@ angular.module('requestModal').factory('RequestModalService', ['$http', '$cookie
                 }).success(function(data, status, headers, config) {
 
                     $rootScope.result = data;
-
                     var parseResponse = data.match('<Location>(.*)</Location>');
                     var uploadedURL = parseResponse[1];
 
-                    if (fileExt == 'mp3'){
+                    if (fileExt == 'mp3') {
                         formObject.audioUrl = uploadedURL;
                     } else {
                         formObject.imageUrl = uploadedURL;
                     }
-
                     _this.postNewRequest(formObject);
 
                 }).error(function() {
@@ -113,22 +151,20 @@ angular.module('requestModal').factory('RequestModalService', ['$http', '$cookie
             .post('/api/newRequest', object)
             .success(function(data, status, headers, config) {
                 console.log('new request');
-                console.log(data);
             })
             .error(function(data, status, headers, config) {
                 console.log('Error');
-                console.log(data);
             });
     };
 
     reqModalFac.redirect = function(close) {
-    	close();
-    	 ModalService.showModal({
+        close();
+        ModalService.showModal({
             templateUrl: '/request_modal/views/requestmodal.client.submitted.html',
             controller: "RequestModalController"
-      });
+        });
 
     };
-    
+
     return reqModalFac;
 }]);

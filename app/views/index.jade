@@ -1,7 +1,7 @@
 doctype html
 html(lang="en" ng-app='squawker')
 	head
-		title= title
+		title= "Parakeet"
 		link(href='/css/normalize.css', rel='stylesheet')
 		link(href='/css/style.css', rel='stylesheet')
 
@@ -53,6 +53,12 @@ html(lang="en" ng-app='squawker')
 			//for circular progress bars
 	script(type="text/javascript", src="/lib/angular-svg-round-progressbar/build/roundProgress.min.js")
 		
+				//for angular-timer directive
+	script(type="text/javascript", src="/lib/moment/min/moment.min.js")
+	script(type="text/javascript", src="/lib/moment/min/locales.min.js")
+		
+			//for date difference
+	script(type="text/javascript", src="/lib/angular-moment/angular-moment.min.js")
 
 
 	script(type="text/javascript", src="/application.js")

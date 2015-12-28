@@ -185,7 +185,6 @@ h2 {
 
 #main-body {
     background: #f9f9f9;
-    height: 100%;
     #main-nav-bar {
         background: #393939;
         position: relative;
@@ -371,11 +370,11 @@ Request Modal
     top: 20%;
     padding: 1% 2%;
     border: 2px solid black;
-    background-color: #CFD8DC;
+    background-color: white;
     width: 30vw;
     height: 45vh;
     z-index: 100;
-    font-size: 2.5vh;
+    font-size: 1.5vh;
     color: black;
     a {
         color: black;
@@ -394,12 +393,8 @@ Request Modal
         font-size: 1em;
         position: absolute;
     }
-    #progress-circle {
-
-    }
-    #modal-submit-message {
-
-    }
+    #progress-circle {}
+    #modal-submit-message {}
 }
 
 #fade {
@@ -413,4 +408,86 @@ Request Modal
     width: 100%;
     height: 100%;
     z-index: 90;
+}
+
+/***************************************
+
+
+Lightbox Modals
+
+***************************************/
+#lightbox{
+    position: fixed;
+    left: 0%;
+    top: 0%;
+    padding: 1% 2%;
+    border: 2px solid black;
+    background-color: white;
+    margin:5%;
+    z-index: 100;
+    font-size: 1.5vh;
+    a {
+        color: black;
+    }
+    img{
+        max-width: 100%;
+        margin: 0 auto;
+        max-height:80vh;
+    }
+}
+
+
+/**************************************
+
+Request Page
+
+************************************/
+
+#requests-list {
+    width: 900px;
+    margin: 0 auto;
+    
+    ul {
+        list-style-type: none;
+        padding:0;
+        
+        .each-request {
+            border: 1px solid grey;
+            padding:15px;
+            width:900px;
+            position: relative;
+            
+            .request-user-image {
+                width: 75px;
+                border-radius: 50%;
+                display: inline-block;
+                position:absolute;
+                top:15px;
+                left:15px;
+            }
+
+            .request-center {
+                display: inline-block;
+                width:70%;
+                margin-left:100px;
+
+                img{
+                    cursor: pointer
+                }
+            }
+
+            .right-request-date {
+                display: inline-block;
+                width:15%;
+                position:absolute;
+                top:15px;
+                right:15px;
+                text-align: right;
+            }
+        }
+    }
+    
+    .request-preview-image {
+        height: 100px;
+    }
 }

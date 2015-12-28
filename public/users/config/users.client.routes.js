@@ -9,22 +9,19 @@ angular.module('users').config(['$routeProvider',
 
         .when('/', {
             templateUrl: '/users/views/users.client.signin.html',
-            controller: 'UserController'
+            controller:'UserController'
         })
 
         .when('/signup', {
-            templateUrl: '/users/views/users.client.signup.html',
-            controller: 'UserController'
+            templateUrl: '/users/views/users.client.signup.html'
         })
 
         .when('/signup2', {
-            templateUrl: '/users/views/users.client.signup2.html',
-            controller: 'UserController'
+            templateUrl: '/users/views/users.client.signup2.html'
         })
 
         .when('/signup3', {
-            templateUrl: '/users/views/users.client.signup3.html',
-            controller: 'UserController'
+            templateUrl: '/users/views/users.client.signup3.html'
         })
 
         .otherwise({
