@@ -10,13 +10,16 @@ angular.module('main').config(['$routeProvider',
         })
 
         .when('/requests', {
-            templateUrl: '/main/views/main.client.requests.html'
+            templateUrl: '/main/views/main.client.requests.html',
+            controller: 'RequestsController'
         })
         .when('/conversations', {
-            templateUrl: '/main/views/main.client.conversations.html'
+            templateUrl: '/main/views/main.client.conversations.html',
+            controller: 'ConversationsController'
         })
         .when('/settings', {
-            templateUrl: '/main/views/main.client.settings.html'
+            templateUrl: '/main/views/main.client.settings.html',
+            controller: 'SettingsController'
         })
         .otherwise({
             redirectTo: '/'

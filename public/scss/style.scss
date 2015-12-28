@@ -185,6 +185,11 @@ h2 {
 
 #main-body {
     background: #f9f9f9;
+    min-height: 100%;
+    #profile-sizer{
+        height:100%;
+    }
+    
     #main-nav-bar {
         background: #393939;
         position: relative;
