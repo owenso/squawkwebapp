@@ -286,8 +286,8 @@ h2 {
 }
 
 #main-view {
-    color: black;
     height: 100%;
+    background-color: #f9f9f9
     a {
         color: black;
     }
@@ -452,6 +452,7 @@ Request Page
 #requests-page{
 }
 #requests-list {
+    background-color: white;
     position: absolute;
     width: 900px;
     height:95%;

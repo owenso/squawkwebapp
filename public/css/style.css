@@ -2316,10 +2316,9 @@ h2 {
   visibility: hidden; }
 
 #main-view {
-  color: black;
-  height: 100%; }
-  #main-view a {
-    color: black; }
+  height: 100%;
+  background-color: #f9f9f9 a;
+    background-color-color: black; }
 
 #profile-panel {
   width: 320px;
@@ -2468,6 +2467,7 @@ Request Page
 
 ************************************/
 #requests-list {
+  background-color: white;
   position: absolute;
   width: 900px;
   height: 95%;
