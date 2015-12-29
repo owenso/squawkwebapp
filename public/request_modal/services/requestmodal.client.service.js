@@ -1,4 +1,4 @@
-angular.module('requestModal').factory('RequestModalService', ['$http', '$cookies', '$location', '$rootScope', '$window', 'Upload', 'ModalService', function($http, $cookies, $location, $rootScope, $window, Upload, ModalService) {
+angular.module('requestModal').factory('RequestModalService', ['$http', '$cookies', '$location', '$rootScope', '$window', 'Upload', 'ModalService', '$timeout', function($http, $cookies, $location, $rootScope, $window, Upload, ModalService, $timeout) {
     var reqModalFac = {};
 
     reqModalFac.newUser = {};
@@ -56,7 +56,6 @@ angular.module('requestModal').factory('RequestModalService', ['$http', '$cookie
         };
         var _this = this;
         console.log(formObject);
-
         $http
             .post('/signing', query)
             .success(function(result) {
@@ -117,10 +116,10 @@ angular.module('requestModal').factory('RequestModalService', ['$http', '$cookie
                     console.log('progress: ' + parseInt(100.0 * evt.loaded / evt.total));
                     $rootScope.progress = parseInt(100.0 * evt.loaded / evt.total);
                 }).success(function(data, status, headers, config) {
-
                     $rootScope.result = data;
                     var parseResponse = data.match('<Location>(.*)</Location>');
                     var uploadedURL = parseResponse[1];
+                    $timeout($rootScope.close, 2000);
 
                     if (fileExt == 'mp3') {
                         formObject.audioUrl = uploadedURL;
@@ -128,7 +127,6 @@ angular.module('requestModal').factory('RequestModalService', ['$http', '$cookie
                         formObject.imageUrl = uploadedURL;
                     }
                     _this.postNewRequest(formObject);
-
                 }).error(function() {
 
                 });
@@ -157,12 +155,16 @@ angular.module('requestModal').factory('RequestModalService', ['$http', '$cookie
             });
     };
 
-    reqModalFac.redirect = function(close) {
-        close();
-        ModalService.showModal({
-            templateUrl: '/request_modal/views/requestmodal.client.submitted.html',
-            controller: "RequestModalController"
-        });
+    reqModalFac.redirect = function(type) {
+        if (type == "none") {
+            $timeout($rootScope.close, 2000);
+        } else {
+            $rootScope.close();
+            ModalService.showModal({
+                templateUrl: '/request_modal/views/requestmodal.client.submitted.html',
+                controller: "RequestModalController"
+            });
+        }
 
     };
 
