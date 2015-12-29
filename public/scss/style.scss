@@ -128,21 +128,15 @@ h2 {
     @include vertical-align;
     @include bg-gradient-t2b($dgrey, $lgrey);
     color: white;
-
-
 }
 
 #sign-views {
-    @include center-children
-    height: 500px;
+    @include center-children height: 500px;
     width: 900px;
     margin: 0 auto;
-
     h1 {
         font-size: 3em;
         text-align: center;
-       
-
     }
 }
 
@@ -191,7 +185,6 @@ h2 {
 #main-body {
     background: #f9f9f9;
     height: 100%;
-
     #main-nav-bar {
         background: #393939;
         position: absolute;
@@ -287,8 +280,7 @@ h2 {
 
 #main-view {
     height: 100%;
-    background-color: #f9f9f9
-    a {
+    background-color: #f9f9f9 a {
         color: black;
     }
 }
@@ -417,29 +409,31 @@ Request Modal
     z-index: 90;
 }
 
+
 /***************************************
 
 
 Lightbox Modals
 
 ***************************************/
-#lightbox{
+
+#lightbox {
     position: fixed;
     left: 0%;
     top: 0%;
     padding: 1% 2%;
     border: 2px solid black;
     background-color: white;
-    margin:5%;
+    margin: 5%;
     z-index: 100;
     font-size: 1.5vh;
     a {
         color: black;
     }
-    img{
+    img {
         max-width: 100%;
         margin: 0 auto;
-        max-height:80vh;
+        max-height: 80vh;
     }
 }
 
@@ -449,61 +443,60 @@ Lightbox Modals
 Request Page
 
 ************************************/
-#requests-page{
-}
+
+    #new-request-button {
+        position: absolute;
+        right: 50px;
+        bottom: 50px;
+        z-index: 99;
+    }
+
+
 #requests-list {
     background-color: white;
     position: absolute;
     width: 900px;
-    height:95%;
-    top:66px;
-    left:50%;
+    height: 95%;
+    top: 66px;
+    left: 50%;
     transform: translate(-50%, 0);
     overflow: hidden;
-    overflow-y:scroll;
-
-    
+    overflow-y: scroll;
     ul {
         list-style-type: none;
-        padding:0;
-        
+        padding: 0;
         .each-request {
             border: 1px solid grey;
-            padding:15px;
-            width:860px;
-            margin:0 auto;
+            padding: 15px;
+            width: 860px;
+            margin: 0 auto;
             position: relative;
-            
             .request-user-image {
                 width: 75px;
                 border-radius: 50%;
                 display: inline-block;
-                position:absolute;
-                top:15px;
-                left:15px;
+                position: absolute;
+                top: 15px;
+                left: 15px;
             }
-
             .request-center {
                 display: inline-block;
-                width:70%;
-                margin-left:100px;
-
-                img{
+                width: 70%;
+                margin-left: 100px;
+                img {
                     cursor: pointer
                 }
             }
-
             .right-request-date {
                 display: inline-block;
-                width:15%;
-                position:absolute;
-                top:15px;
-                right:15px;
+                width: 15%;
+                position: absolute;
+                top: 15px;
+                right: 15px;
                 text-align: right;
             }
         }
     }
-    
     .request-preview-image {
         height: 100px;
     }

@@ -2466,6 +2466,12 @@ Lightbox Modals
 Request Page
 
 ************************************/
+#new-request-button {
+  position: absolute;
+  right: 50px;
+  bottom: 50px;
+  z-index: 99; }
+
 #requests-list {
   background-color: white;
   position: absolute;
