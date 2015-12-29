@@ -1,5 +1,5 @@
 angular.module('users').controller('UserController', ['$scope', 'UserService', function($scope, UserService) {
-
+    console.log('user controller loaded');
     $scope.languages = ["English", "French", "German", "Russian", "Italian", "Spanish"];
 
     $scope.logIn = function() {
