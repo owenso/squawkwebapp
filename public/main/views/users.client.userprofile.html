@@ -1,38 +1,51 @@
 <div id="profile-panel" ng-init="tab = 1">
-		<div id="profile-name-block">
-	    <h2>{{userData.fullName || userData.username}}</h2>
-		</div>
+    <div id="profile-name-block">
+        <h2>{{userData.fullName || userData.username}}</h2>
+    </div>
     <img src={{userData.userImg}}>
     <ul id="profile-tabs">
-        <a href ng-click="tab = 1" ng-class="{'selected-tab': tab == 1}"><li><span>{{userData.requestData.completed}}</span><br>COMPLETED<br><i class="fa fa-circle" ng-show="tab === 1"></i></li></a>
-        <a href ng-click="tab = 2" ng-class="{'selected-tab': tab == 2}"><li><span>{{userData.requestData.answered}}</span><br>ANSWERED<br><i class="fa fa-circle" ng-show="tab === 2"></i></li></a>
-        <a href ng-click="tab = 3" ng-class="{'selected-tab': tab == 3}"><li><span>{{userData.requestData.pending}}</span><br>PENDING<br><i class="fa fa-circle" ng-show="tab === 3"></i></li></a>
+        <a href ng-click="tab = 1" ng-class="{'selected-tab': tab == 1}">
+            <li><span>{{userData.requestData.completed}}</span>
+                <br>COMPLETED
+                <br><i class="fa fa-circle" ng-show="tab === 1"></i></li>
+        </a>
+        <a href ng-click="tab = 2" ng-class="{'selected-tab': tab == 2}">
+            <li><span>{{userData.requestData.answered}}</span>
+                <br>ANSWERED
+                <br><i class="fa fa-circle" ng-show="tab === 2"></i></li>
+        </a>
+        <a href ng-click="tab = 3" ng-class="{'selected-tab': tab == 3}">
+            <li><span>{{userData.requestData.pending}}</span>
+                <br>PENDING
+                <br><i class="fa fa-circle" ng-show="tab === 3"></i></li>
+        </a>
     </ul>
     <div class="profile-request-panel" ng-show="tab === 1">
-    	<h4>Completed</h4>
-    		<ul>
-    			<li>Completed Filler</li>
-    			<li>Completed Filler</li>
-    			<li>Completed Filler</li>
-    			<li>Completed Filler</li>
-    		</ul>
+        <h4>Completed</h4>
+        <ul>
+            <li>Completed Filler</li>
+            <li>Completed Filler</li>
+            <li>Completed Filler</li>
+            <li>Completed Filler</li>
+        </ul>
     </div>
     <div class="profile-request-panel" ng-show="tab === 2">
-    	<h4>Answered</h4>
-    	  <ul>
-    			<li>Answered Filler</li>
-    			<li>Answered Filler</li>
-    			<li>Answered Filler</li>
-    			<li>Answered Filler</li>
-    		</ul>
+        <h4>Answered</h4>
+        <ul>
+            <li>Answered Filler</li>
+            <li>Answered Filler</li>
+            <li>Answered Filler</li>
+            <li>Answered Filler</li>
+        </ul>
     </div>
     <div class="profile-request-panel" ng-show="tab === 3">
-    	<h4>Pending</h4>
-    		<ul>
-    			<li>Pending Filler</li>
-    			<li>Pending Filler</li>
-    			<li>Pending Filler</li>
-    			<li>Pending Filler</li>
-    		</ul>
+        <h4>Pending</h4>
+        <ul>
+            <li>Pending Filler</li>
+            <li>Pending Filler</li>
+            <li>Pending Filler</li>
+            <li>Pending Filler</li>
+        </ul>
     </div>
 </div>
+

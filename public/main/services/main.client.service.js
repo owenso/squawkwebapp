@@ -1,4 +1,4 @@
-angular.module('main').factory('MainService', ['$http','$cookies','$location', '$rootScope', '$window', function($http,$cookies,$location,$rootScope,$window) {
+angular.module('main').factory('MainService', ['$http', '$cookies', '$location', '$rootScope', '$window', 'ModalService', function($http, $cookies, $location, $rootScope, $window, ModalService) {
     var mainFac = {};
 
     mainFac.newUser = {};
@@ -7,13 +7,22 @@ angular.module('main').factory('MainService', ['$http','$cookies','$location', '
         return $http.get('/api/users/' + userID);
     };
 
-    mainFac.getLoggedUser = function(){
+    mainFac.getLoggedUser = function() {
+        var data  = $window.userId;
+        $cookies.put('currentId', data);
+        $rootScope.authenticated = true;
+    };
+
+    mainFac.getRequests = function () {
         $http
-            .get('../api/currentUserId')
-            .success(function(data, status, headers, config){
-                $cookies.put('currentId',data);
-                $rootScope.authenticated = true;
-              });
+            .get('/api/showRequests/')
+            .success(function(data, status, headers) {
+                $rootScope.requests = data;
+                console.log(data)
+            })
+            .error(function(data, status, headers, config) {
+                console.log(data);
+            });
     };
 
     mainFac.logOut = function() {
@@ -23,8 +32,27 @@ angular.module('main').factory('MainService', ['$http','$cookies','$location', '
             .get('/signout')
             .success(function(data, status, headers, config) {
                 console.log($cookies.getAll());
-                $window.location.href="/";
+                $window.location.href = "/";
             });
     };
+
+    mainFac.showModal = function(){
+        ModalService.showModal({
+            templateUrl: '/request_modal/views/requestmodal.client.newrequestmodal.html',
+            controller: "RequestModalController"
+        });
+    };
+
+    mainFac.showImageModal = function(x){
+        ModalService.showModal({
+            templateUrl: '/main/views/main.client.imagemodal.html',
+            controller: "ImageModalController",
+            inputs: {
+                url: x
+            }
+
+        });
+    };
+
     return mainFac;
 }]);

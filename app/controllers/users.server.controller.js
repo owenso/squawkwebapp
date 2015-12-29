@@ -72,17 +72,17 @@ exports.signout = function(req, res) {
     res.redirect('/');
 };
 
-exports.create = function(req, res, next) {
-    var user = new User(req.body);
+// exports.create = function(req, res, next) {
+//     var user = new User(req.body);
 
-    user.save(function(err) {
-        if (err) {
-            return next(err);
-        } else {
-            res.json(user);
-        }
-    });
-};
+//     user.save(function(err) {
+//         if (err) {
+//             return next(err);
+//         } else {
+//             res.json(user);
+//         }
+//     });
+// };
 
 exports.list = function(req, res, next) {
     User.find({}, function(err, users) {

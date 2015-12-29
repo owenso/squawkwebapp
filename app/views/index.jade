@@ -1,20 +1,64 @@
 doctype html
 html(lang="en" ng-app='squawker')
 	head
-		title= title
+		title= "Parakeet"
 		link(href='/css/normalize.css', rel='stylesheet')
 		link(href='/css/style.css', rel='stylesheet')
+
+
+		//- favicons should not have relative links in production for firefox
+		link(rel='apple-touch-icon-precomposed', sizes='57x57', href= root + '/img/favicons/apple-touch-icon-57x57.png')
+		link(rel='apple-touch-icon-precomposed', sizes='114x114', href= root + '/img/favicons/apple-touch-icon-114x114.png')
+		link(rel='apple-touch-icon-precomposed', sizes='72x72', href= root + '/img/favicons/apple-touch-icon-72x72.png')
+		link(rel='apple-touch-icon-precomposed', sizes='144x144', href= root + '/img/favicons/apple-touch-icon-144x144.png')
+		link(rel='apple-touch-icon-precomposed', sizes='60x60', href= root + '/img/favicons/apple-touch-icon-60x60.png')
+		link(rel='apple-touch-icon-precomposed', sizes='120x120', href= root + '/img/favicons/apple-touch-icon-120x120.png')
+		link(rel='apple-touch-icon-precomposed', sizes='76x76', href= root + '/img/favicons/apple-touch-icon-76x76.png')
+		link(rel='apple-touch-icon-precomposed', sizes='152x152', href= root + '/img/favicons/apple-touch-icon-152x152.png')
+		link(rel='icon', type='image/png', href= root + '/img/favicons/favicon-196x196.png', sizes='196x196')
+		link(rel='icon', type='image/png', href= root + '/img/favicons/favicon-96x96.png', sizes='96x96')
+		link(rel='icon', type='image/png', href= root + '/img/favicons/favicon-32x32.png', sizes='32x32')
+		link(rel='icon', type='image/png', href= root + '/img/favicons/favicon-16x16.png', sizes='16x16')
+		link(rel='icon', type='image/png', href= root + '/img/favicons/favicon-128.png', sizes='128x128')
+		meta(name='application-name', content='Parakeet')
+		meta(name='msapplication-TileColor', content='##0A1C2')
+		meta(name='msapplication-TileImage', content='http://mstile-144x144.png')
+		meta(name='msapplication-square70x70logo', content='http://mstile-70x70.png')
+		meta(name='msapplication-square150x150logo', content='http://mstile-150x150.png')
+		meta(name='msapplication-wide310x150logo', content='http://mstile-310x150.png')
+		meta(name='msapplication-square310x310logo', content='http://mstile-310x310.png')
+
 	body(id="sign-body")
 	div(id="sign-views")
 		section(ng-view)
 	script(type="text/javascript", src="/lib/angular/angular.js")
 	script(type="text/javascript", src="/lib/angular-route/angular-route.js")
 	script(type="text/javascript", src="/lib/angular-cookies/angular-cookies.js")
+	script(type="text/javascript", src="/lib/angular-timer/dist/angular-timer.min.js")
+		
+	script(type="text/javascript", src="/lib/angular-modal-service/dst/angular-modal-service.min.js")
+
+	script(type="text/javascript", src="/lib/ng-file-upload/ng-file-upload.min.js")
+	script(type="text/javascript", src="/lib/ng-file-upload/ng-file-upload-shim.min.js")
 
 	script(type="text/javascript", src="/users/users.client.module.js")
 	script(type="text/javascript", src="/users/controllers/users.client.controller.js")
 	script(type="text/javascript", src="/users/config/users.client.routes.js")
 	script(type="text/javascript", src="/users/services/users.client.service.js")
+	
 	script(type="text/javascript", src="/main/main.client.module.js")
+
+	script(type="text/javascript", src="/request_modal/requestmodal.client.module.js")
+
+			//for circular progress bars
+	script(type="text/javascript", src="/lib/angular-svg-round-progressbar/build/roundProgress.min.js")
+		
+				//for angular-timer directive
+	script(type="text/javascript", src="/lib/moment/min/moment.min.js")
+	script(type="text/javascript", src="/lib/moment/min/locales.min.js")
+		
+			//for date difference
+	script(type="text/javascript", src="/lib/angular-moment/angular-moment.min.js")
+
 
 	script(type="text/javascript", src="/application.js")

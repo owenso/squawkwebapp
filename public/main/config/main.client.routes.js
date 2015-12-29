@@ -2,11 +2,8 @@ angular.module('main').config(['$routeProvider',
     function($routeProvider) {
         $routeProvider
         .when('/', {
-            templateUrl: '/main/views/main.client.requests.html',
-            controller: 'MainController'
+            redirectTo: '/requests'
         })
-
-
         .when('/profile', {
             templateUrl: '/main/views/users.client.userprofile.html',
             controller: 'ProfileController'
@@ -14,15 +11,15 @@ angular.module('main').config(['$routeProvider',
 
         .when('/requests', {
             templateUrl: '/main/views/main.client.requests.html',
-            controller: 'MainController'
+            controller: 'RequestsController'
         })
         .when('/conversations', {
             templateUrl: '/main/views/main.client.conversations.html',
-            controller: 'MainController'
+            controller: 'ConversationsController'
         })
         .when('/settings', {
             templateUrl: '/main/views/main.client.settings.html',
-            controller: 'MainController'
+            controller: 'SettingsController'
         })
         .otherwise({
             redirectTo: '/'

@@ -1,14 +1,37 @@
+<button id="new-request-button" ng-click="showNewRequest()">New Request</button>
+<!-- <div class="floatingContainer">
+  <div class="subActionButton person">
+    <p class="floatingText"><span class="floatingTextBG">Add Contact</span></p>
+  </div>
+  <div class="subActionButton mapMarker">
+    <p class="floatingText"><span class="floatingTextBG">Add Address</span></p>
+  </div>
+  <div class="subActionButton note">
+    <p class="floatingText"><span class="floatingTextBG">Add Note</span></p>
+  </div>
+  <div class="actionButton"><p class="floatingText"><span class="floatingTextBG">Add Customer</span></p></div>
+</div> -->
+
 <div id="requests-page">
-
-Requests Page Loaded
-
-
-
-        <button id="start-recording">Start</button>
-        <button id="stop-recording" disabled>Stop</button>
-
-        <button id="pause-recording" disabled>Pause</button>
-        <button id="resume-recording" disabled>Resume</button>
-
-        <button id="save-recording" disabled>Save</button>
-</div>
+    Requests Page Loaded
+    <div id="requests-list">
+        <ul>
+            <li ng-repeat="request in requests">
+                <div class="each-request" ng-click="goToRequest(request._id)">
+                    <img class="request-user-image" ng-src='{{request.authorId.userImg}}'>
+                    <div class="request-center">
+                        <span>{{request.authorId.fullName || request.authorId.username}}</span>
+                        <br> {{request.requestId.title}}
+                        <br> {{request.requestId.description}}
+                        <br>
+                        <img class="request-preview-image" ng-if="request.requestId.imageUrlTh" ng-src='{{request.requestId.imageUrlTh}}' ng-click="viewBigger(request.requestId.imageUrl)">
+                        <audio ng-if="request.requestId.audioUrl" ng-src="{{request.requestId.audioUrl}}" preload="none" controls>
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                    <span class="right-request-date" am-time-ago="request.created"></span>
+                </div>
+            </li>
+        </ul>
+        </div>
+    </div>

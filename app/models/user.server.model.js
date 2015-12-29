@@ -1,8 +1,9 @@
 var mongoose = require('mongoose'),
-		crypto = require('crypto'),
-        Schema = mongoose.Schema;
+    crypto = require('crypto'),
+    Schema = mongoose.Schema,
+    deepPopulate = require('mongoose-deep-populate')(mongoose);
 
-        
+
 //Note: validations are not case sensitive!!!
 var UserSchema = new Schema({
     firstName: String,
@@ -13,8 +14,8 @@ var UserSchema = new Schema({
         index: true,
         match: [/.+\@.+\..+/, "Please enter a valid e-mail address"]
     },
-    knownLang: String,
-    learnLang: String,
+    knownLang: [],
+    learnLang: [],
     userImg: {
         type: String,
         default: '/img/parakeet.png'
@@ -49,7 +50,7 @@ var UserSchema = new Schema({
     },
     modified: {
         type: Date,
-        default:Date.now
+        default: Date.now
     },
     role: {
         type: String,
@@ -57,10 +58,22 @@ var UserSchema = new Schema({
         enum: ['Admin', 'Owner', 'User']
     },
     requestData: {
-        completed: {type: Number, default: 0},
-        answered: {type: Number, default: 0},
-        pending: {type: Number, default: 0},
-        total: {type: Number, default: 0}
+        completed: {
+            type: Number,
+            default: 0
+        },
+        answered: {
+            type: Number,
+            default: 0
+        },
+        pending: {
+            type: Number,
+            default: 0
+        },
+        total: {
+            type: Number,
+            default: 0
+        }
     },
     createdRequestIds: [],
     answeredRequestIds: [],
@@ -68,7 +81,11 @@ var UserSchema = new Schema({
 });
 
 UserSchema.virtual('fullName').get(function() {
-    return this.firstName + ' ' + this.lastName;
+    if (this.firstName) {
+        return this.firstName + ' ' + this.lastName;
+    } else {
+        return null;
+    }
 }).set(function(fullName) {
     var splitName = fullName.split(' ');
     this.firstName = splitName[0] || '';
@@ -114,5 +131,7 @@ UserSchema.set('toJSON', {
     getters: true,
     virtuals: true
 });
+
+UserSchema.plugin(deepPopulate);
 
 mongoose.model('User', UserSchema);

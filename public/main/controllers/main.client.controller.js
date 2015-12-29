@@ -1,8 +1,12 @@
-angular.module('main').controller('MainController', ['$scope', 'MainService', '$location', '$rootScope', function($scope, MainService, $location, $rootScope) {
-	  $rootScope.currentUrl = $location.path();
-	  MainService.getLoggedUser();
+angular.module('main').controller('MainController', ['$scope', 'MainService', '$location', '$rootScope', '$cookies', function($scope, MainService, $location, $rootScope, $cookies) {
+    
+    $rootScope.currentUrl = $location.path();
+    console.log('running');
+    MainService.getLoggedUser();
+    MainService.getRequests();
 
-	  $scope.logOut = function() {
-    	MainService.logOut();
+    $scope.logOut = function() {
+        MainService.logOut();
     };
+
 }]);

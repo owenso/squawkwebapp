@@ -1,0 +1,30 @@
+<div id='new-request-modal'>
+    <div id="overlay">
+        <a href ng-click="close()"><i class="x-close fa fa-times"></i></a>
+        <div class="progress" ng-show="progress >= 0">
+        	<!-- <div style="width:{{progress}}%" ng-bind="progress + '%'"></div> -->
+					<div id="progress-number">{{progress}}%</div>
+      		<div id="progress-circle"
+					round-progress
+					max="100"
+					current="progress"
+					color="#585862"
+					bgcolor="#8c8c9b"
+					radius="100"
+					stroke="10"
+					semi="false"
+					rounded="false"
+					clockwise="false"
+					responsive="false"
+					duration="0"
+					animation="easeInOutQuart">
+  				</div>
+    		</div>
+        <br>
+        <div id='modal-submit-message'>
+	        <span ng-show="result">Upload Successful</span>
+	        <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+        </div>
+    </div>
+    <div id="fade"></div>
+</div>

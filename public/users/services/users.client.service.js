@@ -63,7 +63,7 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
                 $rootScope.knownLang = knownLang;
 
             $http
-                .put('api/users/' + $cookies.get('currentId'), {'knownLang':knownLang})
+                .put('api/users/' + $cookies.get('currentId'), {'knownLang':[knownLang]})
                 .success(function(data, status, headers, config){
                     $location.path('/signup3');
                 })
@@ -75,7 +75,7 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
 
     userFac.signUpThree = function(learnLang){
         $http
-            .put('api/users/' + $cookies.get('currentId'), {'learnLang':learnLang})
+            .put('api/users/' + $cookies.get('currentId'), {'learnLang':[learnLang]})
             .success(function(data, status, headers, config){
                 $cookies.remove("currentId");
                 $window.location.href="/main/";

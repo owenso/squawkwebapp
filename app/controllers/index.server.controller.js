@@ -7,9 +7,8 @@ exports.render = function(req, res) {
         console.log(req.session.lastVisit);
     }
     req.session.lastVisit = new Date();
-
+    var urlRoot = require('../../config/config');
     res.render('index', {
-        title: 'Sqawker',
-        userFullName: req.user ? req.user.fullName : ''
+        root: urlRoot.urlRoot
     });
 };

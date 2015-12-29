@@ -1,5 +1,6 @@
 var config = require('./config'),
 	express = require('express'),
+    favicon = require('serve-favicon'),
     morgan = require('morgan'),
     compress = require('compression'),
     bodyParser = require('body-parser'),
@@ -11,6 +12,8 @@ var config = require('./config'),
 
 module.exports = function(db) {
     var app = express();
+
+    app.use(favicon('./public/img/favicons/favicon.ico'));
 
     if (process.env.NODE_ENV === 'development') {
     	console.log("Running in development mode!");
@@ -46,6 +49,9 @@ module.exports = function(db) {
     require('../app/routes/index.server.routes.js')(app);
     require('../app/routes/users.server.routes.js')(app);
     require('../app/routes/main.server.routes.js')(app);
+    require('../app/routes/messages.server.routes.js')(app);
+    require('../app/routes/conversation.server.routes.js')(app);
+
 
     app.use(express.static('./public'));
 
