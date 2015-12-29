@@ -2,7 +2,7 @@
 .log
 node_modules
 .idea
-development.js
+local.js
 
 config.codekit
 /min
