@@ -156,7 +156,7 @@ angular.module('requestModal').factory('RequestModalService', ['$http', '$cookie
     };
 
     reqModalFac.redirect = function(type) {
-        if (type == "none") {
+        if (type == "text") {
             $timeout($rootScope.close, 2000);
         } else {
             $rootScope.close();

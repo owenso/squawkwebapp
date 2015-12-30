@@ -406,7 +406,7 @@ Request Modal
     filter: alpha(opacity=70);
     width: 100%;
     height: 100%;
-    z-index: 90;
+    z-index: 99;
 }
 
 
@@ -443,13 +443,6 @@ Lightbox Modals
 Request Page
 
 ************************************/
-
-    #new-request-button {
-        position: absolute;
-        right: 50px;
-        bottom: 50px;
-        z-index: 99;
-    }
 
 
 #requests-list {
@@ -515,12 +508,13 @@ FLOATING ACTION BUTTON MENU
 @mixin circleShadow($vertical) {
     box-shadow:0 0 $vertical rgba(0,0,0,.14),0 $vertical $vertical*2 rgba(0,0,0,.28)
 }
-/*
+
 
 .floatingContainer {
     bottom: 2em;
-    position: fixed;
+    position: absolute;
     right: 6em;
+    z-index: 95;
     
     &:hover {
         .subActionButton {
@@ -536,12 +530,12 @@ FLOATING ACTION BUTTON MENU
 }
 
 .actionButton {
-    background-color: #D32F2F;
+    background-color: $dgrey;
     border-radius: 50%;
     height: 3em;
     position: relative;
     width: 3em;
-    z-index: 1000;
+    z-index: 99;
     
     @include circleShadow(4px);
     
@@ -554,6 +548,8 @@ FLOATING ACTION BUTTON MENU
         right: 3.5em;
         min-width: 10em;
         text-align: right;
+        z-index: 98;
+
         
         &.show {
             display: inherit;
@@ -563,6 +559,7 @@ FLOATING ACTION BUTTON MENU
         padding: 0.2em 0.5em;
         background-color: rgba(33, 33, 33, 0.8);
         border-radius: .3em;
+        z-index: 98
     }
     
     &.display {
@@ -613,7 +610,7 @@ FLOATING ACTION BUTTON MENU
 }
 
 .subActionButton {
-    background-color: #3F51B5;
+    background-color: $lgrey;
     height: 2em;
     width: 2em;
     border-radius: 50%;
@@ -621,7 +618,7 @@ FLOATING ACTION BUTTON MENU
     margin-left: .5em;
     opacity: 0;
     position: relative;
-    z-index: 1000;
+    z-index: 99;
     
     .floatingText {
         position: absolute;
@@ -633,6 +630,8 @@ FLOATING ACTION BUTTON MENU
         text-align: right;
         opacity: 0;
         transition: opacity 0.4s;
+        z-index: 98;
+
         &.show {
             opacity: 1;
         }
@@ -642,6 +641,8 @@ FLOATING ACTION BUTTON MENU
         padding: 0.2em 0.5em;
         background-color: rgba(33, 33, 33, 0.8);
         border-radius: .3em;
+        z-index: 98
+
     }
     
     &.display {
@@ -657,16 +658,16 @@ FLOATING ACTION BUTTON MENU
         color: #FFF;
     }
     
-    &.person {
+    &.voice {
         &:before {
-            content: '\f0c0';
+            content: '\f130';
             margin-top: .3em;
             margin-left: .3em;
         }
     }
-    &.mapMarker {
+    &.image {
         &:before {
-            content: '\f041';
+            content: '\f030';
             margin-top: .4em;
             margin-left: .55em;
         }
@@ -682,6 +683,6 @@ FLOATING ACTION BUTTON MENU
     &:hover {
         @include circleShadow(8px);
     }
-}*/
+}
 
 

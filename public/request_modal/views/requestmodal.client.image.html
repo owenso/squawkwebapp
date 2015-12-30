@@ -1,4 +1,4 @@
-<div id='new-request-modal' ng-init="upload = 'none'">
+<div id='new-request-modal' ng-init="upload = 'image'">
     <div id="overlay">
         <a href ng-click="close()"><i class="xclose fa fa-times"></i></a>
             <form id="new-request-form" name="requestForm" ng-submit="submitRequest()">
@@ -14,17 +14,7 @@
                 <input ng-model="description" type="textarea" name="description" />
             </label>
         </div>
-        <div class="request-upload-panel" ng-show="upload == 'none'">
-            <ul>
-                <a href ng-click="upload = 'image'">
-                    <li>Upload Photo</li>
-                </a>
-                <a href ng-click="upload = 'voice'">
-                    <li>Record Voice Note</li>
-                </a>
-            </ul>
-        </div>
-        <div class="request-upload-panel" ng-show="upload == 'image'">
+        <div class="request-upload-panel">
             <button ngf-select name="image" ng-model="image" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100">
                 Select Picture
             </button>
@@ -36,19 +26,6 @@
                 </span>
             <span ng-show="result">Upload Successful</span>
             <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
-        </div>
-        <div class="request-upload-panel" ng-show="upload == 'voice'">
-            <a href ng-click="startRecording()">Start</a>
-            <a href ng-click="stopRecording()">Stop</a>
-            <div ng-if='recordingDone'>
-                <audio ng-src={{audioRecording}} controls>
-                    Your browser does not support the audio element.
-                </audio>
-            </div>
-            <div ng-if='recording'>
-                <i class="fa fa-microphone recording-in-progress"></i>
-                <timer interval="1000">{{mminutes}}:{{sseconds}}</timer>
-            </div>
         </div>
         <div>
             <input id="form-button" type="submit" value="Submit Request" />

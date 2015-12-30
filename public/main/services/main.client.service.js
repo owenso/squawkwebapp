@@ -8,12 +8,12 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
     };
 
     mainFac.getLoggedUser = function() {
-        var data  = $window.userId;
+        var data = $window.userId;
         $cookies.put('currentId', data);
         $rootScope.authenticated = true;
     };
 
-    mainFac.getRequests = function () {
+    mainFac.getRequests = function() {
         $http
             .get('/api/showRequests/')
             .success(function(data, status, headers) {
@@ -36,14 +36,27 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
             });
     };
 
-    mainFac.showModal = function(){
-        ModalService.showModal({
-            templateUrl: '/request_modal/views/requestmodal.client.newrequestmodal.html',
-            controller: "RequestModalController"
-        });
+    mainFac.showModal = function(type) {
+
+        if (type == 'image') {
+            ModalService.showModal({
+                templateUrl: '/request_modal/views/requestmodal.client.image.html',
+                controller: "RequestModalController"
+            });
+        } else if (type == 'voice') {
+            ModalService.showModal({
+                templateUrl: '/request_modal/views/requestmodal.client.voice.html',
+                controller: "RequestModalController"
+            });
+        } else {
+            ModalService.showModal({
+                templateUrl: '/request_modal/views/requestmodal.client.text.html',
+                controller: "RequestModalController"
+            });
+        }
     };
 
-    mainFac.showImageModal = function(x){
+    mainFac.showImageModal = function(x) {
         ModalService.showModal({
             templateUrl: '/main/views/main.client.imagemodal.html',
             controller: "ImageModalController",

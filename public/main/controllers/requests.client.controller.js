@@ -4,9 +4,9 @@ angular.module('main').controller('RequestsController', ['$scope', 'MainService'
 
     MainService.getRequests();
 
-    $scope.showNewRequest = function() {
+    $scope.showNewRequest = function(type) {
         console.log('loading request modal');
-        MainService.showModal();
+        MainService.showModal(type);
     };
 
     $scope.viewBigger = function(url) {

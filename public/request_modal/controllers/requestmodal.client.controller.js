@@ -52,7 +52,6 @@ angular.module('requestModal').controller('RequestModalController', ['$scope', '
     $scope.submitRequest = function() {
         console.log('submitting request');
         console.log($scope.upload);
-        console.log(requestForm.image.$valid);
 
         var formObject = {
             authorId: $cookies.get('currentId'),
@@ -61,6 +60,7 @@ angular.module('requestModal').controller('RequestModalController', ['$scope', '
         };
 
         if ($scope.upload == 'image'){
+            console.log(requestForm.image.$valid);
             var images = $document.find('img');
             var thumblink = images[images.length-1].currentSrc;
             RequestModalService.uploadToS3($scope.image, formObject, thumblink);

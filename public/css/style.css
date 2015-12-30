@@ -2436,7 +2436,7 @@ Request Modal
   filter: alpha(opacity=70);
   width: 100%;
   height: 100%;
-  z-index: 90; }
+  z-index: 99; }
 
 /***************************************
 
@@ -2466,12 +2466,6 @@ Lightbox Modals
 Request Page
 
 ************************************/
-#new-request-button {
-  position: absolute;
-  right: 50px;
-  bottom: 50px;
-  z-index: 99; }
-
 #requests-list {
   background-color: white;
   position: absolute;
@@ -2521,171 +2515,140 @@ FLOATING ACTION BUTTON MENU
 
 
 *****************************************/
-/*
-
 .floatingContainer {
-    bottom: 2em;
-    position: fixed;
-    right: 6em;
-    
-    &:hover {
-        .subActionButton {
-            transition: opacity 1.2s;
-        }
-        .subActionButton + .subActionButton {
-            transition: opacity 0.8s;
-        }
-        .subActionButton + .subActionButton + .subActionButton {
-            transition: opacity 0.4s;
-        }
-    }
-}
+  bottom: 2em;
+  position: absolute;
+  right: 6em;
+  z-index: 95; }
+  .floatingContainer:hover .subActionButton {
+    -webkit-transition: opacity 1.2s;
+    transition: opacity 1.2s; }
+  .floatingContainer:hover .subActionButton + .subActionButton {
+    -webkit-transition: opacity 0.8s;
+    transition: opacity 0.8s; }
+  .floatingContainer:hover .subActionButton + .subActionButton + .subActionButton {
+    -webkit-transition: opacity 0.4s;
+    transition: opacity 0.4s; }
 
 .actionButton {
-    background-color: #D32F2F;
-    border-radius: 50%;
-    height: 3em;
-    position: relative;
-    width: 3em;
-    z-index: 1000;
-    
-    @include circleShadow(4px);
-    
-    .floatingText {
-        color: #FFF;
-        display: none;
-        font-family: 'Roboto';
-        position: absolute;
-        top: -.2em;
-        right: 3.5em;
-        min-width: 10em;
-        text-align: right;
-        
-        &.show {
-            display: inherit;
-        }
-    }
-    .floatingTextBG {
-        padding: 0.2em 0.5em;
-        background-color: rgba(33, 33, 33, 0.8);
-        border-radius: .3em;
-    }
-    
-    &.display {
-        display: inherit;
-    }
-    
-    &:before {
-        content: '\f067';
-        color: #FFF;
-        position: absolute;
-        margin-top:.6em;
-        margin-left:.7em;
-        opacity: 1;
-        font-size:1.4em;
-        font-weight:400;
-        font-family:'FontAwesome';
-        transform: rotate3d(0, 0, 1, -180deg);
-        transition: content 0.4s, transform 0.4s, opacity 0.2s;
-    }
-    
-    &:after {
-        content: '\f007';
-        color: #FFF;
-        position: absolute;
-        margin-top: .6em;
-        margin-left: .7em;
-        font-size: 1.4em;
-        font-weight: 400;
-        opacity: 0;
-        font-family: 'FontAwesome';
-        transform: rotate3d(0, 0, 1, -180deg);
-        transition: content 0.4s, transform 0.4s, opacity 0.4s;
-    }
-    
-    &.open {
-        &::before {
+  background-color: #585862;
+  border-radius: 50%;
+  height: 3em;
+  position: relative;
+  width: 3em;
+  z-index: 99;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28); }
+  .actionButton .floatingText {
+    color: #FFF;
+    display: none;
+    font-family: 'Roboto';
+    position: absolute;
+    top: -.2em;
+    right: 3.5em;
+    min-width: 10em;
+    text-align: right;
+    z-index: 98; }
+    .actionButton .floatingText.show {
+      display: inherit; }
+  .actionButton .floatingTextBG {
+    padding: 0.2em 0.5em;
+    background-color: rgba(33, 33, 33, 0.8);
+    border-radius: .3em;
+    z-index: 98; }
+  .actionButton.display {
+    display: inherit; }
+  .actionButton:before {
+    content: '\f067';
+    color: #FFF;
+    position: absolute;
+    margin-top: .6em;
+    margin-left: .7em;
+    opacity: 1;
+    font-size: 1.4em;
+    font-weight: 400;
+    font-family: 'FontAwesome';
+    -webkit-transform: rotate3d(0, 0, 1, -180deg);
+            transform: rotate3d(0, 0, 1, -180deg);
+    -webkit-transition: content 0.4s, opacity 0.2s, -webkit-transform 0.4s;
+    transition: content 0.4s, opacity 0.2s, -webkit-transform 0.4s;
+    transition: content 0.4s, transform 0.4s, opacity 0.2s;
+    transition: content 0.4s, transform 0.4s, opacity 0.2s, -webkit-transform 0.4s; }
+  .actionButton:after {
+    content: '\f007';
+    color: #FFF;
+    position: absolute;
+    margin-top: .6em;
+    margin-left: .7em;
+    font-size: 1.4em;
+    font-weight: 400;
+    opacity: 0;
+    font-family: 'FontAwesome';
+    -webkit-transform: rotate3d(0, 0, 1, -180deg);
+            transform: rotate3d(0, 0, 1, -180deg);
+    -webkit-transition: content 0.4s, opacity 0.4s, -webkit-transform 0.4s;
+    transition: content 0.4s, opacity 0.4s, -webkit-transform 0.4s;
+    transition: content 0.4s, transform 0.4s, opacity 0.4s;
+    transition: content 0.4s, transform 0.4s, opacity 0.4s, -webkit-transform 0.4s; }
+  .actionButton.open::before {
+    -webkit-transform: rotate3d(0, 0, 1, 0deg);
             transform: rotate3d(0, 0, 1, 0deg);
-            opacity: 0;
-        }
-        &::after {
+    opacity: 0; }
+  .actionButton.open::after {
+    -webkit-transform: rotate3d(0, 0, 1, 0deg);
             transform: rotate3d(0, 0, 1, 0deg);
-            opacity: 1;
-        }
-    }
-    &:hover {
-        @include circleShadow(8px);
-    }
-}
+    opacity: 1; }
+  .actionButton:hover {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.14), 0 8px 16px rgba(0, 0, 0, 0.28); }
 
 .subActionButton {
-    background-color: #3F51B5;
-    height: 2em;
-    width: 2em;
-    border-radius: 50%;
-    margin-bottom: .6em;
-    margin-left: .5em;
+  background-color: #8c8c9b;
+  height: 2em;
+  width: 2em;
+  border-radius: 50%;
+  margin-bottom: .6em;
+  margin-left: .5em;
+  opacity: 0;
+  position: relative;
+  z-index: 99; }
+  .subActionButton .floatingText {
+    position: absolute;
+    top: -.6em;
+    right: 2.5em;
+    min-width: 10em;
+    font-family: 'Roboto';
+    color: #FFF;
+    text-align: right;
     opacity: 0;
-    position: relative;
-    z-index: 1000;
-    
-    .floatingText {
-        position: absolute;
-        top: -.6em;
-        right: 2.5em;
-        min-width: 10em;
-        font-family: 'Roboto';
-        color: #FFF;
-        text-align: right;
-        opacity: 0;
-        transition: opacity 0.4s;
-        &.show {
-            opacity: 1;
-        }
-    }
-    
-    .floatingTextBG {
-        padding: 0.2em 0.5em;
-        background-color: rgba(33, 33, 33, 0.8);
-        border-radius: .3em;
-    }
-    
-    &.display {
-        opacity: 1;
-    }
-    
-    &:before {
-        margin-top: .4em;
-        margin-left: .45em;
-        font-size: 1.2em;
-        font-family: 'FontAwesome';
-        position: absolute;
-        color: #FFF;
-    }
-    
-    &.person {
-        &:before {
-            content: '\f0c0';
-            margin-top: .3em;
-            margin-left: .3em;
-        }
-    }
-    &.mapMarker {
-        &:before {
-            content: '\f041';
-            margin-top: .4em;
-            margin-left: .55em;
-        }
-    }
-    &.note {
-        &:before {
-            content: '\f044';
-            margin-top: .4em;
-            margin-left: .45em;
-        }
-    }
-    
-    &:hover {
-        @include circleShadow(8px);
-    }
-}*/
+    -webkit-transition: opacity 0.4s;
+    transition: opacity 0.4s;
+    z-index: 98; }
+    .subActionButton .floatingText.show {
+      opacity: 1; }
+  .subActionButton .floatingTextBG {
+    padding: 0.2em 0.5em;
+    background-color: rgba(33, 33, 33, 0.8);
+    border-radius: .3em;
+    z-index: 98; }
+  .subActionButton.display {
+    opacity: 1; }
+  .subActionButton:before {
+    margin-top: .4em;
+    margin-left: .45em;
+    font-size: 1.2em;
+    font-family: 'FontAwesome';
+    position: absolute;
+    color: #FFF; }
+  .subActionButton.voice:before {
+    content: '\f130';
+    margin-top: .3em;
+    margin-left: .3em; }
+  .subActionButton.image:before {
+    content: '\f030';
+    margin-top: .4em;
+    margin-left: .55em; }
+  .subActionButton.note:before {
+    content: '\f044';
+    margin-top: .4em;
+    margin-left: .45em; }
+  .subActionButton:hover {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.14), 0 8px 16px rgba(0, 0, 0, 0.28); }
