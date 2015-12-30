@@ -23,19 +23,13 @@
     <div class="profile-request-panel" ng-show="tab === 1">
         <h4>Completed</h4>
         <ul>
-            <li>Completed Filler</li>
-            <li>Completed Filler</li>
-            <li>Completed Filler</li>
-            <li>Completed Filler</li>
+            <li ng-repeat="pending in userData.createdRequestIds" ng-if="pending.completed === true">{{pending.requestMessageId.title}}</li>
         </ul>
     </div>
     <div class="profile-request-panel" ng-show="tab === 2">
         <h4>Answered</h4>
         <ul>
-            <li>Answered Filler</li>
-            <li>Answered Filler</li>
-            <li>Answered Filler</li>
-            <li>Answered Filler</li>
+            <li ng-repeat="pending in userData.createdRequestIds" ng-if="pending.responseMessageIds.length !== 0">{{pending.requestMessageId.title}}</li>
         </ul>
     </div>
     <div class="profile-request-panel" ng-show="tab === 3">

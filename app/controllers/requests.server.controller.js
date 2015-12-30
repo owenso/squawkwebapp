@@ -29,13 +29,8 @@ exports.createNewRequest = function(req, res, next) {
                             createdRequestIds: request._id
                         }
                     }, function(err, numAffected) {
-                        if (err) {
-                            console.log(err);
-                            res.status(500);
-                        } else {
-                            res.status(200);
-                        }
-                        console.log(numAffected);
+                        if (err) {return res.send(500, { error: err });}
+                        return res.send("succesfully saved");
                     });
                 }
             });
