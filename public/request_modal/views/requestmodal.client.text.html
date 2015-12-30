@@ -1,0 +1,23 @@
+<div id='new-request-modal' ng-init="upload = 'text'">
+    <div id="overlay">
+        <a href ng-click="close()"><i class="xclose fa fa-times"></i></a>
+            <form id="new-request-form" name="requestForm" ng-submit="submitRequest()">
+        <div>
+            <label>
+                Title
+                <input ng-model="title" type="text" name="title" />
+            </label>
+        </div>
+        <div>
+            <label>
+                Comment
+                <input ng-model="description" type="textarea" name="description" />
+            </label>
+        </div>
+        <div>
+            <input id="form-button" type="submit" value="Submit Request" />
+        </div>
+    </form>
+    </div>
+    <div id="fade" ng-click="close()"></div>
+</div>

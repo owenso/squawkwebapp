@@ -406,7 +406,7 @@ Request Modal
     filter: alpha(opacity=70);
     width: 100%;
     height: 100%;
-    z-index: 90;
+    z-index: 99;
 }
 
 
@@ -444,13 +444,6 @@ Request Page
 
 ************************************/
 
-    #new-request-button {
-        position: absolute;
-        right: 50px;
-        bottom: 50px;
-        z-index: 99;
-    }
-
 
 #requests-list {
     background-color: white;
@@ -484,7 +477,8 @@ Request Page
                 width: 70%;
                 margin-left: 100px;
                 img {
-                    cursor: pointer
+                    cursor: pointer;
+                    cursor: hand;
                 }
             }
             .right-request-date {
@@ -515,12 +509,13 @@ FLOATING ACTION BUTTON MENU
 @mixin circleShadow($vertical) {
     box-shadow:0 0 $vertical rgba(0,0,0,.14),0 $vertical $vertical*2 rgba(0,0,0,.28)
 }
-/*
+
 
 .floatingContainer {
     bottom: 2em;
-    position: fixed;
+    position: absolute;
     right: 6em;
+    z-index: 95;
     
     &:hover {
         .subActionButton {
@@ -536,24 +531,27 @@ FLOATING ACTION BUTTON MENU
 }
 
 .actionButton {
-    background-color: #D32F2F;
+    background-color: $dgrey;
     border-radius: 50%;
     height: 3em;
     position: relative;
     width: 3em;
-    z-index: 1000;
+    z-index: 99;
+    cursor: pointer;
+    cursor: hand;
     
     @include circleShadow(4px);
     
     .floatingText {
         color: #FFF;
         display: none;
-        font-family: 'Roboto';
         position: absolute;
         top: -.2em;
         right: 3.5em;
         min-width: 10em;
         text-align: right;
+        z-index: 98;
+
         
         &.show {
             display: inherit;
@@ -563,6 +561,7 @@ FLOATING ACTION BUTTON MENU
         padding: 0.2em 0.5em;
         background-color: rgba(33, 33, 33, 0.8);
         border-radius: .3em;
+        z-index: 98
     }
     
     &.display {
@@ -573,7 +572,7 @@ FLOATING ACTION BUTTON MENU
         content: '\f067';
         color: #FFF;
         position: absolute;
-        margin-top:.6em;
+        margin-top:.5em;
         margin-left:.7em;
         opacity: 1;
         font-size:1.4em;
@@ -584,11 +583,11 @@ FLOATING ACTION BUTTON MENU
     }
     
     &:after {
-        content: '\f007';
+        content: '\f128';
         color: #FFF;
         position: absolute;
         margin-top: .6em;
-        margin-left: .7em;
+        margin-left: .8em;
         font-size: 1.4em;
         font-weight: 400;
         opacity: 0;
@@ -613,7 +612,7 @@ FLOATING ACTION BUTTON MENU
 }
 
 .subActionButton {
-    background-color: #3F51B5;
+    background-color: $lgrey;
     height: 2em;
     width: 2em;
     border-radius: 50%;
@@ -621,18 +620,21 @@ FLOATING ACTION BUTTON MENU
     margin-left: .5em;
     opacity: 0;
     position: relative;
-    z-index: 1000;
+    z-index: 99;
+    cursor: pointer;
+    cursor: hand;
     
     .floatingText {
         position: absolute;
         top: -.6em;
         right: 2.5em;
         min-width: 10em;
-        font-family: 'Roboto';
         color: #FFF;
         text-align: right;
         opacity: 0;
         transition: opacity 0.4s;
+        z-index: 98;
+
         &.show {
             opacity: 1;
         }
@@ -642,6 +644,8 @@ FLOATING ACTION BUTTON MENU
         padding: 0.2em 0.5em;
         background-color: rgba(33, 33, 33, 0.8);
         border-radius: .3em;
+        z-index: 98
+
     }
     
     &.display {
@@ -657,18 +661,18 @@ FLOATING ACTION BUTTON MENU
         color: #FFF;
     }
     
-    &.person {
+    &.voice {
         &:before {
-            content: '\f0c0';
-            margin-top: .3em;
-            margin-left: .3em;
+            content: '\f130';
+            margin-top: .35em;
+            margin-left: .5em;
         }
     }
-    &.mapMarker {
+    &.image {
         &:before {
-            content: '\f041';
+            content: '\f030';
             margin-top: .4em;
-            margin-left: .55em;
+            margin-left: .35em;
         }
     }
     &.note {
@@ -682,6 +686,6 @@ FLOATING ACTION BUTTON MENU
     &:hover {
         @include circleShadow(8px);
     }
-}*/
+}
 
 

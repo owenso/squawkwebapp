@@ -1,0 +1,36 @@
+<div id='new-request-modal' ng-init="upload='audio'">
+    <div id="overlay">
+        <a href ng-click="close()"><i class="xclose fa fa-times"></i></a>
+            <form id="new-request-form" name="requestForm" ng-submit="submitRequest()">
+        <div>
+            <label>
+                Title
+                <input ng-model="title" type="text" name="title" />
+            </label>
+        </div>
+        <div>
+            <label>
+                Comment
+                <input ng-model="description" type="textarea" name="description" />
+            </label>
+        </div>
+        <div class="request-upload-panel">
+            <a href ng-click="startRecording()">Start</a>
+            <a href ng-click="stopRecording()">Stop</a>
+            <div ng-if='recordingDone'>
+                <audio ng-src={{audioRecording}} controls>
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+            <div ng-if='recording'>
+                <i class="fa fa-microphone recording-in-progress"></i>
+                <timer interval="1000">{{mminutes}}:{{sseconds}}</timer>
+            </div>
+        </div>
+        <div>
+            <input id="form-button" type="submit" value="Submit Request" />
+        </div>
+    </form>
+    </div>
+    <div id="fade" ng-click="close()"></div>
+</div>

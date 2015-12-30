@@ -1,16 +1,16 @@
-<button id="new-request-button" ng-click="showNewRequest()">New Request</button>
-<!-- <div class="floatingContainer">
-  <div class="subActionButton person">
-    <p class="floatingText"><span class="floatingTextBG">Add Contact</span></p>
+<div class="floatingContainer" ng-mouseleave="hovering=false">
+  <div class="subActionButton voice" ng-class="{'display':hovering}" ng-mouseenter="voiceHover=true" ng-mouseleave="voiceHover=false" ng-click="showNewRequest('voice')">
+    <p class="floatingText" ng-class="{'show':voiceHover}"><span class="floatingTextBG">New Voice Request</span></p>
   </div>
-  <div class="subActionButton mapMarker">
-    <p class="floatingText"><span class="floatingTextBG">Add Address</span></p>
+  <div class="subActionButton image" ng-class="{'display':hovering}" ng-mouseenter="imageHover=true" ng-mouseleave="imageHover=false" ng-click="showNewRequest('image')">
+    <p class="floatingText" ng-class="{'show':imageHover}"><span class="floatingTextBG">New Image Request</span></p>
   </div>
-  <div class="subActionButton note">
-    <p class="floatingText"><span class="floatingTextBG">Add Note</span></p>
+  <div class="subActionButton note" ng-class="{'display':hovering}" ng-mouseenter="noteHover=true" ng-mouseleave="noteHover=false" ng-click="showNewRequest('text')">
+    <p class="floatingText" ng-class="{'show':noteHover}"><span class="floatingTextBG">New Text Request</span></p>
   </div>
-  <div class="actionButton"><p class="floatingText"><span class="floatingTextBG">Add Customer</span></p></div>
-</div> -->
+  <div class="actionButton" ng-class="{'open':hovering}" ng-mouseenter="hovering=true" ng-click="hovering = !hovering"><p class="floatingText"><span class="floatingTextBG">Add Request</span></p>
+  </div>
+</div>
 
 <div id="requests-page">
     Requests Page Loaded
