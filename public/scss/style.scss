@@ -477,7 +477,8 @@ Request Page
                 width: 70%;
                 margin-left: 100px;
                 img {
-                    cursor: pointer
+                    cursor: pointer;
+                    cursor: hand;
                 }
             }
             .right-request-date {
@@ -536,13 +537,14 @@ FLOATING ACTION BUTTON MENU
     position: relative;
     width: 3em;
     z-index: 99;
+    cursor: pointer;
+    cursor: hand;
     
     @include circleShadow(4px);
     
     .floatingText {
         color: #FFF;
         display: none;
-        font-family: 'Roboto';
         position: absolute;
         top: -.2em;
         right: 3.5em;
@@ -581,7 +583,7 @@ FLOATING ACTION BUTTON MENU
     }
     
     &:after {
-        content: '\f007';
+        content: '\f128';
         color: #FFF;
         position: absolute;
         margin-top: .6em;
@@ -619,13 +621,14 @@ FLOATING ACTION BUTTON MENU
     opacity: 0;
     position: relative;
     z-index: 99;
+    cursor: pointer;
+    cursor: hand;
     
     .floatingText {
         position: absolute;
         top: -.6em;
         right: 2.5em;
         min-width: 10em;
-        font-family: 'Roboto';
         color: #FFF;
         text-align: right;
         opacity: 0;

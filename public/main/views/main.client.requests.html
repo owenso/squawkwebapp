@@ -8,7 +8,7 @@
   <div class="subActionButton note" ng-class="{'display':hovering}" ng-mouseenter="noteHover=true" ng-mouseleave="noteHover=false" ng-click="showNewRequest('text')">
     <p class="floatingText" ng-class="{'show':noteHover}"><span class="floatingTextBG">New Text Request</span></p>
   </div>
-  <div class="actionButton" ng-class="{'open':hovering}" ng-mouseenter="hovering=true"><p class="floatingText"><span class="floatingTextBG">Add Request</span></p>
+  <div class="actionButton" ng-class="{'open':hovering}" ng-mouseenter="hovering=true" ng-click="hovering = !hovering"><p class="floatingText"><span class="floatingTextBG">Add Request</span></p>
   </div>
 </div>
 

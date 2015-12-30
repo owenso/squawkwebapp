@@ -2498,7 +2498,8 @@ Request Page
         width: 70%;
         margin-left: 100px; }
         #requests-list ul .each-request .request-center img {
-          cursor: pointer; }
+          cursor: pointer;
+          cursor: hand; }
       #requests-list ul .each-request .right-request-date {
         display: inline-block;
         width: 15%;
@@ -2537,11 +2538,12 @@ FLOATING ACTION BUTTON MENU
   position: relative;
   width: 3em;
   z-index: 99;
+  cursor: pointer;
+  cursor: hand;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28); }
   .actionButton .floatingText {
     color: #FFF;
     display: none;
-    font-family: 'Roboto';
     position: absolute;
     top: -.2em;
     right: 3.5em;
@@ -2574,7 +2576,7 @@ FLOATING ACTION BUTTON MENU
     transition: content 0.4s, transform 0.4s, opacity 0.2s;
     transition: content 0.4s, transform 0.4s, opacity 0.2s, -webkit-transform 0.4s; }
   .actionButton:after {
-    content: '\f007';
+    content: '\f128';
     color: #FFF;
     position: absolute;
     margin-top: .6em;
@@ -2609,13 +2611,14 @@ FLOATING ACTION BUTTON MENU
   margin-left: .5em;
   opacity: 0;
   position: relative;
-  z-index: 99; }
+  z-index: 99;
+  cursor: pointer;
+  cursor: hand; }
   .subActionButton .floatingText {
     position: absolute;
     top: -.6em;
     right: 2.5em;
     min-width: 10em;
-    font-family: 'Roboto';
     color: #FFF;
     text-align: right;
     opacity: 0;
