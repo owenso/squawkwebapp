@@ -2,11 +2,8 @@ angular.module('main').controller('ProfileController', ['$scope', 'MainService',
     $rootScope.currentUrl = $location.path();
 
     var getUserData = function() {
-        MainService.getUserById($cookies.get('currentId'))
+        MainService.getUser()
             .success(function(data) {
-                if (data.fullName === "undefined undefined"){
-                    data.fullName = null;
-                }
                 $scope.userData = data;
             });
     };

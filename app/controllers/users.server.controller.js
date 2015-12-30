@@ -23,32 +23,6 @@ var getErrorMessage = function(err) {
 };
 
 
-
-
-
-// Former web signup, disabled because of angular
-// exports.signup = function(req, res, next) {
-//     if (!req.user) {
-//         var user = new User(req.body);
-//         var message = null;
-//         user.provider = 'local';
-//         user.save(function(err) {
-//             if (err) {
-//                 console.log(err);
-//                 var message = getErrorMessage(err);
-//                 req.flash('error', message);
-//                 return res.redirect('/signup');
-//             }
-//             req.login(user, function(err) {
-//                 if (err) return next(err);
-//                 return res.redirect('/');
-//             });
-//         });
-//     } else {
-//         return res.redirect('/');
-//     }
-// };
-
 exports.signup = function(req, res, next) {
     var user = new User(req.body);
     var message = null;
@@ -72,18 +46,6 @@ exports.signout = function(req, res) {
     res.redirect('/');
 };
 
-// exports.create = function(req, res, next) {
-//     var user = new User(req.body);
-
-//     user.save(function(err) {
-//         if (err) {
-//             return next(err);
-//         } else {
-//             res.json(user);
-//         }
-//     });
-// };
-
 exports.list = function(req, res, next) {
     User.find({}, function(err, users) {
         if (err) {
@@ -98,9 +60,6 @@ exports.read = function(req, res) {
     res.json(req.user);
 };
 
-exports.getCurrentId = function(req,res) {
-    res.json (req.user._id);
-};
 
 exports.userByID = function(req, res, next, id) {
     User.findOne({
@@ -111,6 +70,21 @@ exports.userByID = function(req, res, next, id) {
         } else {
             req.user = user;
             next();
+        }
+    });
+};
+
+exports.userWithRequests = function(req, res, next) {
+    User.findOne({
+        _id: req.user.id
+    })
+    .deepPopulate('createdRequestIds.requestMessageId answeredRequestIds.requestMessageId')
+    .exec(function(err, data) {
+        if (err) {
+            console.log(err);
+            return next(err);
+        } else {
+            res.json(data);
         }
     });
 };

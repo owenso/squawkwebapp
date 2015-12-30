@@ -21,11 +21,11 @@
                     <img class="request-user-image" ng-src='{{request.authorId.userImg}}'>
                     <div class="request-center">
                         <span>{{request.authorId.fullName || request.authorId.username}}</span>
-                        <br> {{request.requestId.title}}
-                        <br> {{request.requestId.description}}
+                        <br> {{request.requestMessageId.title}}
+                        <br> {{request.requestMessageId.description}}
                         <br>
-                        <img class="request-preview-image" ng-if="request.requestId.imageUrlTh" ng-src='{{request.requestId.imageUrlTh}}' ng-click="viewBigger(request.requestId.imageUrl)">
-                        <audio ng-if="request.requestId.audioUrl" ng-src="{{request.requestId.audioUrl}}" preload="none" controls>
+                        <img class="request-preview-image" ng-if="request.requestMessageId.imageUrlTh" ng-src='{{request.requestMessageId.imageUrlTh}}' ng-click="viewBigger(request.requestMessageId.imageUrl)">
+                        <audio ng-if="request.requestMessageId.audioUrl" ng-src="{{request.requestMessageId.audioUrl}}" preload="none" controls>
                             Your browser does not support the audio element.
                         </audio>
                     </div>

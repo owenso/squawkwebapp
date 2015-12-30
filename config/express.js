@@ -15,7 +15,7 @@ module.exports = function(db) {
 
     app.use(favicon('./public/img/favicons/favicon.ico'));
 
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'local') {
     	console.log("Running in development mode!");
     	app.use(morgan('dev'));
     } else if (process.env.NODE_ENV === 'production') {
@@ -54,6 +54,7 @@ module.exports = function(db) {
     require('../app/routes/main.server.routes.js')(app);
     require('../app/routes/messages.server.routes.js')(app);
     require('../app/routes/conversation.server.routes.js')(app);
+    require('../app/routes/requests.server.routes.js')(app);
 
 
     app.use(express.static('./public'));

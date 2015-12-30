@@ -40,11 +40,8 @@
     </div>
     <div class="profile-request-panel" ng-show="tab === 3">
         <h4>Pending</h4>
-        <ul>
-            <li>Pending Filler</li>
-            <li>Pending Filler</li>
-            <li>Pending Filler</li>
-            <li>Pending Filler</li>
+        <ul >
+            <li ng-repeat="pending in userData.createdRequestIds" ng-if="pending.responseMessageIds.length === 0">{{pending.requestMessageId.title}}</li>
         </ul>
     </div>
 </div>
