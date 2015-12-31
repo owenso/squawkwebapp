@@ -2320,6 +2320,11 @@ h2 {
   background-color: #f9f9f9 a;
     background-color-color: black; }
 
+/**************************************
+
+Profile Page
+
+*************************************/
 #profile-panel {
   width: 320px;
   box-shadow: 2px 0px 2px -2px gray;
@@ -2332,6 +2337,9 @@ h2 {
     -webkit-transform: translateX(-50%);
             transform: translateX(-50%);
     top: -50px; }
+  #profile-panel .profile-request-panel {
+    overflow: hidden;
+    overflow-y: scroll; }
   #profile-panel #profile-tabs {
     margin: -30px 0 0 0;
     list-style-type: none;
@@ -2363,7 +2371,8 @@ h2 {
   height: 216px; }
   #profile-name-block h2 {
     margin-top: 0px;
-    padding-top: 106px; }
+    padding-top: 106px;
+    text-transform: capitalize; }
 
 /**************************************
 
@@ -2467,7 +2476,6 @@ Request Page
 
 ************************************/
 #requests-list {
-  background-color: white;
   position: absolute;
   width: 900px;
   height: 95%;
@@ -2477,29 +2485,51 @@ Request Page
           transform: translate(-50%, 0);
   overflow: hidden;
   overflow-y: scroll; }
+  #requests-list #requests-list-ul {
+    border-right: 1px solid #8c8c9b;
+    border-left: 1px solid #8c8c9b;
+    border-bottom: 1px solid #8c8c9b; }
   #requests-list ul {
     list-style-type: none;
     padding: 0; }
     #requests-list ul .each-request {
-      border: 1px solid grey;
+      background-color: white;
+      border-top: 1px solid #8c8c9b;
       padding: 15px;
-      width: 860px;
-      margin: 0 auto;
-      position: relative; }
+      position: relative;
+      margin: 0; }
       #requests-list ul .each-request .request-user-image {
         width: 75px;
         border-radius: 50%;
         display: inline-block;
         position: absolute;
         top: 15px;
-        left: 15px; }
+        left: 15px;
+        border: solid 1px #8c8c9b; }
+      #requests-list ul .each-request h2 {
+        margin: 0;
+        font-size: 1.25em;
+        text-transform: capitalize;
+        padding-bottom: .25em; }
+      #requests-list ul .each-request h3 {
+        font-size: 1em;
+        margin: 0;
+        padding-bottom: .25em; }
+      #requests-list ul .each-request span {
+        color: #8c8c9b; }
       #requests-list ul .each-request .request-center {
         display: inline-block;
         width: 70%;
-        margin-left: 100px; }
+        margin-left: 110px; }
         #requests-list ul .each-request .request-center img {
           cursor: pointer;
           cursor: hand; }
+        #requests-list ul .each-request .request-center .image-centerer {
+          text-align: center;
+          padding-top: .75em; }
+        #requests-list ul .each-request .request-center .request-preview-image {
+          height: 200px;
+          border-radius: 2%; }
       #requests-list ul .each-request .right-request-date {
         display: inline-block;
         width: 15%;
@@ -2507,8 +2537,6 @@ Request Page
         top: 15px;
         right: 15px;
         text-align: right; }
-  #requests-list .request-preview-image {
-    height: 100px; }
 
 /*****************************************
 

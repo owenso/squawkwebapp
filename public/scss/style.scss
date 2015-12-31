@@ -286,12 +286,12 @@ h2 {
 }
 
 
-
 /**************************************
 
 Profile Page
 
 *************************************/
+
 #profile-panel {
     width: 320px;
     box-shadow: 2px 0px 2px -2px gray;
@@ -304,12 +304,10 @@ Profile Page
         transform: translateX(-50%);
         top: -50px;
     }
-
     .profile-request-panel {
-        overflow : hidden;
+        overflow: hidden;
         overflow-y: scroll;
     }
-
     #profile-tabs {
         margin: -30px 0 0 0;
         list-style-type: none;
@@ -342,6 +340,7 @@ Profile Page
     h2 {
         margin-top: 0px;
         padding-top: 106px;
+        text-transform: capitalize;
     }
 }
 
@@ -457,9 +456,7 @@ Request Page
 
 ************************************/
 
-
 #requests-list {
-    background-color: white;
     position: absolute;
     width: 900px;
     height: 95%;
@@ -468,15 +465,23 @@ Request Page
     transform: translate(-50%, 0);
     overflow: hidden;
     overflow-y: scroll;
+
+    #requests-list-ul{
+        border-right: 1px solid $lgrey;
+        border-left: 1px solid $lgrey;
+        border-bottom: 1px solid $lgrey;
+    }
+
     ul {
         list-style-type: none;
         padding: 0;
+
         .each-request {
-            border: 1px solid grey;
+            background-color: white;
+            border-top: 1px solid $lgrey;
             padding: 15px;
-            width: 860px;
-            margin: 0 auto;
             position: relative;
+            margin:0;
             .request-user-image {
                 width: 75px;
                 border-radius: 50%;
@@ -484,14 +489,38 @@ Request Page
                 position: absolute;
                 top: 15px;
                 left: 15px;
+                border:solid 1px $lgrey;
+            }
+            h2 {
+                margin: 0;
+                font-size: 1.25em;
+                text-transform: capitalize;
+                padding-bottom: .25em;
+            }
+            h3 {
+                font-size: 1em;
+                margin: 0;
+                padding-bottom: .25em;
+            }
+            span {
+                color:$lgrey;
             }
             .request-center {
                 display: inline-block;
                 width: 70%;
-                margin-left: 100px;
+                margin-left: 110px;
+                
                 img {
                     cursor: pointer;
                     cursor: hand;
+                }
+                .image-centerer{
+                    text-align: center;
+                    padding-top: .75em;
+                }
+                .request-preview-image {
+                    height: 200px;
+                    border-radius: 2%;
                 }
             }
             .right-request-date {
@@ -504,11 +533,8 @@ Request Page
             }
         }
     }
-    .request-preview-image {
-        height: 100px;
-    }
-}
 
+}
 
 
 /*****************************************
@@ -518,18 +544,15 @@ FLOATING ACTION BUTTON MENU
 
 *****************************************/
 
-
 @mixin circleShadow($vertical) {
-    box-shadow:0 0 $vertical rgba(0,0,0,.14),0 $vertical $vertical*2 rgba(0,0,0,.28)
+    box-shadow: 0 0 $vertical rgba(0, 0, 0, .14), 0 $vertical $vertical*2 rgba(0, 0, 0, .28)
 }
-
 
 .floatingContainer {
     bottom: 2em;
     position: absolute;
     right: 6em;
     z-index: 95;
-    
     &:hover {
         .subActionButton {
             transition: opacity 1.2s;
@@ -552,9 +575,7 @@ FLOATING ACTION BUTTON MENU
     z-index: 99;
     cursor: pointer;
     cursor: hand;
-    
     @include circleShadow(4px);
-    
     .floatingText {
         color: #FFF;
         display: none;
@@ -564,8 +585,6 @@ FLOATING ACTION BUTTON MENU
         min-width: 10em;
         text-align: right;
         z-index: 98;
-
-        
         &.show {
             display: inherit;
         }
@@ -576,25 +595,22 @@ FLOATING ACTION BUTTON MENU
         border-radius: .3em;
         z-index: 98
     }
-    
     &.display {
         display: inherit;
     }
-    
     &:before {
         content: '\f067';
         color: #FFF;
         position: absolute;
-        margin-top:.5em;
-        margin-left:.7em;
+        margin-top: .5em;
+        margin-left: .7em;
         opacity: 1;
-        font-size:1.4em;
-        font-weight:400;
-        font-family:'FontAwesome';
+        font-size: 1.4em;
+        font-weight: 400;
+        font-family: 'FontAwesome';
         transform: rotate3d(0, 0, 1, -180deg);
         transition: content 0.4s, transform 0.4s, opacity 0.2s;
     }
-    
     &:after {
         content: '\f128';
         color: #FFF;
@@ -608,7 +624,6 @@ FLOATING ACTION BUTTON MENU
         transform: rotate3d(0, 0, 1, -180deg);
         transition: content 0.4s, transform 0.4s, opacity 0.4s;
     }
-    
     &.open {
         &::before {
             transform: rotate3d(0, 0, 1, 0deg);
@@ -636,7 +651,6 @@ FLOATING ACTION BUTTON MENU
     z-index: 99;
     cursor: pointer;
     cursor: hand;
-    
     .floatingText {
         position: absolute;
         top: -.6em;
@@ -647,24 +661,19 @@ FLOATING ACTION BUTTON MENU
         opacity: 0;
         transition: opacity 0.4s;
         z-index: 98;
-
         &.show {
             opacity: 1;
         }
     }
-    
     .floatingTextBG {
         padding: 0.2em 0.5em;
         background-color: rgba(33, 33, 33, 0.8);
         border-radius: .3em;
         z-index: 98
-
     }
-    
     &.display {
         opacity: 1;
     }
-    
     &:before {
         margin-top: .4em;
         margin-left: .45em;
@@ -673,7 +682,6 @@ FLOATING ACTION BUTTON MENU
         position: absolute;
         color: #FFF;
     }
-    
     &.voice {
         &:before {
             content: '\f130';
@@ -695,10 +703,7 @@ FLOATING ACTION BUTTON MENU
             margin-left: .45em;
         }
     }
-    
     &:hover {
         @include circleShadow(8px);
     }
 }
-
-

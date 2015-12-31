@@ -15,19 +15,23 @@
 <div id="requests-page">
     Requests Page Loaded
     <div id="requests-list">
-        <ul>
+        <ul id="requests-list-ul">
             <li ng-repeat="request in requests">
                 <div class="each-request" ng-click="goToRequest(request._id)">
                     <img class="request-user-image" ng-src='{{request.authorId.userImg}}'>
                     <div class="request-center">
-                        <span>{{request.authorId.fullName || request.authorId.username}}</span>
-                        <br> {{request.requestMessageId.title}}
-                        <br> {{request.requestMessageId.description}}
-                        <br>
+                      <ul>
+                        <li><h2>{{request.authorId.fullName || request.authorId.username}}</h2></li>
+                        <li><h3>{{request.requestMessageId.title}}</h3></li>
+                        <li><span>{{request.requestMessageId.description}}
+                        </span></li>
+                      </ul>
+                      <div class="image-centerer">
                         <img class="request-preview-image" ng-if="request.requestMessageId.imageUrlTh" ng-src='{{request.requestMessageId.imageUrlTh}}' ng-click="viewBigger(request.requestMessageId.imageUrl)">
                         <audio ng-if="request.requestMessageId.audioUrl" ng-src="{{request.requestMessageId.audioUrl}}" preload="none" controls>
                             Your browser does not support the audio element.
                         </audio>
+                      </div>
                     </div>
                     <span class="right-request-date" am-time-ago="request.created"></span>
                 </div>
