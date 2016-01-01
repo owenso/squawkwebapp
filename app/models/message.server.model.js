@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
 var MessageSchema = new Schema({
     authorId: { type: Schema.Types.ObjectId, ref: 'User' },
     audioUrl: String,
+    audioDuration:String,
     imageUrl: String,
     imageUrlTh: String,
     created: {
@@ -13,7 +14,7 @@ var MessageSchema = new Schema({
         default: Date.now
     },
     title:String,
-    description: String
+    description: String,
 });
 
 MessageSchema.plugin(deepPopulate);

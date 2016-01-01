@@ -147,7 +147,7 @@ angular.module('requestModal').factory('RequestModalService', ['$http', '$cookie
 
     reqModalFac.postNewRequest = function(object) {
         $http
-            .post('/api/newRequest', object)
+            .post('/api/requests', object)
             .success(function(data, status, headers, config) {
                 console.log('new request');
             })

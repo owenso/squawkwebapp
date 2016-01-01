@@ -75,9 +75,18 @@ var UserSchema = new Schema({
             default: 0
         }
     },
-    createdRequestIds: [],
-    answeredRequestIds: [],
-    conversations: []
+    createdRequestIds: [{
+            type: Schema.Types.ObjectId, 
+            ref: 'Request'
+    }],
+    answeredRequestIds: [{
+            type: Schema.Types.ObjectId, 
+            ref: 'Request'
+    }],
+    conversations: [{
+            type: Schema.Types.ObjectId, 
+            ref: 'Conversation'
+    }]
 });
 
 UserSchema.virtual('fullName').get(function() {
