@@ -52,7 +52,7 @@ angular.module('requestModal').controller('RequestModalController', ['$scope', '
     $scope.submitRequest = function() {
         console.log('submitting request');
         console.log($scope.upload);
-        console.log(requestForm.image.$valid);
+
 
         var formObject = {
             authorId: $cookies.get('currentId'),
@@ -61,10 +61,24 @@ angular.module('requestModal').controller('RequestModalController', ['$scope', '
         };
 
         if ($scope.upload == 'image'){
+            console.log(requestForm.image.$valid);
             var images = $document.find('img');
             var thumblink = images[images.length-1].currentSrc;
             RequestModalService.uploadToS3($scope.image, formObject, thumblink);
         } else if ($scope.upload == 'voice'){
+            var audioElement = angular.element( document.querySelector( 'audio' ) );
+            var duration = audioElement[0].duration;
+            var x = Math.round(duration);
+            if (x<10){
+                formObject.audioDuration = "0" + ":0" + x.toString();
+            } else if (x<=60) {
+                formObject.audioDuration = "0:" + x.toString();
+            } else {
+                var minutes = Math.floor(x / 60);
+                var seconds = x - minutes * 60;
+                var result = minutes.toString() + ':'+ seconds.toString();
+                formObject.audioDuration = result;
+            }
             RequestModalService.saveRecording($scope.blob, formObject);
         } else {
             RequestModalService.postNewRequest(formObject);

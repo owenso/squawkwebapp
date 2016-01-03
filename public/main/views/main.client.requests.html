@@ -1,31 +1,36 @@
-<button id="new-request-button" ng-click="showNewRequest()">New Request</button>
-<!-- <div class="floatingContainer">
-  <div class="subActionButton person">
-    <p class="floatingText"><span class="floatingTextBG">Add Contact</span></p>
+<div class="floatingContainer" ng-mouseleave="hovering=false">
+  <div class="subActionButton voice" ng-class="{'display':hovering}" ng-mouseenter="voiceHover=true" ng-mouseleave="voiceHover=false" ng-click="showNewRequest('voice')">
+    <p class="floatingText" ng-class="{'show':voiceHover}"><span class="floatingTextBG">New Voice Request</span></p>
   </div>
-  <div class="subActionButton mapMarker">
-    <p class="floatingText"><span class="floatingTextBG">Add Address</span></p>
+  <div class="subActionButton image" ng-class="{'display':hovering}" ng-mouseenter="imageHover=true" ng-mouseleave="imageHover=false" ng-click="showNewRequest('image')">
+    <p class="floatingText" ng-class="{'show':imageHover}"><span class="floatingTextBG">New Image Request</span></p>
   </div>
-  <div class="subActionButton note">
-    <p class="floatingText"><span class="floatingTextBG">Add Note</span></p>
+  <div class="subActionButton note" ng-class="{'display':hovering}" ng-mouseenter="noteHover=true" ng-mouseleave="noteHover=false" ng-click="showNewRequest('text')">
+    <p class="floatingText" ng-class="{'show':noteHover}"><span class="floatingTextBG">New Text Request</span></p>
   </div>
-  <div class="actionButton"><p class="floatingText"><span class="floatingTextBG">Add Customer</span></p></div>
-</div> -->
+  <div class="actionButton" ng-class="{'open':hovering}" ng-mouseenter="hovering=true" ng-click="hovering = !hovering"><p class="floatingText"><span class="floatingTextBG">Add Request</span></p>
+  </div>
+</div>
 
 <div id="requests-page">
     Requests Page Loaded
     <div id="requests-list">
-        <ul>
+        <ul id="requests-list-ul">
             <li ng-repeat="request in requests">
                 <div class="each-request" ng-click="goToRequest(request._id)">
                     <img class="request-user-image" ng-src='{{request.authorId.userImg}}'>
                     <div class="request-center">
-                        <span>{{request.authorId.fullName || request.authorId.username}}</span>
-                        <br> {{request.requestId.title}}
-                        <br> {{request.requestId.description}}
-                        <br>
-                        <img class="request-preview-image" ng-if="request.requestId.imageUrlTh" ng-src='{{request.requestId.imageUrlTh}}' ng-click="viewBigger(request.requestId.imageUrl)">
-                        <audio ng-if="request.requestId.audioUrl" ng-src="{{request.requestId.audioUrl}}" preload="none" controls>
+                      <ul>
+                        <li><h2>{{request.authorId.fullName || request.authorId.username}}</h2></li>
+                        <li><h3>{{request.requestMessageId.title}}</h3></li>
+                        <li><span>{{request.requestMessageId.description}}
+                        </span></li>
+                      </ul>
+                      <div class="image-centerer" ng-if="request.requestMessageId.imageUrlTh">
+                        <img class="request-preview-image" ng-src='{{request.requestMessageId.imageUrlTh}}' ng-click="viewBigger(request.requestMessageId.imageUrl)">
+                      </div>
+                      <span>{{request.requestMessageId.audioDuration}}</span>
+                        <audio ng-if="request.requestMessageId.audioUrl" ng-src="{{request.requestMessageId.audioUrl}}" preload="none" controls>
                             Your browser does not support the audio element.
                         </audio>
                     </div>

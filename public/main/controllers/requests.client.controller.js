@@ -2,11 +2,11 @@ angular.module('main').controller('RequestsController', ['$scope', 'MainService'
     
     $rootScope.currentUrl = $location.path();
 
-    MainService.getRequests();
+    MainService.getAvaliableRequests();
 
-    $scope.showNewRequest = function() {
+    $scope.showNewRequest = function(type) {
         console.log('loading request modal');
-        MainService.showModal();
+        MainService.showModal(type);
     };
 
     $scope.viewBigger = function(url) {

@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
 
 
 
-var ConversationSchema = new Schema({
+var RequestSchema = new Schema({
     authorId: {
         type: Schema.Types.ObjectId,
         ref: 'User'
@@ -17,7 +17,7 @@ var ConversationSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    messageResponseIds: [{
+    responseMessageIds: [{
         type: Schema.Types.ObjectId,
         ref: 'Message'
     }],
@@ -25,9 +25,13 @@ var ConversationSchema = new Schema({
         type: Boolean,
         default: false
     },
+    pending: {
+        type: Boolean,
+        default: true
+    },
     language: String
 });
 
-ConversationSchema.plugin(deepPopulate);
+RequestSchema.plugin(deepPopulate);
 
-mongoose.model('Conversation', ConversationSchema);
+mongoose.model('Request', RequestSchema);

@@ -6,7 +6,7 @@ angular.module('requestModal').factory('RequestModalService', ['$http', '$cookie
 
     //recording
     reqModalFac.saveRecording = function(sourceBlob, formObject) {
-
+        console.log('compressing recording');
         var reader = new FileReader();
         var _this = this;
 
@@ -43,6 +43,7 @@ angular.module('requestModal').factory('RequestModalService', ['$http', '$cookie
 
 
     reqModalFac.uploadToS3 = function(uploaded, formObject, thumblink) {
+        console.log('uploading...');
         var fileExt;
         if (uploaded.name) {
             fileExt = uploaded.name.split('.').pop();
@@ -146,7 +147,7 @@ angular.module('requestModal').factory('RequestModalService', ['$http', '$cookie
 
     reqModalFac.postNewRequest = function(object) {
         $http
-            .post('/api/newRequest', object)
+            .post('/api/requests', object)
             .success(function(data, status, headers, config) {
                 console.log('new request');
             })
@@ -156,7 +157,7 @@ angular.module('requestModal').factory('RequestModalService', ['$http', '$cookie
     };
 
     reqModalFac.redirect = function(type) {
-        if (type == "none") {
+        if (type == "text") {
             $timeout($rootScope.close, 2000);
         } else {
             $rootScope.close();
