@@ -12,6 +12,7 @@
   </div>
 </div>
 
+
 <div id="requests-page">
     Requests Page Loaded
     <div id="requests-list">
@@ -30,9 +31,11 @@
                         <img class="request-preview-image" ng-src='{{request.requestMessageId.imageUrlTh}}' ng-click="viewBigger(request.requestMessageId.imageUrl)">
                       </div>
                       <span>{{request.requestMessageId.audioDuration}}</span>
-                        <audio ng-if="request.requestMessageId.audioUrl" ng-src="{{request.requestMessageId.audioUrl}}" preload="none" controls>
+<!--                         <audio ng-if="request.requestMessageId.audioUrl" ng-src="{{request.requestMessageId.audioUrl}}" preload="none" controls>
                             Your browser does not support the audio element.
-                        </audio>
+                        </audio> -->
+                        <custom-audio ng-if="request.requestMessageId.audioUrl" title="Test Audio" ngSrc="{{request.requestMessageId.audioUrl}}">There was an error loading the audio player.</custom-audio>
+
                     </div>
                     <span class="right-request-date" am-time-ago="request.created"></span>
                 </div>
@@ -40,3 +43,4 @@
         </ul>
         </div>
     </div>
+<link rel="import" href="../../custom-audio.html">
