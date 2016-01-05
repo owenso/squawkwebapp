@@ -55,12 +55,8 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
     };
 
     userFac.signUpTwo = function(knownLang){
-        $http
-            .get('api/currentUserId')
-            .success(function(data, status, headers, config){
-                $cookies.put('currentId',data);
-                $rootScope.authenticated = true;
-                $rootScope.knownLang = knownLang;
+
+            $rootScope.knownLang = knownLang;
 
             $http
                 .put('api/users/' + $cookies.get('currentId'), {'knownLang':[knownLang]})
@@ -70,7 +66,6 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
                 .error(function(data, status, headers, config) {
                     console.log(data);
                 });
-            });
         };
 
     userFac.signUpThree = function(learnLang){
