@@ -1,5 +1,7 @@
 <link rel="import" href="/lib/polymer/polymer.html">
 <link rel="import" href="/lib/paper-progress/paper-progress.html">
+
+
 <dom-module id="custom-audio">
     <template>
         <style>
@@ -84,7 +86,7 @@
                 <!-- Title -->
                 <div id="title">{{ title }}</div>
                 <!-- Audio HTML5 element -->
-                <audio id="audio" ngSrc="{{ngSrc}}"></audio>
+                <audio id="audio" preload="none" src={{audsource}}></audio>
                 <!-- Paper progress bar -->
                 <paper-progress id="paper-progress-bar"></paper-progress>
             </div>
@@ -98,13 +100,13 @@
         is: 'custom-audio',
         properties: {
             title: String,
-            ngSrc: String
+            audsource: String
         },
         playPause: function(e) {
             e.preventDefault();
 
             var player = this;
-
+            console.log(player.$);
             if (player.$.audio.paused) {
                 player.$.audio.play();
             } else {
@@ -122,7 +124,9 @@
 
         _onCanPlay: function() {
             var player = this;
-            player.$.progress.max = player.$.audio.duration * 1000;
+             var progress = document.querySelector('paper-progress');
+            progress.max = player.$.audio.duration * 1000;
+            console.log(progress.max)
         },
 
         // Start the progress timer
@@ -140,7 +144,9 @@
                 if (player.$.audio.paused) {
                     clearInterval(player.timer.sliderUpdateInterval);
                 } else {
-                    player.$.progress.value = player.$.audio.currentTime * 1000;
+                    var progress = document.querySelector('paper-progress');
+
+                    progress.value = player.$.audio.currentTime * 1000;
                     player.currentTime = player.$.audio.currentTime;
                 }
             }, 120);
@@ -148,3 +154,4 @@
     });
     </script>
 </dom-module>
+

@@ -1,3 +1,5 @@
+<link rel="import" href="../../custom-audio.html">
+
 <div class="floatingContainer" ng-mouseleave="hovering=false">
   <div class="subActionButton voice" ng-class="{'display':hovering}" ng-mouseenter="voiceHover=true" ng-mouseleave="voiceHover=false" ng-click="showNewRequest('voice')">
     <p class="floatingText" ng-class="{'show':voiceHover}"><span class="floatingTextBG">New Voice Request</span></p>
@@ -34,7 +36,7 @@
 <!--                         <audio ng-if="request.requestMessageId.audioUrl" ng-src="{{request.requestMessageId.audioUrl}}" preload="none" controls>
                             Your browser does not support the audio element.
                         </audio> -->
-                        <custom-audio ng-if="request.requestMessageId.audioUrl" title="Test Audio" ngSrc="{{request.requestMessageId.audioUrl}}">There was an error loading the audio player.</custom-audio>
+                        <custom-audio ng-if="request.requestMessageId.audioUrl" title="Test Audio" audsource="{{request.requestMessageId.audioUrl}}">There was an error loading the audio player.</custom-audio>
 
                     </div>
                     <span class="right-request-date" am-time-ago="request.created"></span>
@@ -43,4 +45,3 @@
         </ul>
         </div>
     </div>
-<link rel="import" href="../../custom-audio.html">
