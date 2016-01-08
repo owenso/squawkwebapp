@@ -46,14 +46,14 @@
             align-self: flex-end;
         }
         
-        #title {
+/*        #title {
             position: absolute;
             color: blueviolet;
             font-size: 15px;
             text-align: center;
             line-height: 50px;
             z-index: 2;
-        }
+        }*/
         
         #audio-wrapper {
             position: relative;
@@ -70,28 +70,44 @@
             left: 0;
         }
         
-        paper-progress-bar {
+        paper-progress {
             position: relative;
             width: 100%;
             --paper-progress-active-color: blueviolet;
             --paper-progress-height: 50px;
             --paper-progress-container-color: rgba(255, 255, 255, .75);
         }
+        
+        #duration {
+            text-align: center;
+            line-height: 50px;
+            font-size: 11px;
+            color: blueviolet;
+        }
+        #play,
+        #pause {
+          color: #fff;
+
+        }
         </style>
         <div id="audio-wrapper" class="layout-horizontal" on-click="playPause">
             <div id="audio-left" class="self-start">
-                <!-- ... -->
+
+                <i id="play" class="fa fa-play fit" hidden$="{{ isPlaying }}"></i>
+
+                <i id="pause" class="fa fa-pause fit" hidden$="{{ !isPlaying }}"></i>
             </div>
             <div class="flex">
                 <!-- Title -->
-                <div id="title">{{ title }}</div>
                 <!-- Audio HTML5 element -->
                 <audio id="audio" preload="none" src={{audsource}}></audio>
                 <!-- Paper progress bar -->
-                <paper-progress id="paper-progress-bar"></paper-progress>
+                <paper-progress id="progress"></paper-progress>
             </div>
             <div id="audio-right" class="self-end">
-                <!-- ... -->
+                <div id="duration" class="fit">
+                    <span class="fit">{{ _convertSecToMin(duration) }}</span>
+                </div>
             </div>
         </div>
     </template>
@@ -99,18 +115,27 @@
     Polymer({
         is: 'custom-audio',
         properties: {
-            title: String,
-            audsource: String
+            audsource: String,
+            isPlaying: {
+                type: Boolean,
+                value: false
+            },
+            duration: {
+                type: Number,
+                value: 0
+            }
         },
         playPause: function(e) {
             e.preventDefault();
 
             var player = this;
-            console.log(player.$);
             if (player.$.audio.paused) {
                 player.$.audio.play();
+                player.isPlaying = true; 
             } else {
                 player.$.audio.pause();
+                player.isPlaying = false; 
+
             }
         },
         // Register event listeners
@@ -124,8 +149,9 @@
 
         _onCanPlay: function() {
             var player = this;
-             var progress = document.querySelector('paper-progress');
+            var progress = document.querySelector('paper-progress');
             progress.max = player.$.audio.duration * 1000;
+            player.duration = player.$.audio.duration;
             console.log(progress.max)
         },
 
@@ -150,8 +176,16 @@
                     player.currentTime = player.$.audio.currentTime;
                 }
             }, 120);
+        },
+        // to convert seconds to 'm:ss' format
+        _convertSecToMin: function(seconds) {
+            if (seconds === 0) {
+                return '';
+            }
+            var minutes = Math.floor(seconds / 60);
+            var secondsToCalc = Math.floor(seconds % 60) + '';
+            return minutes + ':' + (secondsToCalc.length < 2 ? '0' + secondsToCalc : secondsToCalc);
         }
     });
     </script>
 </dom-module>
-
