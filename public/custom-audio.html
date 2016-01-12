@@ -15,12 +15,6 @@
             width: 50px;
             position: relative;
         }
-        
-        #audio-left {
-            background-color: blueviolet;
-        }
-        /* Helpers */
-        
         .layout-horizontal {
             display: flex;
             -ms-flex-direction: row;
@@ -45,16 +39,6 @@
             -webkit-align-self: flex-end;
             align-self: flex-end;
         }
-        
-/*        #title {
-            position: absolute;
-            color: blueviolet;
-            font-size: 15px;
-            text-align: center;
-            line-height: 50px;
-            z-index: 2;
-        }*/
-        
         #audio-wrapper {
             position: relative;
             box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
@@ -74,20 +58,13 @@
             position: relative;
             width: 100%;
             --paper-progress-active-color: blueviolet;
-            --paper-progress-height: 50px;
             --paper-progress-container-color: rgba(255, 255, 255, .75);
         }
         
         #duration {
             text-align: center;
-            line-height: 50px;
+            vertical-align: bottom;
             font-size: 11px;
-            color: blueviolet;
-        }
-        #play,
-        #pause {
-          color: #fff;
-
         }
         </style>
         <div id="audio-wrapper" class="layout-horizontal" on-click="playPause">
@@ -96,9 +73,13 @@
                 <i id="play" class="fa fa-play fit" hidden$="{{ isPlaying }}"></i>
 
                 <i id="pause" class="fa fa-pause fit" hidden$="{{ !isPlaying }}"></i>
+
+                <div id="current" class="fit">
+                    <span class="fit">{{ _convertSecToMin(currentTime) }}</span>
+                </div>
+
             </div>
             <div class="flex">
-                <!-- Title -->
                 <!-- Audio HTML5 element -->
                 <audio id="audio" preload="none" src={{audsource}}></audio>
                 <!-- Paper progress bar -->
@@ -123,6 +104,9 @@
             duration: {
                 type: Number,
                 value: 0
+            },
+            currentTime: {
+                type: Number
             }
         },
         playPause: function(e) {
