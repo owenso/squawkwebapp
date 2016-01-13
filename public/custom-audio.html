@@ -1,0 +1,175 @@
+<link rel="import" href="/lib/polymer/polymer.html">
+<link rel="import" href="/lib/paper-progress/paper-progress.html">
+
+
+<dom-module id="custom-audio">
+    <template>
+        <style>
+        :host {
+            width: 100%;
+        }
+        
+        #audio-left,
+        #audio-right {
+            height: 50px;
+            width: 50px;
+            position: relative;
+        }
+        .layout-horizontal {
+            display: flex;
+            -ms-flex-direction: row;
+            -webkit-flex-direction: row;
+            flex-direction: row;
+        }
+        
+        .flex {
+            -ms-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+        }
+        
+        .self-start {
+            -ms-align-self: flex-start;
+            -webkit-align-self: flex-start;
+            align-self: flex-start;
+        }
+        
+        .self-end {
+            -ms-align-self: flex-end;
+            -webkit-align-self: flex-end;
+            align-self: flex-end;
+        }
+        #audio-wrapper {
+            position: relative;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
+            cursor: pointer;
+        }
+        
+        .fit {
+            position: absolute;
+            margin: auto;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+        
+        paper-progress {
+            position: relative;
+            width: 100%;
+            --paper-progress-active-color: blueviolet;
+            --paper-progress-container-color: rgba(255, 255, 255, .75);
+        }
+        
+        #duration {
+            text-align: center;
+            vertical-align: bottom;
+            font-size: 11px;
+        }
+        </style>
+        <div id="audio-wrapper" class="layout-horizontal" on-click="playPause">
+            <div id="audio-left" class="self-start">
+
+                <i id="play" class="fa fa-play fit" hidden$="{{ isPlaying }}"></i>
+
+                <i id="pause" class="fa fa-pause fit" hidden$="{{ !isPlaying }}"></i>
+
+                <div id="current" class="fit">
+                    <span class="fit">{{ _convertSecToMin(currentTime) }}</span>
+                </div>
+
+            </div>
+            <div class="flex">
+                <!-- Audio HTML5 element -->
+                <audio id="audio" preload="none" src={{audsource}}></audio>
+                <!-- Paper progress bar -->
+                <paper-progress id="progress"></paper-progress>
+            </div>
+            <div id="audio-right" class="self-end">
+                <div id="duration" class="fit">
+                    <span class="fit">{{ _convertSecToMin(duration) }}</span>
+                </div>
+            </div>
+        </div>
+    </template>
+    <script>
+    Polymer({
+        is: 'custom-audio',
+        properties: {
+            audsource: String,
+            isPlaying: {
+                type: Boolean,
+                value: false
+            },
+            duration: {
+                type: Number,
+                value: 0
+            },
+            currentTime: {
+                type: Number
+            }
+        },
+        playPause: function(e) {
+            e.preventDefault();
+
+            var player = this;
+            if (player.$.audio.paused) {
+                player.$.audio.play();
+                player.isPlaying = true; 
+            } else {
+                player.$.audio.pause();
+                player.isPlaying = false; 
+
+            }
+        },
+        // Register event listeners
+
+        listeners: {
+            'audio.loadedmetadata': '_onCanPlay',
+            'audio.playing': '_startProgressTimer'
+        },
+
+        // When metadata is loaded and player can start playing
+
+        _onCanPlay: function() {
+            var player = this;
+            var progress = document.querySelector('paper-progress');
+            progress.max = player.$.audio.duration * 1000;
+            player.duration = player.$.audio.duration;
+            console.log(progress.max)
+        },
+
+        // Start the progress timer
+
+        _startProgressTimer: function() {
+
+            var player = this;
+            player.timer = {};
+
+            if (player.timer.sliderUpdateInterval) {
+                clearInterval(player.timer.sliderUpdateInterval);
+            }
+
+            player.timer.sliderUpdateInterval = setInterval(function() {
+                if (player.$.audio.paused) {
+                    clearInterval(player.timer.sliderUpdateInterval);
+                } else {
+                    var progress = document.querySelector('paper-progress');
+
+                    progress.value = player.$.audio.currentTime * 1000;
+                    player.currentTime = player.$.audio.currentTime;
+                }
+            }, 120);
+        },
+        // to convert seconds to 'm:ss' format
+        _convertSecToMin: function(seconds) {
+            if (seconds === 0) {
+                return '';
+            }
+            var minutes = Math.floor(seconds / 60);
+            var secondsToCalc = Math.floor(seconds % 60) + '';
+            return minutes + ':' + (secondsToCalc.length < 2 ? '0' + secondsToCalc : secondsToCalc);
+        }
+    });
+    </script>
+</dom-module>
