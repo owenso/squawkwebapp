@@ -3,7 +3,7 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
 
     userFac.newUser = {};
     userFac.getUserById = function(userID) {
-        return $http.get('/api/users/' + userID);
+        return $http.get('/api/v1/users/' + userID);
     };
 
     userFac.logOut = function() {
@@ -18,7 +18,7 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
 
     userFac.logIn = function(userObject) {
         $http
-            .post('/api/signin', userObject)
+            .post('/api/v1/signin', userObject)
             .success(function(data, status, headers, config) {
                 $rootScope.authenticated = true;
                 if(data.knownLang === undefined || data.learnLang === undefined){
@@ -42,7 +42,7 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
 
     userFac.signUpOne = function(userData){
         $http
-            .post('/api/signup', userData)
+            .post('/api/v1/signup', userData)
             .success(function(data, status, headers, config) {
                 $cookies.put('currentId',data._id);
                 $location.path("/signup2");
@@ -59,7 +59,7 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
             $rootScope.knownLang = knownLang;
 
             $http
-                .put('api/users/' + $cookies.get('currentId'), {'knownLang':[knownLang]})
+                .put('api/v1/users/' + $cookies.get('currentId'), {'knownLang':[knownLang]})
                 .success(function(data, status, headers, config){
                     $location.path('/signup3');
                 })
@@ -70,7 +70,7 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
 
     userFac.signUpThree = function(learnLang){
         $http
-            .put('api/users/' + $cookies.get('currentId'), {'learnLang':[learnLang]})
+            .put('api/v1/users/' + $cookies.get('currentId'), {'learnLang':[learnLang]})
             .success(function(data, status, headers, config){
                 $cookies.remove("currentId");
                 $window.location.href="/main/";

@@ -2,13 +2,13 @@ var users = require('../../app/controllers/users.server.controller'),
     passport = require('passport');
 
 module.exports = function(app) {
-    app.route('/api/users')
+    app.route('/api/v1/users')
         //create
         // .post(users.create)
         //index
         .get(users.list);
 
-    app.route('/api/users/:userId')
+    app.route('/api/v1/users/:userId')
         //show
         .get(users.read)
         //update
@@ -17,13 +17,13 @@ module.exports = function(app) {
 
     app.param('userId', users.userByID);
 
-    app.route('/api/fulluser')
+    app.route('/api/v1/fulluser')
         .get(users.userWithRequests);
 
-    app.route('/api/signup')
+    app.route('/api/v1/signup')
         .post(users.signup);
 
-    app.route('/api/signin')
+    app.route('/api/v1/signin')
         .post(passport.authenticate('local'), function (req,res){
             res.send(req.user);
         });
