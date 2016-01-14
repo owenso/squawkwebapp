@@ -1,3 +1,5 @@
+<link rel="import" href="../../custom-audio.html">
+
 <div class="floatingContainer" ng-mouseleave="hovering=false">
   <div class="subActionButton voice" ng-class="{'display':hovering}" ng-mouseenter="voiceHover=true" ng-mouseleave="voiceHover=false" ng-click="showNewRequest('voice')">
     <p class="floatingText" ng-class="{'show':voiceHover}"><span class="floatingTextBG">New Voice Request</span></p>
@@ -11,6 +13,7 @@
   <div class="actionButton" ng-class="{'open':hovering}" ng-mouseenter="hovering=true" ng-click="hovering = !hovering"><p class="floatingText"><span class="floatingTextBG">Add Request</span></p>
   </div>
 </div>
+
 
 <div id="requests-page">
     Requests Page Loaded
@@ -30,9 +33,11 @@
                         <img class="request-preview-image" ng-src='{{request.requestMessageId.imageUrlTh}}' ng-click="viewBigger(request.requestMessageId.imageUrl)">
                       </div>
                       <span>{{request.requestMessageId.audioDuration}}</span>
-                        <audio ng-if="request.requestMessageId.audioUrl" ng-src="{{request.requestMessageId.audioUrl}}" preload="none" controls>
+<!--                         <audio ng-if="request.requestMessageId.audioUrl" ng-src="{{request.requestMessageId.audioUrl}}" preload="none" controls>
                             Your browser does not support the audio element.
-                        </audio>
+                        </audio> -->
+                        <custom-audio ng-if="request.requestMessageId.audioUrl" title="Test Audio" audsource="{{request.requestMessageId.audioUrl}}">There was an error loading the audio player.</custom-audio>
+
                     </div>
                     <span class="right-request-date" am-time-ago="request.created"></span>
                 </div>

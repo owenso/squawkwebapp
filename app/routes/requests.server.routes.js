@@ -1,9 +1,10 @@
 var requests = require('../../app/controllers/requests.server.controller');
+var root = '/api/v1/';
 
 module.exports = function(app) {
-    app.route('/api/requests')
+    app.route(root + 'requests')
         .post(requests.createNewRequest);
 
-    app.route('/api/avaliableRequests/')
+    app.route(root + 'avaliableRequests/')
     		.get(requests.findRequestByKnownLanguage);
 };

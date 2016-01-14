@@ -3,12 +3,9 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
 
     mainFac.newUser = {};
 
-    // mainFac.getUserById = function(userID) {
-    //     return $http.get('/api/users/' + userID);
-    // };
 
     mainFac.getUser = function() {
-        return $http.get('/api/fulluser');
+        return $http.get('/api/v1/fulluser');
     };
 
     mainFac.getLoggedUser = function() {
@@ -19,7 +16,7 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
 
     mainFac.getAvaliableRequests = function() {
         $http
-            .get('/api/avaliableRequests/')
+            .get('/api/v1/avaliableRequests/')
             .success(function(data, status, headers) {
                 $rootScope.requests = data;
                 console.log(data);
@@ -31,7 +28,7 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
 
     mainFac.getUsersRequests = function() {
         $http
-            .get('/api/requests/')
+            .get('/api/v1/requests/')
             .success(function(data, status, headers) {
                 $rootScope.requests = data;
                 console.log(data);

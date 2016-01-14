@@ -8,11 +8,10 @@ module.exports = function(app) {
         //     res.redirect('/');
         // } else {
         //     return next();
-        // }
-
+        // }]
         if (!req.user) {
             res.redirect('../');
-        } else if (!req.user.learnLang) {
+        } else if (req.user.learnLang.length === 0) {
             req.session.needLangs = true;
             res.redirect('../#/signup2');
         } else {
