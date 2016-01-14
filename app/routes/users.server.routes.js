@@ -1,14 +1,15 @@
 var users = require('../../app/controllers/users.server.controller'),
-    passport = require('passport');
+    passport = require('passport'),
+    root = '/api/v1/';
 
 module.exports = function(app) {
-    app.route('/api/v1/users')
+    app.route(root + 'users')
         //create
         // .post(users.create)
         //index
         .get(users.list);
 
-    app.route('/api/v1/users/:userId')
+    app.route(root + 'users/:userId')
         //show
         .get(users.read)
         //update
@@ -17,13 +18,13 @@ module.exports = function(app) {
 
     app.param('userId', users.userByID);
 
-    app.route('/api/v1/fulluser')
+    app.route(root + 'fulluser')
         .get(users.userWithRequests);
 
-    app.route('/api/v1/signup')
+    app.route(root + 'signup')
         .post(users.signup);
 
-    app.route('/api/v1/signin')
+    app.route(root + 'signin')
         .post(passport.authenticate('local'), function (req,res){
             res.send(req.user);
         });
