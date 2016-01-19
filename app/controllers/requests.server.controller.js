@@ -11,8 +11,8 @@ exports.createNewRequest = function(req, res, next) {
         } else {
             var newRequest = {
                 authorId: message.authorId,
-                requestMessageId: message._id,
-                language: req.user.learnLang[0] //need to set this on client side if we want to let them choose
+                message: message._id,
+                language: req.user.targetLanguages[0] //this just uses the first language in the user's array. need to set this on client side if we want to let them choose
             };
             var request = new Request(newRequest);
 
@@ -26,7 +26,7 @@ exports.createNewRequest = function(req, res, next) {
                         _id: req.user._id
                     }, {
                         $push: {
-                            createdRequestIds: request._id
+                            requests: request._id
                         }
                     }, function(err, numAffected) {
                         if (err) {return res.send(500, { error: err });}
@@ -41,14 +41,13 @@ exports.createNewRequest = function(req, res, next) {
 
 
 exports.findRequestByKnownLanguage = function(req, res, next) {
-    console.log(req.user.knownLang);
+    console.log(req.user.nativeLanguages);
     Request.find({
             language: {
-                $in: req.user.knownLang
+                $in: req.user.nativeLanguages
             }
         })
-        .populate('authorId requestMessageId')
-        .deepPopulate('responseMessageIds.authorId')
+        .deepPopulate('message.authorId')
         .sort({
             created: -1
         })

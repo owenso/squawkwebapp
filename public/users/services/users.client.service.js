@@ -21,7 +21,7 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
             .post('/api/v1/signin', userObject)
             .success(function(data, status, headers, config) {
                 $rootScope.authenticated = true;
-                if(data.knownLang === undefined || data.learnLang === undefined){
+                if(data.nativeLanguages.length === 0 || data.targetLanguages.length === 0){
                     $cookies.put('currentId',data._id);
                     $rootScope.authenticated = true;
                     $location.path('/signup2');
@@ -54,12 +54,12 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
             });
     };
 
-    userFac.signUpTwo = function(knownLang){
+    userFac.signUpTwo = function(nativeLanguages){
 
-            $rootScope.knownLang = knownLang;
+            $rootScope.selectedLanguage = nativeLanguages;
 
             $http
-                .put('api/v1/users/' + $cookies.get('currentId'), {'knownLang':[knownLang]})
+                .put('api/v1/users/' + $cookies.get('currentId'), {'nativeLanguages':[nativeLanguages]})
                 .success(function(data, status, headers, config){
                     $location.path('/signup3');
                 })
@@ -68,9 +68,9 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
                 });
         };
 
-    userFac.signUpThree = function(learnLang){
+    userFac.signUpThree = function(targetLanguages){
         $http
-            .put('api/v1/users/' + $cookies.get('currentId'), {'learnLang':[learnLang]})
+            .put('api/v1/users/' + $cookies.get('currentId'), {'targetLanguages':[targetLanguages]})
             .success(function(data, status, headers, config){
                 $cookies.remove("currentId");
                 $window.location.href="/main/";

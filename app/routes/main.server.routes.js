@@ -11,7 +11,7 @@ module.exports = function(app) {
         // }]
         if (!req.user) {
             res.redirect('../');
-        } else if (req.user.learnLang.length === 0) {
+        } else if (req.user.nativeLanguages.length === 0) {
             req.session.needLangs = true;
             res.redirect('../#/signup2');
         } else {

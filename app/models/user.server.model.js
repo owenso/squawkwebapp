@@ -14,8 +14,8 @@ var UserSchema = new Schema({
         index: true,
         match: [/.+\@.+\..+/, "Please enter a valid e-mail address"]
     },
-    knownLang: [],
-    learnLang: [],
+    nativeLanguages: [],
+    targetLanguages: [],
     userImg: {
         type: String,
         default: '/img/parakeet.png'
@@ -57,29 +57,11 @@ var UserSchema = new Schema({
         default: 'User',
         enum: ['Admin', 'Owner', 'User']
     },
-    requestData: {
-        completed: {
-            type: Number,
-            default: 0
-        },
-        answered: {
-            type: Number,
-            default: 0
-        },
-        pending: {
-            type: Number,
-            default: 0
-        },
-        total: {
-            type: Number,
-            default: 0
-        }
-    },
-    createdRequestIds: [{
+    requests: [{
             type: Schema.Types.ObjectId, 
             ref: 'Request'
     }],
-    answeredRequestIds: [{
+    filledRequests: [{
             type: Schema.Types.ObjectId, 
             ref: 'Request'
     }],

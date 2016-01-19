@@ -78,7 +78,7 @@ exports.userWithRequests = function(req, res, next) {
     User.findOne({
         _id: req.user.id
     })
-    .deepPopulate('createdRequestIds.requestMessageId answeredRequestIds.requestMessageId')
+    .deepPopulate('requests.message filledRequests.message')
     .exec(function(err, data) {
         if (err) {
             console.log(err);
