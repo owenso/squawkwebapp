@@ -11,8 +11,8 @@ exports.createNewRequest = function(req, res, next) {
         } else {
             var newRequest = {
                 authorId: message.authorId,
-                requestMessageId: message._id,
-                language: req.user.nativeLanguages[0] //need to set this on client side if we want to let them choose
+                message: message._id,
+                language: req.user.nativeLanguages[0] //this just uses the first language in the user's array. need to set this on client side if we want to let them choose
             };
             var request = new Request(newRequest);
 

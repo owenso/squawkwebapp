@@ -15,7 +15,7 @@ var RequestSchema = new Schema({
     }],
     inQueue: {
         type: Boolean,
-        default: false
+        default: true
     },
     language: String
 });

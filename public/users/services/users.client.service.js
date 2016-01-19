@@ -56,7 +56,7 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
 
     userFac.signUpTwo = function(nativeLanguages){
 
-            $rootScope.nativeLanguages = nativeLanguages;
+            $rootScope.selectedLanguage = nativeLanguages;
 
             $http
                 .put('api/v1/users/' + $cookies.get('currentId'), {'nativeLanguages':[nativeLanguages]})

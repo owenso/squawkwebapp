@@ -23,19 +23,19 @@
     <div class="profile-request-panel" ng-show="tab === 1">
         <h4>Completed</h4>
         <ul>
-            <li ng-repeat="pending in userData.createdRequestIds | orderBy: 'requestMessageId.created':true" ng-if="pending.completed === true">{{pending.requestMessageId.title}}</li>
+            <li ng-repeat="completed in userData.requests | orderBy: 'message.created':true" ng-if="completed.inQueue === false">{{completed.message.title}}</li>
         </ul>
     </div>
     <div class="profile-request-panel" ng-show="tab === 2">
         <h4>Answered</h4>
         <ul>
-            <li ng-repeat="pending in userData.createdRequestIds | orderBy: 'requestMessageId.created':true" ng-if="pending.responseMessageIds.length !== 0">{{pending.requestMessageId.title}}</li>
+            <li ng-repeat="answered in userData.filledRequests | orderBy: 'message.created':true">{{answered.message.title}}</li>
         </ul>
     </div>
     <div class="profile-request-panel" ng-show="tab === 3">
         <h4>Pending</h4>
         <ul >
-            <li ng-repeat="pending in userData.createdRequestIds | orderBy: 'requestMessageId.created':true" ng-if="pending.responseMessageIds.length === 0">{{pending.requestMessageId.title}}</li>
+            <li ng-repeat="pending in userData.requests | orderBy: 'message.created':true" ng-if="pending.inQueue === true">{{pending.message.title}}</li>
         </ul>
     </div>
 </div>
