@@ -16,6 +16,8 @@ angular.module('main').controller('RequestsController', ['$scope', 'MainService'
 
     $scope.goToRequest = function(id) {
         console.log(id);
+        //change inQueue to false
+        //redirect to conversations page with id
     };
 
 }]);
