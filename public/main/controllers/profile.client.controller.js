@@ -5,20 +5,26 @@ angular.module('main').controller('ProfileController', ['$scope', 'MainService',
         MainService.getUser()
             .success(function(data) {
                 $scope.userData = data;
+
+                //user's requests without responses
                 $scope.pend = 0;
-                $scope.ans = 0;
+                
+                //user's requests that have been responded to
                 $scope.comp = 0;
 
-                for (var i = 0; i < data.createdRequestIds.length; i++) {
-                	if (data.createdRequestIds[i].pending === true){
+                //requests user has responded to
+                $scope.ans = 0;
+
+                for (var i = 0; i < data.requests.length; i++) {
+                	if (data.requests[i].inQueue === true){
                 		$scope.pend += 1;
                 	}
-                	if (data.createdRequestIds[i].completed === true){
+                	if (data.requests[i].inQueue === false){
                 		$scope.comp += 1;
                 	}
-                	if (data.createdRequestIds[i].responseMessageIds>0){
-                		$scope.ans += 1;
-                	}
+                }
+                for (var j = 0; i<data.filledRequests.length; i++) {
+                        $scope.ans += 1;
                 }
             });
     };
