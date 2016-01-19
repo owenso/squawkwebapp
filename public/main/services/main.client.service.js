@@ -16,7 +16,7 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
 
     mainFac.getAvaliableRequests = function() {
         $http
-            .get('/api/v1/avaliableRequests/')
+            .get('/api/v1/availableRequests/')
             .success(function(data, status, headers) {
                 $rootScope.requests = data;
                 console.log(data);
