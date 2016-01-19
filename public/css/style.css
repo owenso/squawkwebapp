@@ -2519,6 +2519,9 @@ Request Page
         font-weight: normal; }
       #requests-list ul .each-request span {
         color: #8c8c9b; }
+      #requests-list ul .each-request #req-reply-link {
+        cursor: pointer;
+        cursor: hand; }
       #requests-list ul .each-request .request-center {
         display: inline-block;
         width: 70%;

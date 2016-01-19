@@ -508,6 +508,10 @@ Request Page
             span {
                 color:$lgrey;
             }
+            #req-reply-link {
+                cursor: pointer;
+                cursor: hand;
+            }
             .request-center {
                 display: inline-block;
                 width: 70%;

@@ -14,4 +14,8 @@ angular.module('main').controller('RequestsController', ['$scope', 'MainService'
         MainService.showImageModal(url);
     };
 
+    $scope.goToRequest = function(id) {
+        console.log(id);
+    };
+
 }]);

@@ -20,7 +20,7 @@
     <div id="requests-list">
         <ul id="requests-list-ul">
             <li ng-repeat="request in requests">
-                <div class="each-request" ng-click="goToRequest(request._id)">
+                <div class="each-request">
                     <img class="request-user-image" ng-src='{{request.message.authorId.userImg}}'>
                     <div class="request-center">
                       <ul>
@@ -38,8 +38,9 @@
                         </audio> -->
                         <custom-audio ng-if="request.message.audioUrl" title="Test Audio" audsource="{{request.message.audioUrl}}">There was an error loading the audio player.</custom-audio>
 
+                    <div id="req-reply-link" ng-click="goToRequest(request._id)">Reply</div>
                     </div>
-                    <span class="right-request-date" am-time-ago="request.created"></span>
+                    <span class="right-request-date" am-time-ago="request.message.created"></span>
                 </div>
             </li>
         </ul>
