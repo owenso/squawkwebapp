@@ -5,6 +5,7 @@ module.exports = function(app) {
     app.route(root + 'requests')
         .post(requests.createNewRequest);
 
-    app.route(root + 'avaliableRequests/')
-    		.get(requests.findRequestByKnownLanguage);
+    app.route(root + 'availableRequests/')
+    		//.get(requests.findRequestByKnownLanguage);
+    		.get(requests.list);
 };

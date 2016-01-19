@@ -39,6 +39,22 @@ exports.createNewRequest = function(req, res, next) {
     });
 };
 
+exports.list = function (req,res,next) {
+    Request.find({})
+        .populate('authorId requestMessageId')
+        .deepPopulate('responseMessageIds.authorId')
+        .sort({
+            created: -1
+        })
+        .exec(function(err, data) {
+            if (err) {
+                console.log(err);
+                return next(err);
+            } else {
+                res.json(data);
+            }
+        });
+};
 
 exports.findRequestByKnownLanguage = function(req, res, next) {
     console.log(req.user.knownLang);
