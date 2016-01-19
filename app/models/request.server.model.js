@@ -5,29 +5,17 @@ var mongoose = require('mongoose'),
 
 
 var RequestSchema = new Schema({
-    authorId: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-    },
-    requestMessageId: {
+    message: {
         type: Schema.Types.ObjectId,
         ref: 'Message'
     },
-    created: {
-        type: Date,
-        default: Date.now
-    },
-    responseMessageIds: [{
+    responses: [{
         type: Schema.Types.ObjectId,
         ref: 'Message'
     }],
-    completed: {
+    inQueue: {
         type: Boolean,
         default: false
-    },
-    pending: {
-        type: Boolean,
-        default: true
     },
     language: String
 });
