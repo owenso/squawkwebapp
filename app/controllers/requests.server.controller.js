@@ -12,7 +12,7 @@ exports.createNewRequest = function(req, res, next) {
             var newRequest = {
                 authorId: message.authorId,
                 message: message._id,
-                language: req.user.nativeLanguages[0] //this just uses the first language in the user's array. need to set this on client side if we want to let them choose
+                language: req.user.targetLanguages[0] //this just uses the first language in the user's array. need to set this on client side if we want to let them choose
             };
             var request = new Request(newRequest);
 
@@ -47,8 +47,7 @@ exports.findRequestByKnownLanguage = function(req, res, next) {
                 $in: req.user.nativeLanguages
             }
         })
-        .populate('authorId requestMessageId')
-        .deepPopulate('responseMessageIds.authorId')
+        .deepPopulate('message.authorId')
         .sort({
             created: -1
         })

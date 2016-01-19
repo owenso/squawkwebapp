@@ -21,22 +21,22 @@
         <ul id="requests-list-ul">
             <li ng-repeat="request in requests">
                 <div class="each-request" ng-click="goToRequest(request._id)">
-                    <img class="request-user-image" ng-src='{{request.authorId.userImg}}'>
+                    <img class="request-user-image" ng-src='{{request.message.authorId.userImg}}'>
                     <div class="request-center">
                       <ul>
-                        <li><h2>{{request.authorId.fullName || request.authorId.username}}</h2></li>
-                        <li><h3>{{request.requestMessageId.title}}</h3></li>
-                        <li><span>{{request.requestMessageId.description}}
+                        <li><h2>{{request.message.authorId.fullName || request.message.authorId.username}}</h2></li>
+                        <li><h3>{{request.message.title}}</h3></li>
+                        <li><span>{{request.message.description}}
                         </span></li>
                       </ul>
-                      <div class="image-centerer" ng-if="request.requestMessageId.imageUrlTh">
-                        <img class="request-preview-image" ng-src='{{request.requestMessageId.imageUrlTh}}' ng-click="viewBigger(request.requestMessageId.imageUrl)">
+                      <div class="image-centerer" ng-if="request.message.imageUrlTh">
+                        <img class="request-preview-image" ng-src='{{request.message.imageUrlTh}}' ng-click="viewBigger(request.message.imageUrl)">
                       </div>
-                      <span>{{request.requestMessageId.audioDuration}}</span>
-<!--                         <audio ng-if="request.requestMessageId.audioUrl" ng-src="{{request.requestMessageId.audioUrl}}" preload="none" controls>
+                      <span>{{request.message.audioDuration}}</span>
+<!--                         <audio ng-if="request.message.audioUrl" ng-src="{{request.message.audioUrl}}" preload="none" controls>
                             Your browser does not support the audio element.
                         </audio> -->
-                        <custom-audio ng-if="request.requestMessageId.audioUrl" title="Test Audio" audsource="{{request.requestMessageId.audioUrl}}">There was an error loading the audio player.</custom-audio>
+                        <custom-audio ng-if="request.message.audioUrl" title="Test Audio" audsource="{{request.message.audioUrl}}">There was an error loading the audio player.</custom-audio>
 
                     </div>
                     <span class="right-request-date" am-time-ago="request.created"></span>
