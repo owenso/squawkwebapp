@@ -1,5 +1,7 @@
 var User = require('mongoose').model('User'),
-    passport = require('passport');
+    passport = require('passport'),
+    jwt = require('jwt-simple'),
+    config = require('../../config/config');
 
 
 var getErrorMessage = function(err) {
@@ -34,7 +36,9 @@ exports.signup = function(req, res, next) {
         }
         req.login(user, function(err) {
             if (err) return next(err);
-            return res.json(user);
+            var token = jwt.encode(user, config.jwtSecret);
+            return res.json({success: true, token: 'JWT ' + token});
+            // return res.json(user);
         });
     });
 };

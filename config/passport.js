@@ -18,6 +18,7 @@ module.exports = function() {
     require('./strategies/local.js')();
     require('./strategies/facebook.js')();
     require('./strategies/facebook-token.js')();
+    require('./strategies/jwt-passport.js')();
     // require('./strategies/twitter.js')();
     // require('./strategies/google.js')();
 };

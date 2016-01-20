@@ -1,6 +1,8 @@
 var users = require('../../app/controllers/users.server.controller'),
     passport = require('passport'),
-    root = '/api/v1/';
+    root = '/api/v1/',
+    jwt = require('jwt-simple'),
+    config = require('../../config/config');
 
 module.exports = function(app) {
     app.route(root + 'users')
@@ -26,7 +28,9 @@ module.exports = function(app) {
 
     app.route(root + 'signin')
         .post(passport.authenticate('local'), function (req,res){
-            res.send(req.user);
+            //res.send(req.user);
+            var token = jwt.encode(req.user, config.jwtSecret);
+            res.json({success: true, token: 'JWT ' + token});
         });
 
 
@@ -47,13 +51,77 @@ module.exports = function(app) {
 
 
     //Routes for token based facebook
-    app.get('/auth/facebook/token',
-      passport.authenticate('facebook-token'),
+    app.get('/auth/facebook/token', passport.authenticate('facebook-token'),
       function (req, res) {
         //res.sendStatus(req.user? 200 : 401);
-        res.json(req.user);
+        var token = jwt.encode(req.user, config.jwtSecret);
+        res.json({success: true, token: 'JWT ' + token});
+        //res.json(req.user);
       }
     );
+
+
+
+    // app.post('/tokenauthenticate', function(req, res) {
+    //   User.findOne({
+    //     name: req.body.name
+    //   }, function(err, user) {
+    //     if (err) throw err;
+     
+    //     if (!user) {
+    //       res.send({success: false, msg: 'Authentication failed. User not found.'});
+    //     } else {
+    //       // check if password matches
+    //       user.comparePassword(req.body.password, function (err, isMatch) {
+    //         if (isMatch && !err) {
+    //           // if user is found and password is right create a token
+    //           var token = jwt.encode(user, config.secret);
+    //           // return the information including token as JSON
+    //           res.json({success: true, token: 'JWT ' + token});
+    //         } else {
+    //           res.send({success: false, msg: 'Authentication failed. Wrong password.'});
+    //         }
+    //       });
+    //     }
+    //   });
+    // });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ////////////////////////////////////////////////////////
+
+//             UNUSED OAUTH ROUTES                       //
+
+// ////////////////////////////////////////////////////////
 
 //     //Routes for twitter oauth
 //     app.get('/oauth/twitter', passport.authenticate('twitter', {
