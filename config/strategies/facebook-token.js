@@ -1,22 +1,18 @@
 var passport = require('passport'),
-    url = require('url'),
-    FacebookStrategy = require('passport-facebook').Strategy,
+    //url = require('url'),
+    FacebookTokenStrategy = require('passport-facebook-token');
     config = require('../config'),
     users = require('../../app/controllers/users.server.controller');
 
 
 module.exports = function() {
-    passport.use(new FacebookStrategy({
+    passport.use(new FacebookTokenStrategy({
             clientID: config.facebook.clientID,
             clientSecret: config.facebook.clientSecret,
-            callbackURL: config.facebook.callbackURL,
-            passReqToCallback: true,
             profileFields: ['id', 'emails', 'name', 'displayName', 'picture.type(large)']
         },
-        function(req, accessToken, refreshToken, profile, done) {
-            console.log(accessToken);
-            console.log(refreshToken);
-            console.log(profile._json.picture.data.url);
+        function(accessToken, refreshToken, profile, done) {
+            console.log(profile);
             var providerData = profile._json;
             providerData.accessToken = accessToken;
             providerData.refreshToken = refreshToken;
@@ -31,6 +27,6 @@ module.exports = function() {
                 providerData: providerData,
                 userImg:profile._json.picture.data.url
             };
-            users.saveOAuthUserProfile(req, providerUserProfile, done);
+            users.tokenSaveOAuthUserProfile(providerUserProfile, done);
         }));
 };

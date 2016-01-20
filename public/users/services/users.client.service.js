@@ -20,13 +20,10 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
         $http
             .post('/api/v1/signin', userObject)
             .success(function(data, status, headers, config) {
-                $rootScope.authenticated = true;
                 if(data.nativeLanguages.length === 0 || data.targetLanguages.length === 0){
                     $cookies.put('currentId',data._id);
-                    $rootScope.authenticated = true;
                     $location.path('/signup2');
                 } else {
-                    $rootScope.authenticated = true;
                     $window.location.href="/main/";
                 }
             })
@@ -46,7 +43,6 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
             .success(function(data, status, headers, config) {
                 $cookies.put('currentId',data._id);
                 $location.path("/signup2");
-                $rootScope.authenticated = true;
             })
             .error(function(data, status, headers, config) {
                 $cookies.remove('currentId');
@@ -56,8 +52,10 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
 
     userFac.signUpTwo = function(nativeLanguages){
 
+            if ($window.userId){
+                $cookies.put('currentId', $window.userId);
+            }
             $rootScope.selectedLanguage = nativeLanguages;
-
             $http
                 .put('api/v1/users/' + $cookies.get('currentId'), {'nativeLanguages':[nativeLanguages]})
                 .success(function(data, status, headers, config){

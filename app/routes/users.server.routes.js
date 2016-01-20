@@ -46,6 +46,15 @@ module.exports = function(app) {
     }));
 
 
+    //Routes for token based facebook
+    app.get('/auth/facebook/token',
+      passport.authenticate('facebook-token'),
+      function (req, res) {
+        //res.sendStatus(req.user? 200 : 401);
+        res.json(req.user);
+      }
+    );
+
 //     //Routes for twitter oauth
 //     app.get('/oauth/twitter', passport.authenticate('twitter', {
 //         failureRedirect: '/signin'

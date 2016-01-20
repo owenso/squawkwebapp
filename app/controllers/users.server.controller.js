@@ -117,7 +117,7 @@ exports.delete = function(req, res, next) {
 
 
 //need to check
-exports.saveOAuthUserProfile = function(req, profile, done) {
+exports.tokenSaveOAuthUserProfile = function(profile, done, req, res) {
 	User.findOne({
 		provider: profile.provider, 
 		providerId: profile.providerId
@@ -148,4 +148,38 @@ exports.saveOAuthUserProfile = function(req, profile, done) {
 			}
 		}
 	});
+};
+
+
+exports.saveOAuthUserProfile = function(req, profile, done) {
+    User.findOne({
+        provider: profile.provider, 
+        providerId: profile.providerId
+    }, function(err, user) {
+        if(err) {
+            return done (err);
+        } else {
+            if (!user) {
+                var possibleUsername = profile.username || ((profile.email) ? profile.email.split('@')[0]: '');
+
+                User.findUniqueUsername(possibleUsername, null, function(avaliableUsername) {
+                        profile.username = avaliableUsername;
+                        user = new User(profile);
+
+                        user.save(function(err) {
+                            if (err) {
+                                var message = _this.getErrorMessage(err);
+
+                                req.flash('error', message);
+                                return res.redirect('/');
+                            }
+
+                            return done(err, user);
+                        });
+                });
+            } else{
+                return done(err, user);
+            }
+        }
+    });
 };
