@@ -1,6 +1,6 @@
 var User = require('mongoose').model('User'),
     passport = require('passport'),
-    jwt = require('jwt-simple'),
+    jwt = require('jsonwebtoken'),
     config = require('../../config/config');
 
 
@@ -12,7 +12,7 @@ var getErrorMessage = function(err) {
             field = field.split(" dup key")[0];
             field = field.substring(0, field.lastIndexOf("_"));
             message = "An account with this " + field + " already exists.";
-        } else{
+        } else {
             message = "Sorry! Something went wrong, please try again later.";
         }
     } else {
@@ -36,8 +36,11 @@ exports.signup = function(req, res, next) {
         }
         req.login(user, function(err) {
             if (err) return next(err);
-            var token = jwt.encode(user, config.jwtSecret);
-            return res.json({success: true, token: 'JWT ' + token});
+            var token = jwt.sign(user, config.jwtSecret);
+            return res.json({
+                success: true,
+                token: 'JWT ' + token
+            });
             // return res.json(user);
         });
     });
@@ -46,7 +49,9 @@ exports.signup = function(req, res, next) {
 exports.signout = function(req, res) {
     req.logOut();
     req.session.destroy();
-    res.clearCookie('connect.sid', { path: '/' });
+    res.clearCookie('connect.sid', {
+        path: '/'
+    });
     res.redirect('/');
 };
 
@@ -60,14 +65,9 @@ exports.list = function(req, res, next) {
     });
 };
 
-exports.read = function(req, res) {
-    res.json(req.user);
-};
-
-
-exports.userByID = function(req, res, next, id) {
+exports.getUser = function(req, res, next) {
     User.findOne({
-        _id: id
+        _id: req.params.userId
     }, function(err, user) {
         if (err) {
             return next(err);
@@ -80,17 +80,17 @@ exports.userByID = function(req, res, next, id) {
 
 exports.userWithRequests = function(req, res, next) {
     User.findOne({
-        _id: req.user.id
-    })
-    .deepPopulate('requests.message filledRequests.message')
-    .exec(function(err, data) {
-        if (err) {
-            console.log(err);
-            return next(err);
-        } else {
-            res.json(data);
-        }
-    });
+            _id: req.user.id
+        })
+        .deepPopulate('requests.message filledRequests.message')
+        .exec(function(err, data) {
+            if (err) {
+                console.log(err);
+                return next(err);
+            } else {
+                res.json(data);
+            }
+        });
 };
 
 exports.update = function(req, res, next) {
@@ -122,66 +122,66 @@ exports.delete = function(req, res, next) {
 
 //need to check
 exports.tokenSaveOAuthUserProfile = function(profile, done, req, res) {
-	User.findOne({
-		provider: profile.provider, 
-		providerId: profile.providerId
-	}, function(err, user) {
-		if(err) {
-			return done (err);
-		} else {
-			if (!user) {
-				var possibleUsername = profile.username || ((profile.email) ? profile.email.split('@')[0]: '');
+    User.findOne({
+        provider: profile.provider,
+        providerId: profile.providerId
+    }, function(err, user) {
+        if (err) {
+            return done(err);
+        } else {
+            if (!user) {
+                var possibleUsername = profile.username || ((profile.email) ? profile.email.split('@')[0] : '');
 
-				User.findUniqueUsername(possibleUsername, null, function(avaliableUsername) {
-						profile.username = avaliableUsername;
-						user = new User(profile);
+                User.findUniqueUsername(possibleUsername, null, function(avaliableUsername) {
+                    profile.username = avaliableUsername;
+                    user = new User(profile);
 
-						user.save(function(err) {
-							if (err) {
-								var message = _this.getErrorMessage(err);
+                    user.save(function(err) {
+                        if (err) {
+                            var message = _this.getErrorMessage(err);
 
-								req.flash('error', message);
-								return res.redirect('/');
-							}
+                            req.flash('error', message);
+                            return res.redirect('/');
+                        }
 
-							return done(err, user);
-						});
-				});
-			} else{
-				return done(err, user);
-			}
-		}
-	});
+                        return done(err, user);
+                    });
+                });
+            } else {
+                return done(err, user);
+            }
+        }
+    });
 };
 
 
 exports.saveOAuthUserProfile = function(req, profile, done) {
     User.findOne({
-        provider: profile.provider, 
+        provider: profile.provider,
         providerId: profile.providerId
     }, function(err, user) {
-        if(err) {
-            return done (err);
+        if (err) {
+            return done(err);
         } else {
             if (!user) {
-                var possibleUsername = profile.username || ((profile.email) ? profile.email.split('@')[0]: '');
+                var possibleUsername = profile.username || ((profile.email) ? profile.email.split('@')[0] : '');
 
                 User.findUniqueUsername(possibleUsername, null, function(avaliableUsername) {
-                        profile.username = avaliableUsername;
-                        user = new User(profile);
+                    profile.username = avaliableUsername;
+                    user = new User(profile);
 
-                        user.save(function(err) {
-                            if (err) {
-                                var message = _this.getErrorMessage(err);
+                    user.save(function(err) {
+                        if (err) {
+                            var message = _this.getErrorMessage(err);
 
-                                req.flash('error', message);
-                                return res.redirect('/');
-                            }
+                            req.flash('error', message);
+                            return res.redirect('/');
+                        }
 
-                            return done(err, user);
-                        });
+                        return done(err, user);
+                    });
                 });
-            } else{
+            } else {
                 return done(err, user);
             }
         }

@@ -25,6 +25,7 @@
     "express": "^4.13.1",
     "express-session": "^1.11.3",
     "jade": "^1.11.0",
+    "jsonwebtoken": "^5.5.4",
     "jwt-simple": "^0.4.1",
     "method-override": "^2.3.4",
     "moment": "^2.10.6",

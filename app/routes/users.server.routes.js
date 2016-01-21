@@ -1,7 +1,7 @@
 var users = require('../../app/controllers/users.server.controller'),
     passport = require('passport'),
     root = '/api/v1/',
-    jwt = require('jwt-simple'),
+    jwt = require('jsonwebtoken'),
     config = require('../../config/config'),
     authenticator = require('../../app/controllers/authenticator.server.controller');
 
@@ -14,12 +14,11 @@ module.exports = function(app) {
 
     app.route(root + 'users/:userId')
         //show
-        .get(authenticator.check, users.read)
+        .get(authenticator.check, users.getUser)
         //update
-        .put(users.update)
-        .delete(users.delete);
+        .put(authenticator.currentUserOrAdmin, users.update)
+        .delete(authenticator.currentUserOrAdmin, users.delete);
 
-    app.param('userId', users.userByID);
 
     app.route(root + 'fulluser')
         .get(authenticator.check, users.userWithRequests);
@@ -30,14 +29,12 @@ module.exports = function(app) {
     app.route(root + 'signin')
         .post(passport.authenticate('local'), function(req, res) {
             //res.send(req.user);
-            var token = jwt.encode(req.user, config.jwtSecret);
+            var token = jwt.sign(req.user, config.jwtSecret);
             res.json({
                 success: true,
                 token: 'JWT ' + token
             });
         });
-
-
 
     app.get('/signout', users.signout);
 
@@ -50,15 +47,24 @@ module.exports = function(app) {
 
     app.get('/oauth/facebook/callback', passport.authenticate('facebook', {
         failureRedirect: '/',
-        successRedirect: '/main/'
+        successRedirect: '/oauth/facebook/token'
     }));
 
+    app.get('/oauth/facebook/token',
+        function(req, res) {
+            var token = jwt.sign(req.user, config.jwtSecret);
+            res.json({
+                success: true,
+                token: 'JWT ' + token
+            });
+        });
 
-    //Routes for token based facebook
+
+    //Route for token based facebook
     app.get('/auth/facebook/token', passport.authenticate('facebook-token'),
         function(req, res) {
             //res.sendStatus(req.user? 200 : 401);
-            var token = jwt.encode(req.user, config.jwtSecret);
+            var token = jwt.sign(req.user, config.jwtSecret);
             res.json({
                 success: true,
                 token: 'JWT ' + token
@@ -82,7 +88,7 @@ module.exports = function(app) {
     //       user.comparePassword(req.body.password, function (err, isMatch) {
     //         if (isMatch && !err) {
     //           // if user is found and password is right create a token
-    //           var token = jwt.encode(user, config.secret);
+    //           var token = jwt.sign(user, config.secret);
     //           // return the information including token as JSON
     //           res.json({success: true, token: 'JWT ' + token});
     //         } else {
