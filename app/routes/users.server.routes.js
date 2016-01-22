@@ -19,9 +19,10 @@ module.exports = function(app) {
         .put(authenticator.currentUserOrAdmin, users.update)
         .delete(authenticator.currentUserOrAdmin, users.delete);
 
-
-    app.route(root + 'fulluser')
-        .get(authenticator.check, users.userWithRequests);
+    app.route(root + 'currentuser')
+        .get(authenticator.getCurrent, users.userWithRequests)
+        .put(authenticator.getCurrent, users.update)
+        .delete(authenticator.getCurrent, users.delete);
 
     app.route(root + 'signup')
         .post(users.signup);
@@ -29,11 +30,21 @@ module.exports = function(app) {
     app.route(root + 'signin')
         .post(passport.authenticate('local'), function(req, res) {
             //res.send(req.user);
+            // res.json({
+            //     success: true,
+            //     token: 'JWT ' + token
+            // });
             var token = jwt.sign(req.user, config.jwtSecret);
-            res.json({
+            var tokenResponse = {
                 success: true,
                 token: 'JWT ' + token
-            });
+            };
+            if (req.user.nativeLanguages.length === 0 || req.user.targetLanguages.length === 0){
+                tokenResponse.needLang = true;
+            } else {
+                tokenResponse.needLang = false;
+            }
+            res.status(200).json(tokenResponse);
         });
 
     app.get('/signout', users.signout);

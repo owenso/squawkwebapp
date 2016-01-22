@@ -36,7 +36,7 @@ exports.check = function(req, res, next) {
             }
         });
     } else {
-        return res.status(403).send({
+        return res.status(401).send({
             success: false,
             msg: 'No token provided.'
         });
@@ -56,14 +56,41 @@ exports.currentUserOrAdmin = function(req, res, next) {
             if (user.role === 'Admin' || user._id == req.params.userId) {
                 return next();
             } else {
-                return res.status(401).send({
+                return res.status(403).send({
                     success: false,
                     msg: 'Authentication failed. Unauthorized User.'
                 });
             }
         });
     } else {
-        return res.status(403).send({
+        return res.status(401).send({
+            success: false,
+            msg: 'No token provided.'
+        });
+    }
+};
+
+exports.getCurrent = function(req, res, next) {
+    var token = getToken(req.headers);
+    if (token) {
+        var decoded = jwt.verify(token, config.jwtSecret);
+        User.findOne({
+            id: decoded._id
+        }, function(err, user) {
+            if (err) throw err;
+
+            if (!user) {
+                return res.status(403).send({
+                    success: false,
+                    msg: 'Authentication failed. User not found.'
+                });
+            } else {
+                req.user.id = user._id;
+                return next();
+            }
+        });
+    } else {
+        return res.status(401).send({
             success: false,
             msg: 'No token provided.'
         });

@@ -101,7 +101,6 @@ exports.update = function(req, res, next) {
             console.log(err);
             return next(err);
         } else {
-            console.log(user);
             res.json(user);
         }
     });

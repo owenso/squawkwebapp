@@ -5,7 +5,7 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
 
 
     mainFac.getUser = function() {
-        return $http.get('/api/v1/fulluser');
+        return $http.get('/api/v1/currentuser');
     };
 
     mainFac.getLoggedUser = function() {

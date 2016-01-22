@@ -7,7 +7,8 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
     };
 
     userFac.logOut = function() {
-        $cookies.remove("currentId");
+        $rootScope.token = undefined;
+        $rootScope.authenticated = undefined;
         delete $rootScope.authenticated;
         $http
             .get('/signout')
@@ -20,15 +21,17 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
         $http
             .post('/api/v1/signin', userObject)
             .success(function(data, status, headers, config) {
-                if(data.nativeLanguages.length === 0 || data.targetLanguages.length === 0){
-                    $cookies.put('currentId',data._id);
+                if(data.needLang === true){
+                    $rootScope.token = data.token;
+                    $rootScope.authenticated = true;
                     $location.path('/signup2');
                 } else {
+                    $rootScope.token = data.token;
+                    $rootScope.authenticated = true;
                     $window.location.href="/main/";
                 }
             })
             .error(function(data, status, headers, config) {
-                $cookies.remove('currentId');
                 if(data == 'Unauthorized'){
                     $rootScope.message = 'Incorrect Username or Password.';
                 }else{
@@ -41,23 +44,23 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
         $http
             .post('/api/v1/signup', userData)
             .success(function(data, status, headers, config) {
-                $cookies.put('currentId',data._id);
+                $rootScope.token = data.token;
+                $rootScope.authenticated = true;
                 $location.path("/signup2");
             })
             .error(function(data, status, headers, config) {
-                $cookies.remove('currentId');
                 $rootScope.message = data;
             });
     };
 
     userFac.signUpTwo = function(nativeLanguages){
 
-            if ($window.userId){
-                $cookies.put('currentId', $window.userId);
-            }
+            // if ($window.userId){
+            //     $cookies.put('currentId', $window.userId);
+            // }
             $rootScope.selectedLanguage = nativeLanguages;
             $http
-                .put('api/v1/users/' + $cookies.get('currentId'), {'nativeLanguages':[nativeLanguages]})
+                .put('api/v1/currentuser', {'nativeLanguages':[nativeLanguages]})
                 .success(function(data, status, headers, config){
                     $location.path('/signup3');
                 })
@@ -68,9 +71,8 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
 
     userFac.signUpThree = function(targetLanguages){
         $http
-            .put('api/v1/users/' + $cookies.get('currentId'), {'targetLanguages':[targetLanguages]})
+            .put('api/v1/currentuser', {'targetLanguages':[targetLanguages]})
             .success(function(data, status, headers, config){
-                $cookies.remove("currentId");
                 $window.location.href="/main/";
             })
             .error(function(data, status, headers, config) {
