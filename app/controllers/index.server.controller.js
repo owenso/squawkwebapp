@@ -8,14 +8,14 @@ exports.render = function(req, res) {
     }
     req.session.lastVisit = new Date();
     var urlRoot = require('../../config/config');
-    var userId;
-    if (req.user) {
-        userId = JSON.stringify(req.user._id);
-    } else {
-        userId = 'null';
-    }
+    // var userId;
+    // if (req.user) {
+    //     userId = JSON.stringify(req.user._id);
+    // } else {
+    //     userId = 'null';
+    // }
     res.render('index', {
-        user: userId,
-        root: urlRoot.urlRoot
+        root: urlRoot.urlRoot,
+        //user: userId
     });
 };

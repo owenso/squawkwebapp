@@ -4,7 +4,7 @@ var authenticator = require('../../app/controllers/authenticator.server.controll
 
 module.exports = function(app) {
     app.route(root + 'requests')
-        .post(requests.createNewRequest);
+        .post(authenticator.getCurrent, requests.createNewRequest);
 
     app.route(root + 'availableRequests/')
     		.get(authenticator.getCurrent, requests.findRequestByKnownLanguage);

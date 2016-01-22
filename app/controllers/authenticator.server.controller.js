@@ -3,22 +3,10 @@ var User = require('mongoose').model('User');
 var config = require('../../config/config');
 
 
-var getToken = function(headers) {
-    if (headers && headers.authorization) {
-        var parted = headers.authorization.split(' ');
-        if (parted.length === 2) {
-            return parted[1];
-        } else {
-            return null;
-        }
-    } else {
-        return null;
-    }
-};
 
 
 exports.check = function(req, res, next) {
-    var token = getToken(req.headers);
+    var token = req.headers.authorization;
     if (token) {
         var decoded = jwt.verify(token, config.jwtSecret);
         User.findOne({
@@ -45,7 +33,7 @@ exports.check = function(req, res, next) {
 };
 
 exports.currentUserOrAdmin = function(req, res, next) {
-    var token = getToken(req.headers);
+    var token = req.headers.authorization;
     if (token) {
         var decoded = jwt.verify(token, config.jwtSecret);
         User.findOne({
@@ -71,11 +59,11 @@ exports.currentUserOrAdmin = function(req, res, next) {
 };
 
 exports.getCurrent = function(req, res, next) {
-    var token = getToken(req.headers);
+    var token = req.headers.authorization;
     if (token) {
         var decoded = jwt.verify(token, config.jwtSecret);
         User.findOne({
-            id: decoded._id
+            _id: decoded._id
         }, function(err, user) {
             if (err) throw err;
 
@@ -85,7 +73,7 @@ exports.getCurrent = function(req, res, next) {
                     msg: 'Authentication failed. User not found.'
                 });
             } else {
-                req.user= user;
+                req.user = user;
                 return next();
             }
         });

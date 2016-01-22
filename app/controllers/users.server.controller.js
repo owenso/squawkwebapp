@@ -153,6 +153,19 @@ exports.tokenSaveOAuthUserProfile = function(profile, done, req, res) {
     });
 };
 
+exports.localSignIn = function (req, res) {
+    var token = jwt.sign(req.user.toObject(), config.jwtSecret);
+    var tokenResponse = {
+        success: true,
+        token: token
+    };
+    if (req.user.nativeLanguages.length === 0 || req.user.targetLanguages.length === 0){
+        tokenResponse.needLang = true;
+    } else {
+        tokenResponse.needLang = false;
+    }
+    res.status(200).json(tokenResponse);
+};
 
 exports.saveOAuthUserProfile = function(req, profile, done) {
     User.findOne({

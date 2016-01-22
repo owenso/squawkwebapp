@@ -22,13 +22,11 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
         $http
             .post('/api/v1/signin', userObject)
             .success(function(data, status, headers, config) {
-                if(data.needLang === true){
                     $rootScope.token = data.token;
                     $rootScope.authenticated = true;
+                if(data.needLang === true){
                     $location.path('/signup2');
                 } else {
-                    $rootScope.token = data.token;
-                    $rootScope.authenticated = true;
                     $cookies.put('token', data.token, { path: '/main/' });
                     $window.location.href="/main/";
                 }
@@ -71,6 +69,7 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
         $http
             .put('api/v1/currentuser', {'targetLanguages':[targetLanguages]})
             .success(function(data, status, headers, config){
+                $cookies.put('token', data.token, { path: '/main/' });
                 $window.location.href="/main/";
             })
             .error(function(data, status, headers, config) {

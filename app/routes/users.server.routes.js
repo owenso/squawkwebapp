@@ -14,10 +14,10 @@ module.exports = function(app) {
 
     app.route(root + 'users/:userId')
         //show
-        .get(authenticator.check, users.getUser)
+        .get(authenticator.check, users.getUser);
         //update
-        .put(authenticator.currentUserOrAdmin, users.update)
-        .delete(authenticator.currentUserOrAdmin, users.delete);
+        //.put(authenticator.currentUserOrAdmin, users.update)
+        //.delete(authenticator.currentUserOrAdmin, users.delete);
 
     app.route(root + 'currentuser')
         .get(authenticator.getCurrent, users.userWithRequests)
@@ -28,24 +28,7 @@ module.exports = function(app) {
         .post(users.signup);
 
     app.route(root + 'signin')
-        .post(passport.authenticate('local'), function(req, res) {
-            //res.send(req.user);
-            // res.json({
-            //     success: true,
-            //     token: 'JWT ' + token
-            // });
-            var token = jwt.sign(req.user, config.jwtSecret);
-            var tokenResponse = {
-                success: true,
-                token: 'JWT ' + token
-            };
-            if (req.user.nativeLanguages.length === 0 || req.user.targetLanguages.length === 0){
-                tokenResponse.needLang = true;
-            } else {
-                tokenResponse.needLang = false;
-            }
-            res.status(200).json(tokenResponse);
-        });
+        .post(passport.authenticate('local'), users.localSignIn);
 
     app.get('/signout', users.signout);
 
@@ -63,10 +46,10 @@ module.exports = function(app) {
 
     app.get('/oauth/facebook/token',
         function(req, res) {
-            var token = jwt.sign(req.user, config.jwtSecret);
+            var token = jwt.sign(req.user.toObject(), config.jwtSecret);
             res.json({
                 success: true,
-                token: 'JWT ' + token
+                token: token
             });
         });
 
@@ -75,52 +58,14 @@ module.exports = function(app) {
     app.get('/auth/facebook/token', passport.authenticate('facebook-token'),
         function(req, res) {
             //res.sendStatus(req.user? 200 : 401);
-            var token = jwt.sign(req.user, config.jwtSecret);
+            var token = jwt.sign(req.user.toObject(), config.jwtSecret);
             res.json({
                 success: true,
-                token: 'JWT ' + token
+                token: token
             });
             //res.json(req.user);
         }
     );
-
-
-
-    // app.post('/tokenauthenticate', function(req, res) {
-    //   User.findOne({
-    //     name: req.body.name
-    //   }, function(err, user) {
-    //     if (err) throw err;
-
-    //     if (!user) {
-    //       res.send({success: false, msg: 'Authentication failed. User not found.'});
-    //     } else {
-    //       // check if password matches
-    //       user.comparePassword(req.body.password, function (err, isMatch) {
-    //         if (isMatch && !err) {
-    //           // if user is found and password is right create a token
-    //           var token = jwt.sign(user, config.secret);
-    //           // return the information including token as JSON
-    //           res.json({success: true, token: 'JWT ' + token});
-    //         } else {
-    //           res.send({success: false, msg: 'Authentication failed. Wrong password.'});
-    //         }
-    //       });
-    //     }
-    //   });
-    // });
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
