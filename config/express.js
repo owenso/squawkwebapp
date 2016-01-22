@@ -4,6 +4,7 @@ var config = require('./config'),
     morgan = require('morgan'),
     compress = require('compression'),
     bodyParser = require('body-parser'),
+    cookieParser = require('cookie-parser'),
     methodOverride = require('method-override'),
     session = require('express-session'),
     flash = require('connect-flash'),
@@ -32,6 +33,8 @@ module.exports = function(db) {
 
     app.use(bodyParser.json());
     app.use(methodOverride());
+
+    app.use(cookieParser())
 
     app.use(session({
     	saveUninitialized: true,

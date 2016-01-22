@@ -7,9 +7,8 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
     };
 
     userFac.logOut = function() {
-        $rootScope.token = undefined;
-        $rootScope.authenticated = undefined;
         $cookies.remove('token');
+        delete $rootScope.token; 
         delete $rootScope.authenticated;
         $http
             .get('/signout')
@@ -54,6 +53,16 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
     };
 
     userFac.signUpTwo = function(nativeLanguages){
+        console.log($rootScope.authenticated)
+        if ($rootScope.authenticated === undefined){
+            if($cookies.get('token')) {
+        console.log($cookies.get('token'));
+                $rootScope.token = $cookies.get('token');
+                $rootScope.authenticated = true;
+            } else {
+                this.logOut();
+            }
+        }
             $rootScope.selectedLanguage = nativeLanguages;
             $http
                 .put('api/v1/currentuser', {'nativeLanguages':[nativeLanguages]})

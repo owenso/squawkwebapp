@@ -41,6 +41,8 @@ exports.createNewRequest = function(req, res, next) {
 
 
 exports.findRequestByKnownLanguage = function(req, res, next) {
+        console.log(req.cookies);
+        console.log(req.session);
     console.log(req.user.nativeLanguages);
     Request.find({
             language: {

@@ -39,7 +39,7 @@ exports.signup = function(req, res, next) {
             var token = jwt.sign(user, config.jwtSecret);
             return res.json({
                 success: true,
-                token: 'JWT ' + token
+                token: token
             });
             // return res.json(user);
         });

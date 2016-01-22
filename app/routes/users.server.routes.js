@@ -15,9 +15,9 @@ module.exports = function(app) {
     app.route(root + 'users/:userId')
         //show
         .get(authenticator.check, users.getUser);
-        //update
-        //.put(authenticator.currentUserOrAdmin, users.update)
-        //.delete(authenticator.currentUserOrAdmin, users.delete);
+    //update
+    //.put(authenticator.currentUserOrAdmin, users.update)
+    //.delete(authenticator.currentUserOrAdmin, users.delete);
 
     app.route(root + 'currentuser')
         .get(authenticator.getCurrent, users.userWithRequests)
@@ -41,17 +41,14 @@ module.exports = function(app) {
 
     app.get('/oauth/facebook/callback', passport.authenticate('facebook', {
         failureRedirect: '/',
-        successRedirect: '/oauth/facebook/token'
-    }));
-
-    app.get('/oauth/facebook/token',
-        function(req, res) {
-            var token = jwt.sign(req.user.toObject(), config.jwtSecret);
-            res.json({
-                success: true,
-                token: token
-            });
+        successRedirect: '/main/'
+    }), function(req, res) {
+        var tokenCookie = jwt.sign(req.user.toObject(), config.jwtSecret);
+        res.cookie('token', tokenCookie, {
+            path: '/main/'
         });
+    });
+
 
 
     //Route for token based facebook
