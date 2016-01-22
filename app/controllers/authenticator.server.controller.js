@@ -85,7 +85,7 @@ exports.getCurrent = function(req, res, next) {
                     msg: 'Authentication failed. User not found.'
                 });
             } else {
-                req.user.id = user._id;
+                req.user= user;
                 return next();
             }
         });

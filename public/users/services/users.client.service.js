@@ -9,6 +9,7 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
     userFac.logOut = function() {
         $rootScope.token = undefined;
         $rootScope.authenticated = undefined;
+        $cookies.remove('token');
         delete $rootScope.authenticated;
         $http
             .get('/signout')
@@ -28,6 +29,7 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
                 } else {
                     $rootScope.token = data.token;
                     $rootScope.authenticated = true;
+                    $cookies.put('token', data.token, { path: '/main/' });
                     $window.location.href="/main/";
                 }
             })
@@ -54,10 +56,6 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
     };
 
     userFac.signUpTwo = function(nativeLanguages){
-
-            // if ($window.userId){
-            //     $cookies.put('currentId', $window.userId);
-            // }
             $rootScope.selectedLanguage = nativeLanguages;
             $http
                 .put('api/v1/currentuser', {'nativeLanguages':[nativeLanguages]})

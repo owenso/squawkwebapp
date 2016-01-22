@@ -8,13 +8,26 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
         return $http.get('/api/v1/currentuser');
     };
 
-    mainFac.getLoggedUser = function() {
-        var data = $window.userId;
-        $cookies.put('currentId', data);
-        $rootScope.authenticated = true;
-    };
+    // mainFac.getLoggedUser = function() {
+    //     var data = $window.userId;
+    //     //$cookies.put('currentId', data);
+    //     $rootScope.authenticated = true;
+    // };
 
+    mainFac.authCheck = function(){
+     if (($cookies.get('token'))===undefined){
+            this.logOut();
+        } else {
+            $rootScope.authenticated = true;
+            $rootScope.token = $cookies.get('token');
+        }
+    };
     mainFac.getAvaliableRequests = function() {
+        if (($cookies.get('token'))===undefined){
+            this.logOut();
+        } else {
+            $rootScope.authenticated = true;
+            $rootScope.token = $cookies.get('token');
         $http
             .get('/api/v1/availableRequests/')
             .success(function(data, status, headers) {
@@ -24,6 +37,7 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
             .error(function(data, status, headers, config) {
                 console.log(data);
             });
+        }
     };
 
     mainFac.getUsersRequests = function() {
@@ -39,7 +53,8 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
     };
 
     mainFac.logOut = function() {
-        $cookies.remove("currentId");
+        $cookies.remove('token');
+        delete $rootScope.token;
         delete $rootScope.authenticated;
         $http
             .get('/signout')
