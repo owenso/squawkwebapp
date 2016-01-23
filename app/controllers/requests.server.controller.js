@@ -41,9 +41,6 @@ exports.createNewRequest = function(req, res, next) {
 
 
 exports.findRequestByKnownLanguage = function(req, res, next) {
-        console.log(req.cookies);
-        console.log(req.session);
-    console.log(req.user.nativeLanguages);
     Request.find({
             language: {
                 $in: req.user.nativeLanguages
@@ -61,6 +58,21 @@ exports.findRequestByKnownLanguage = function(req, res, next) {
                 res.json(data);
             }
         });
+};
+
+exports.showRequest = function(req, res, next) {
+    Request.findOne({
+        _id: req.params.requestId
+    })
+    .deepPopulate('message.authorId responses.authorId')
+    .exec(function(err, data) {
+        if (err) {
+            console.log(err);
+            return next(err);
+        } else {
+            res.json(data);
+        }
+    });
 };
 
 exports.updateRequest = function(req,res,next) {

@@ -295,6 +295,19 @@ Page Constants
     width: 320px;
     box-shadow: 2px 0px 2px -2px gray;
     height: 100%;
+    padding-top: 65px;
+    box-sizing: border-box;
+    float:left;
+}
+
+.main-panel {
+    padding-top: 65px;
+    width:100%;
+    margin-left: 330px;
+
+    ul{
+        margin:0;
+    }
 }
 /**************************************
 
@@ -341,10 +354,10 @@ Profile Page
     color: white;
     background-color: #393939;
     text-align: center;
-    height: 216px;
+    height: 150px;
     h2 {
         margin-top: 0px;
-        padding-top: 106px;
+        padding-top: 41px;
         text-transform: capitalize;
     }
 }

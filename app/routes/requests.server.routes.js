@@ -7,7 +7,7 @@ module.exports = function(app) {
         .post(authenticator.getCurrent, requests.createNewRequest);
 
     app.route(root + 'request/:requestId')
-    		//.get(authenticator.check, requests.showRequest)
+    		.get(authenticator.check, requests.showRequest)
     		.put(authenticator.check, requests.updateRequest);
 
     app.route(root + 'availableRequests/')

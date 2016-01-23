@@ -1,1 +1,35 @@
-<div class="side-panel"></div>
+<div class="side-panel">
+	<div ng-if="request">
+		{{request.message.title}}
+	</div>
+</div>
+<div class="main-panel">
+	<ul ng-show="request">
+		<li>
+			<div>
+				<img class="request-user-image" ng-src='{{request.message.authorId.userImg}}'>
+				<ul>
+					<li><h2>{{request.message.authorId.fullName || request.message.authorId.username}}</h2></li>
+					  <li><h3>{{request.message.title}}</h3></li>
+					  <li><span>{{request.message.description}}
+					  </span></li>
+					</ul>
+					<div class="image-centerer" ng-if="request.message.imageUrlTh">
+					  <img class="request-preview-image" ng-src='{{request.message.imageUrlTh}}' ng-click="viewBigger(request.message.imageUrl)">
+					</div>
+					<span>{{request.message.audioDuration}}</span>
+					<!--                         <audio ng-if="request.message.audioUrl" ng-src="{{request.message.audioUrl}}" preload="none" controls>
+					      Your browser does not support the audio element.
+					  </audio> -->
+					  <custom-audio ng-if="request.message.audioUrl" title="Test Audio" audsource="{{request.message.audioUrl}}">There was an error loading the audio player.</custom-audio>
+
+					<div id="req-reply-link" ng-click="goToRequest(request._id)">Reply</div>
+					</div>
+					<span class="right-request-date" am-time-ago="request.message.created"></span>
+				</div>
+		</li>
+		<li ng-repeat="request in request.responses">
+		<div></div>
+		</li>
+	</ul>
+</div>

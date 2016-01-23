@@ -12,7 +12,16 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
         $location.path('conversations');
         $rootScope.viewRequestId = id;
     };
-
+    mainFac.showRequest = function() {
+        console.log($rootScope.viewRequestId);
+        $http
+            .get('/api/v1/request/' + $rootScope.viewRequestId)
+            .success(function(data, status, headers) {
+                delete $rootScope.viewRequestId;
+                console.log(data);
+                return data;
+            });
+    };
     mainFac.authCheck = function(){
      if (($cookies.get('token'))===undefined){
             this.logOut();
