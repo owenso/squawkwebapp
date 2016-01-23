@@ -285,18 +285,24 @@ h2 {
     }
 }
 
+/**************************************
 
+Page Constants
+
+**************************************/
+
+.side-panel {
+    width: 320px;
+    box-shadow: 2px 0px 2px -2px gray;
+    height: 100%;
+}
 /**************************************
 
 Profile Page
 
 *************************************/
 
-#profile-panel {
-    width: 320px;
-    box-shadow: 2px 0px 2px -2px gray;
-    height: 100%;
-    img {
+    #profile-pic {
         border-radius: 50%;
         width: 100px;
         position: relative;
@@ -330,7 +336,6 @@ Profile Page
             color: black;
         }
     }
-}
 
 #profile-name-block {
     color: white;
@@ -714,3 +719,14 @@ FLOATING ACTION BUTTON MENU
         @include circleShadow(8px);
     }
 }
+
+
+
+/*********************************
+
+CONVERSATIONS PAGE
+
+*********************************/
+
+
+

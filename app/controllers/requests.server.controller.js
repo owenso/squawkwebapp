@@ -62,3 +62,16 @@ exports.findRequestByKnownLanguage = function(req, res, next) {
             }
         });
 };
+
+exports.updateRequest = function(req,res,next) {
+    Request.findByIdAndUpdate(req.user.params, req.body, {
+        new: true
+    }, function(err, user) {
+        if (err) {
+            console.log(err);
+            return next(err);
+        } else {
+            res.json(user);
+        }
+    });
+};

@@ -1,8 +1,8 @@
-<div id="profile-panel" ng-init="tab = 1">
+<div class="side-panel" ng-init="tab = 1">
     <div id="profile-name-block">
         <h2>{{userData.fullName || userData.username}}</h2>
     </div>
-    <img src={{userData.userImg}}>
+    <img id="profile-pic" src={{userData.userImg}}>
     <ul id="profile-tabs">
         <a href ng-click="tab = 1" ng-class="{'selected-tab': tab == 1}">
             <li><span>{{comp}}</span>

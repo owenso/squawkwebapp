@@ -8,11 +8,10 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
         return $http.get('/api/v1/currentuser');
     };
 
-    // mainFac.getLoggedUser = function() {
-    //     var data = $window.userId;
-    //     //$cookies.put('currentId', data);
-    //     $rootScope.authenticated = true;
-    // };
+    mainFac.selectedRequest = function(id) {
+        $location.path('conversations');
+        $rootScope.viewRequestId = id;
+    };
 
     mainFac.authCheck = function(){
      if (($cookies.get('token'))===undefined){
@@ -42,7 +41,7 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
 
     mainFac.getUsersRequests = function() {
         $http
-            .get('/api/v1/requests/')
+            .get('/api/v1/request/')
             .success(function(data, status, headers) {
                 $rootScope.requests = data;
                 console.log(data);
