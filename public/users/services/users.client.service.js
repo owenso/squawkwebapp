@@ -7,7 +7,8 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
     };
 
     userFac.logOut = function() {
-        $cookies.remove("currentId");
+        $cookies.remove('token');
+        delete $rootScope.token; 
         delete $rootScope.authenticated;
         $http
             .get('/signout')
@@ -20,18 +21,16 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
         $http
             .post('/api/v1/signin', userObject)
             .success(function(data, status, headers, config) {
-                $rootScope.authenticated = true;
-                if(data.nativeLanguages.length === 0 || data.targetLanguages.length === 0){
-                    $cookies.put('currentId',data._id);
+                    $rootScope.token = data.token;
                     $rootScope.authenticated = true;
+                if(data.needLang === true){
                     $location.path('/signup2');
                 } else {
-                    $rootScope.authenticated = true;
+                    $cookies.put('token', data.token, { path: '/main/' });
                     $window.location.href="/main/";
                 }
             })
             .error(function(data, status, headers, config) {
-                $cookies.remove('currentId');
                 if(data == 'Unauthorized'){
                     $rootScope.message = 'Incorrect Username or Password.';
                 }else{
@@ -44,22 +43,29 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
         $http
             .post('/api/v1/signup', userData)
             .success(function(data, status, headers, config) {
-                $cookies.put('currentId',data._id);
-                $location.path("/signup2");
+                $rootScope.token = data.token;
                 $rootScope.authenticated = true;
+                $location.path("/signup2");
             })
             .error(function(data, status, headers, config) {
-                $cookies.remove('currentId');
                 $rootScope.message = data;
             });
     };
 
     userFac.signUpTwo = function(nativeLanguages){
-
+        console.log($rootScope.authenticated)
+        if ($rootScope.authenticated === undefined){
+            if($cookies.get('token')) {
+        console.log($cookies.get('token'));
+                $rootScope.token = $cookies.get('token');
+                $rootScope.authenticated = true;
+            } else {
+                this.logOut();
+            }
+        }
             $rootScope.selectedLanguage = nativeLanguages;
-
             $http
-                .put('api/v1/users/' + $cookies.get('currentId'), {'nativeLanguages':[nativeLanguages]})
+                .put('api/v1/currentuser', {'nativeLanguages':[nativeLanguages]})
                 .success(function(data, status, headers, config){
                     $location.path('/signup3');
                 })
@@ -70,9 +76,9 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
 
     userFac.signUpThree = function(targetLanguages){
         $http
-            .put('api/v1/users/' + $cookies.get('currentId'), {'targetLanguages':[targetLanguages]})
+            .put('api/v1/currentuser', {'targetLanguages':[targetLanguages]})
             .success(function(data, status, headers, config){
-                $cookies.remove("currentId");
+                $cookies.put('token', data.token, { path: '/main/' });
                 $window.location.href="/main/";
             })
             .error(function(data, status, headers, config) {

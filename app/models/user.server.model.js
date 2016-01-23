@@ -4,6 +4,9 @@ var mongoose = require('mongoose'),
     deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 
+
+//Possibly add: Last Logged in
+
 //Note: validations are not case sensitive!!!
 var UserSchema = new Schema({
     firstName: String,

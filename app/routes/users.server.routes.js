@@ -1,35 +1,34 @@
 var users = require('../../app/controllers/users.server.controller'),
     passport = require('passport'),
-    root = '/api/v1/';
+    root = '/api/v1/',
+    jwt = require('jsonwebtoken'),
+    config = require('../../config/config'),
+    authenticator = require('../../app/controllers/authenticator.server.controller');
 
 module.exports = function(app) {
     app.route(root + 'users')
         //create
         // .post(users.create)
         //index
-        .get(users.list);
+        .get(authenticator.check, users.list);
 
     app.route(root + 'users/:userId')
         //show
-        .get(users.read)
-        //update
-        .put(users.update)
-        .delete(users.delete);
+        .get(authenticator.check, users.getUser);
+    //update
+    //.put(authenticator.currentUserOrAdmin, users.update)
+    //.delete(authenticator.currentUserOrAdmin, users.delete);
 
-    app.param('userId', users.userByID);
-
-    app.route(root + 'fulluser')
-        .get(users.userWithRequests);
+    app.route(root + 'currentuser')
+        .get(authenticator.getCurrent, users.userWithRequests)
+        .put(authenticator.getCurrent, users.update)
+        .delete(authenticator.getCurrent, users.delete);
 
     app.route(root + 'signup')
         .post(users.signup);
 
     app.route(root + 'signin')
-        .post(passport.authenticate('local'), function (req,res){
-            res.send(req.user);
-        });
-
-
+        .post(passport.authenticate('local'), users.localSignIn);
 
     app.get('/signout', users.signout);
 
@@ -43,29 +42,73 @@ module.exports = function(app) {
     app.get('/oauth/facebook/callback', passport.authenticate('facebook', {
         failureRedirect: '/',
         successRedirect: '/main/'
-    }));
+    }), function(req, res) {
+        var tokenCookie = jwt.sign(req.user.toObject(), config.jwtSecret);
+        res.cookie('token', tokenCookie, {
+            path: '/main/'
+        });
+    });
 
 
-//     //Routes for twitter oauth
-//     app.get('/oauth/twitter', passport.authenticate('twitter', {
-//         failureRedirect: '/signin'
-//     }));
-//     app.get('/oauth/twitter/callback', passport.authenticate('twitter', {
-//         failureRedirect: '/signin',
-//         successRedirect: '/'
-//     }));
+
+    //Route for token based facebook
+    app.get('/auth/facebook/token', passport.authenticate('facebook-token'),
+        function(req, res) {
+            //res.sendStatus(req.user? 200 : 401);
+            var token = jwt.sign(req.user.toObject(), config.jwtSecret);
+            res.json({
+                success: true,
+                token: token
+            });
+            //res.json(req.user);
+        }
+    );
 
 
-//     //Routes for google oauth
-//     app.get('/oauth/google', passport.authenticate('google', {
-//         failureRedirect: '/signin',
-//         scope: [
-//             'https://www.googleapis.com/auth/userinfo.profile',
-//             'https://www.googleapis.com/auth/userinfo.email'
-//         ],
-//     }));
-//     app.get('/oauth/google/callback', passport.authenticate('google', {
-//         failureRedirect: '/signin',
-//         successRedirect: '/'
-//     }));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // ////////////////////////////////////////////////////////
+
+    //             UNUSED OAUTH ROUTES                       //
+
+    // ////////////////////////////////////////////////////////
+
+    //     //Routes for twitter oauth
+    //     app.get('/oauth/twitter', passport.authenticate('twitter', {
+    //         failureRedirect: '/signin'
+    //     }));
+    //     app.get('/oauth/twitter/callback', passport.authenticate('twitter', {
+    //         failureRedirect: '/signin',
+    //         successRedirect: '/'
+    //     }));
+
+
+    //     //Routes for google oauth
+    //     app.get('/oauth/google', passport.authenticate('google', {
+    //         failureRedirect: '/signin',
+    //         scope: [
+    //             'https://www.googleapis.com/auth/userinfo.profile',
+    //             'https://www.googleapis.com/auth/userinfo.email'
+    //         ],
+    //     }));
+    //     app.get('/oauth/google/callback', passport.authenticate('google', {
+    //         failureRedirect: '/signin',
+    //         successRedirect: '/'
+    //     }));
 };
