@@ -10,14 +10,24 @@ var jshint = require('gulp-jshint');
 var size = require('gulp-filesize');
 var print = require('gulp-print');
 var lib = require('bower-files')();
+var del = require('del');
+var cssnano = require('gulp-cssnano');
 
-var jsPaths = ['.public/main/*.js','.public/main/**/*.js','.public/users/*.js','.public/users/**/*.js','.public/request_modal/*.js','.public/request_modal/**/*.js','.public/application.js']
+var jsPaths = ['./public/main/*.js','./public/main/**/*.js','./public/users/*.js','./public/users/**/*.js','./public/request_modal/*.js','./public/request_modal/**/*.js','./public/application.js']
+
+
+gulp.task('clean:js', function () {
+  return del(['./public/js/build']);
+});
 
 gulp.task('styles', function() {
     gulp.src('./public/scss/**/*.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer())
         .pipe(gulp.dest('./public/css/'))
+        .pipe(size())
+        .pipe(cssnano())
+        .pipe(gulp.dest('./public/css/build/'))
         .pipe(size())
         .pipe(livereload());
 });
@@ -26,9 +36,9 @@ gulp.task('lib', function () {
     gulp.src(lib.ext('js').files)
         .pipe(print())
         .pipe(concat('lib.min.js'))
-        .pipe(size())
         .pipe(uglify())
-        .pipe(gulp.dest('./public/js'))
+        .pipe(gulp.dest('./public/js/build'))
+        .pipe(size())
 });
 
 gulp.task('js', function () {
@@ -38,8 +48,8 @@ gulp.task('js', function () {
         .pipe(jshint.reporter('jshint-stylish'))
         .pipe(concat('app.min.js'))
         .pipe(uglify())
-
-        .pipe(gulp.dest('./public/js'))
+        .pipe(gulp.dest('./public/js/build'))
+        .pipe(size())
     })
 
 
@@ -50,4 +60,4 @@ gulp.task('watch', function () {
     gulp.watch('./public/scss/**/*.scss',['styles']);
 })
 
-gulp.task('default',['watch', 'lib', 'js', 'styles']);
+gulp.task('default',['clean:js', 'watch', 'lib', 'js', 'styles']);

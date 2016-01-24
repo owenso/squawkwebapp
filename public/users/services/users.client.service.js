@@ -53,7 +53,7 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
     };
 
     userFac.signUpTwo = function(nativeLanguages){
-        console.log($rootScope.authenticated)
+        console.log($rootScope.authenticated);
         if ($rootScope.authenticated === undefined){
             if($cookies.get('token')) {
         console.log($cookies.get('token'));
