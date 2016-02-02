@@ -118,6 +118,30 @@ exports.delete = function(req, res, next) {
 };
 
 
+exports.localSignIn = function (req, res) {
+    var token = jwt.sign(req.user.toObject(), config.jwtSecret);
+    var tokenResponse = {
+        success: true,
+        token: token
+    };
+    if (req.user.nativeLanguages.length === 0 || req.user.targetLanguages.length === 0){
+        tokenResponse.hasSelectedLanguages = false;
+    } else {
+        tokenResponse.hasSelectedLanguages = true;
+    }
+    res.status(200).json(tokenResponse);
+};
+
+exports.authenticateStatus = function(req, res) {
+
+    // At this point, authenticator middleware has validated the token
+
+    return res.status(200).send({
+        sucess: true,
+        message: 'Authentication succeeded.'
+    });
+};
+
 
 //need to check
 exports.tokenSaveOAuthUserProfile = function(profile, done, req, res) {
@@ -153,19 +177,6 @@ exports.tokenSaveOAuthUserProfile = function(profile, done, req, res) {
     });
 };
 
-exports.localSignIn = function (req, res) {
-    var token = jwt.sign(req.user.toObject(), config.jwtSecret);
-    var tokenResponse = {
-        success: true,
-        token: token
-    };
-    if (req.user.nativeLanguages.length === 0 || req.user.targetLanguages.length === 0){
-        tokenResponse.hasSelectedLanguages = false;
-    } else {
-        tokenResponse.hasSelectedLanguages = true;
-    }
-    res.status(200).json(tokenResponse);
-};
 
 exports.saveOAuthUserProfile = function(req, profile, done) {
     User.findOne({

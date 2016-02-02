@@ -30,6 +30,8 @@ module.exports = function(app) {
     app.route(root + 'signin')
         .post(passport.authenticate('local'), users.localSignIn);
 
+    app.get(root + 'authenticatedStatus', authenticator.check , users.authenticateStatus);
+
     app.get('/signout', users.signout);
 
 
