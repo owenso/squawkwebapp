@@ -54,6 +54,11 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
     };
 
     userFac.signUpTwo = function(nativeLanguages){
+        if ($cookies.get('token')){
+          $rootScope.authenticated = true;
+          $rootScope.token = $cookies.get('token');
+        }
+
         if ($rootScope.authenticated){
           $rootScope.selectedLanguage = nativeLanguages;
           $http
