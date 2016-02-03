@@ -42,13 +42,13 @@ module.exports = function(app) {
     }));
 
     app.get('/oauth/facebook/callback', passport.authenticate('facebook', {
-        failureRedirect: '/',
-        successRedirect: '/main/'
+        failureRedirect: '/'
     }), function(req, res) {
-        var tokenCookie = jwt.sign(req.user.toObject(), config.jwtSecret);
-        res.cookie('token', tokenCookie, {
-            path: '/main/'
-        });
+      if (req.user.nativeLanguages.length === 0 || req.user.targetLanguages.length === 0){
+        res.redirect('#/signup2');
+      } else {
+        res.redirect('/main/');
+      }
     });
 
 

@@ -132,6 +132,14 @@ exports.localSignIn = function (req, res) {
     res.status(200).json(tokenResponse);
 };
 
+exports.facebookSignIn = function (req, res) {
+  if (req.user.nativeLanguages.length === 0 || req.user.targetLanguages.length === 0){
+    res.redirect('#/signup2');
+  } else {
+    res.redirect('/main/');
+  }
+};
+
 exports.authenticateStatus = function(req, res) {
 
     // At this point, authenticator middleware has validated the token
