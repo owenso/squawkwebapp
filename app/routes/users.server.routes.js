@@ -49,17 +49,7 @@ module.exports = function(app) {
 
 
     //Route for token based facebook
-    app.get('/auth/facebook/token', passport.authenticate('facebook-token'),
-        function(req, res) {
-            //res.sendStatus(req.user? 200 : 401);
-            var token = jwt.sign(req.user.toObject(), config.jwtSecret);
-            res.json({
-                success: true,
-                token: token
-            });
-            //res.json(req.user);
-        }
-    );
+    app.get('/auth/facebook/token', passport.authenticate('facebook-token'), users.localSignIn);
 
 
 

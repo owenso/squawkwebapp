@@ -160,9 +160,9 @@ exports.localSignIn = function (req, res) {
         token: token
     };
     if (req.user.nativeLanguages.length === 0 || req.user.targetLanguages.length === 0){
-        tokenResponse.needLang = true;
+        tokenResponse.hasSelectedLanguages = false;
     } else {
-        tokenResponse.needLang = false;
+        tokenResponse.hasSelectedLanguages = true;
     }
     res.status(200).json(tokenResponse);
 };
