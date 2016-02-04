@@ -39,14 +39,11 @@ module.exports = function(app) {
         scope: ['email']
     }));
 
-    app.get('/oauth/facebook/callback', passport.authenticate('facebook', {
-        failureRedirect: '/',
-        successRedirect: '/main/'
-    }), function(req, res) {
+    app.get('/oauth/facebook/callback', passport.authenticate('facebook'), function(req, res) {
         var tokenCookie = jwt.sign(req.user.toObject(), config.jwtSecret);
         res.cookie('token', tokenCookie, {
             path: '/main/'
-        });
+        }).redirect('/main/');
     });
 
 
