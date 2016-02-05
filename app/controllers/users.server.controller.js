@@ -118,6 +118,38 @@ exports.delete = function(req, res, next) {
 };
 
 
+exports.localSignIn = function (req, res) {
+    var token = jwt.sign(req.user.toObject(), config.jwtSecret);
+    var tokenResponse = {
+        success: true,
+        token: token
+    };
+    if (req.user.nativeLanguages.length === 0 || req.user.targetLanguages.length === 0){
+        tokenResponse.hasSelectedLanguages = false;
+    } else {
+        tokenResponse.hasSelectedLanguages = true;
+    }
+    res.status(200).json(tokenResponse);
+};
+
+exports.facebookSignIn = function (req, res) {
+  if (req.user.nativeLanguages.length === 0 || req.user.targetLanguages.length === 0){
+    res.redirect('#/signup2');
+  } else {
+    res.redirect('/main/');
+  }
+};
+
+exports.authenticateStatus = function(req, res) {
+
+    // At this point, authenticator middleware has validated the token
+
+    return res.status(200).send({
+        sucess: true,
+        message: 'Authentication succeeded.'
+    });
+};
+
 
 //need to check
 exports.tokenSaveOAuthUserProfile = function(profile, done, req, res) {
@@ -153,19 +185,6 @@ exports.tokenSaveOAuthUserProfile = function(profile, done, req, res) {
     });
 };
 
-exports.localSignIn = function (req, res) {
-    var token = jwt.sign(req.user.toObject(), config.jwtSecret);
-    var tokenResponse = {
-        success: true,
-        token: token
-    };
-    if (req.user.nativeLanguages.length === 0 || req.user.targetLanguages.length === 0){
-        tokenResponse.hasSelectedLanguages = false;
-    } else {
-        tokenResponse.hasSelectedLanguages = true;
-    }
-    res.status(200).json(tokenResponse);
-};
 
 exports.saveOAuthUserProfile = function(req, profile, done) {
     User.findOne({
@@ -176,6 +195,9 @@ exports.saveOAuthUserProfile = function(req, profile, done) {
             return done(err);
         } else {
             if (!user) {
+
+              //have to revisit this
+
                 var possibleUsername = profile.username || ((profile.email) ? profile.email.split('@')[0] : '');
 
                 User.findUniqueUsername(possibleUsername, null, function(avaliableUsername) {
