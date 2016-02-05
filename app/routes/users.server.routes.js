@@ -41,22 +41,11 @@ module.exports = function(app) {
         scope: ['email']
     }));
 
-<<<<<<< HEAD
     app.get('/oauth/facebook/callback', passport.authenticate('facebook'), function(req, res) {
         var tokenCookie = jwt.sign(req.user.toObject(), config.jwtSecret);
         res.cookie('token', tokenCookie, {
             path: '/main/'
         }).redirect('/main/');
-=======
-    app.get('/oauth/facebook/callback', passport.authenticate('facebook', {
-        failureRedirect: '/'
-    }), function(req, res) {
-      if (req.user.nativeLanguages.length === 0 || req.user.targetLanguages.length === 0){
-        res.redirect('#/signup2');
-      } else {
-        res.redirect('/main/');
-      }
->>>>>>> develop
     });
 
 
