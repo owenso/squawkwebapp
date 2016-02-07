@@ -17,7 +17,11 @@ var RequestSchema = new Schema({
         type: Boolean,
         default: true
     },
-    language: String
+    language: String,
+    created: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 RequestSchema.plugin(deepPopulate);

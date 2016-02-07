@@ -55,7 +55,6 @@ angular.module('requestModal').controller('RequestModalController', ['$scope', '
 
 
         var formObject = {
-            authorId: $cookies.get('currentId'),
             title: $scope.title,
             description: $scope.description
         };

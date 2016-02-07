@@ -10,12 +10,12 @@ var s3Url = 'https://s3.amazonaws.com/'+ creds.aws.bucket;
 
 
 exports.s3Signing = function(req, res) {
-	var request = req.body;
+		var request = req.body;
     var fileName = uuid.v4();
     var kind = request.type.split('/').shift();
 
-    var path = 'uploads' + '/' + request.userId + '/' + kind + '/' + fileName;
-    
+    var path = 'uploads' + '/' + req.user._id + '/' + kind + '/' + fileName;
+
     var readType = 'public-read';
     var expiration = moment().add(15, 'm').toDate(); //15 minutes
 
@@ -25,7 +25,7 @@ exports.s3Signing = function(req, res) {
         'conditions': [{
                 'bucket': creds.aws.bucket
             },
-            ['starts-with', '$key', path], 
+            ['starts-with', '$key', path],
             {
                 'acl': readType
             },

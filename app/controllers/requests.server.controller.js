@@ -5,7 +5,10 @@ var User = require('mongoose').model('User');
 
 exports.createNewRequest = function(io){
     return function(req, res, next) {
-    var message = new Message(req.body);
+
+    var messageObject = req.body;
+    messageObject.authorId = req.user._id;
+    var message = new Message(messageObject);
 
     message.save(function(err) {
         if (err) {
@@ -17,14 +20,15 @@ exports.createNewRequest = function(io){
                 language: req.user.targetLanguages[0] //this just uses the first language in the user's array. need to set this on client side if we want to let them choose
             };
             var request = new Request(newRequest);
-
             request.save(function(err) {
                 if (err) {
                     res.status(500);
                     return next(err);
                 } else {
-                    io.emit('newRequest', request);  //SOCKETING!
-                    console.log(request);
+                    request.deepPopulate('message.authorId', function(error, socReq) {
+                      console.log(socReq);
+                      io.emit('newRequest', socReq);
+                    });
                     User.update({
                         _id: req.user._id
                     }, {
@@ -52,7 +56,7 @@ exports.findRequestByKnownLanguage = function(req, res, next) {
         })
         .deepPopulate('message.authorId')
         .sort({
-            created: -1
+            "created" : -1
         })
         .exec(function(err, data) {
             if (err) {
