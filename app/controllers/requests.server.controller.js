@@ -2,7 +2,9 @@ var Request = require('mongoose').model('Request');
 var Message = require('mongoose').model('Message');
 var User = require('mongoose').model('User');
 
-exports.createNewRequest = function(req, res, next) {
+
+exports.createNewRequest = function(io){
+    return function(req, res, next) {
     var message = new Message(req.body);
 
     message.save(function(err) {
@@ -21,6 +23,7 @@ exports.createNewRequest = function(req, res, next) {
                     res.status(500);
                     return next(err);
                 } else {
+                    io.emit('newRequest', request);  //SOCKETING!
                     console.log(request);
                     User.update({
                         _id: req.user._id
@@ -37,6 +40,7 @@ exports.createNewRequest = function(req, res, next) {
 
         }
     });
+};
 };
 
 

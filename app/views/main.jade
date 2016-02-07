@@ -33,11 +33,11 @@ html(lang="en" ng-app='squawker')
 			img(class="nav-profile-img" src= userImg)
 			i(class="fa fa-caret-down")
 			ul
-				li 
-					a(href='/main/#/profile') 
+				li
+					a(href='/main/#/profile')
 						h2 VIEW PROFILE
-				li 
-					a(href='#' ng-click="logOut()") 
+				li
+					a(href='#' ng-click="logOut()")
 						h2 SIGNOUT
 		div(id="left-main-nav-bar")
 			a(href='/main/#/requests' )
@@ -52,15 +52,19 @@ html(lang="en" ng-app='squawker')
 	section(id="main-view" ng-view)
 
 
+	//for sockets
+	script(src="/socket.io/socket.io.js")
 
 	script(type="text/javascript", src="/lib/angular/angular.js")
 	script(type="text/javascript", src="/lib/angular-route/angular-route.min.js")
 	script(type="text/javascript", src="/lib/angular-cookies/angular-cookies.min.js")
 	script(type="text/javascript", src="/lib/angular-timer/dist/angular-timer.min.js")
+
 		//for anular-modal-service
 	script(type="text/javascript", src="/lib/angular-modal-service/dst/angular-modal-service.min.js")
 
 	script(type="text/javascript", src="/main/main.client.module.js")
+	script(type="text/javascript", src="/main/services/socketio.client.service.js")
 	script(type="text/javascript", src="/main/controllers/main.client.controller.js")
 	script(type="text/javascript", src="/main/config/main.client.routes.js")
 	script(type="text/javascript", src="/main/services/main.client.service.js")
@@ -100,5 +104,8 @@ html(lang="en" ng-app='squawker')
 
 	//- for polymer
 	script(type="text/javscript", src="/lib/webcomponentsjs/webcomponents.min.js")
+
+
+
 
 	script(type="text/javascript", src="/application.js")

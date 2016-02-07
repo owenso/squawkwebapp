@@ -1,7 +1,11 @@
-angular.module('main').controller('RequestsController', ['$scope', 'MainService', '$location', '$rootScope', '$cookies', function($scope, MainService, $location, $rootScope, $cookies) {
-    
+angular.module('main').controller('RequestsController', ['$scope', 'MainService', '$location', '$rootScope', '$cookies', 'socketio', function($scope, MainService, $location, $rootScope, $cookies, socketio) {
+
     $rootScope.currentUrl = $location.path();
 
+    socketio.on('newRequest', function(msg){
+      console.log(msg);
+      $rootScope.requests.unshift(msg);
+    });
     MainService.getAvaliableRequests();
 
     $scope.showNewRequest = function(type) {
