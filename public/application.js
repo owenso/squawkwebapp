@@ -11,8 +11,8 @@ app.run(function(amMoment) {
 app.factory('httpRequestInterceptor', ['$rootScope', function($rootScope) {
     return {
         request: function(config) {
-            if ($rootScope.authenticated) {
-                config.headers.Authorization = $rootScope.token;
+            if ($rootScope.authenticated && ((config.url === 'https://s3.amazonaws.com/parakeet-uploads') === false)) {
+                config.headers.authorization = $rootScope.token;
             }
             return config;
         }
