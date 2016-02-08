@@ -3,6 +3,7 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
 
     mainFac.newUser = {};
 
+    mainFac.nativeLanguages = undefined;
 
     mainFac.getUser = function() {
         return $http.get('/api/v1/currentuser');
@@ -31,6 +32,7 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
         }
     };
     mainFac.getAvaliableRequests = function() {
+        _this = this;
         if (($cookies.get('token'))===undefined){
             this.logOut();
         } else {
@@ -39,7 +41,8 @@ angular.module('main').factory('MainService', ['$http', '$cookies', '$location',
         $http
             .get('/api/v1/availableRequests/')
             .success(function(data, status, headers) {
-                $rootScope.requests = data;
+                $rootScope.requests = data.requests;
+                _this.nativeLanguages = data.nativeLanguages;
                 console.log(data);
             })
             .error(function(data, status, headers, config) {

@@ -79,7 +79,7 @@ angular.module('users').factory('UserService', ['$http','$cookies','$location', 
         $http
             .put('api/v1/currentuser', {'targetLanguages':[targetLanguages]})
             .success(function(data, status, headers, config){
-                $cookies.remove('token', {path: '/'})
+                $cookies.remove('token', {path: '/'});
                 $cookies.put('token', $rootScope.token, { path: '/main/' });
                 $window.location.href="/main/";
             })

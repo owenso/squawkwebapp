@@ -63,7 +63,11 @@ exports.findRequestByKnownLanguage = function(req, res, next) {
                 console.log(err);
                 return next(err);
             } else {
-                res.json(data);
+                var responseObj = {
+                  nativeLanguages : req.user.nativeLanguages,
+                  requests : data
+                };
+                res.json(responseObj);
             }
         });
 };

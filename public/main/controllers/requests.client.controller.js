@@ -2,11 +2,15 @@ angular.module('main').controller('RequestsController', ['$scope', 'MainService'
 
     $rootScope.currentUrl = $location.path();
 
-    socketio.on('newRequest', function(msg){
-      console.log(msg);
-      $rootScope.requests.unshift(msg);
-    });
     MainService.getAvaliableRequests();
+    
+    socketio.on('newRequest', function(msg){
+      for (var i = 0; i<MainService.nativeLanguages.length; i++){
+        if (MainService.nativeLanguages[i] == msg.language){
+            $rootScope.requests.unshift(msg);
+        }
+      }
+    });
 
     $scope.showNewRequest = function(type) {
         console.log('loading request modal');
