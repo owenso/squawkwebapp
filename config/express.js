@@ -16,10 +16,13 @@ module.exports = function(db) {
 
     app.use(favicon('./public/img/favicons/favicon.ico'));
 
-    if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'local') {
+    if (process.env.NODE_ENV === 'development'){
     	console.log("Running in development mode!");
     	app.use(morgan('dev'));
-    } else if (process.env.NODE_ENV === 'production') {
+    } else if (process.env.NODE_ENV === 'local') {
+			console.log("Running in local mode. ARE YOU HAPPY NOW, ANDY?!");
+			app.use(morgan('dev'));
+		} else if (process.env.NODE_ENV === 'production') {
     	console.log("Running in production mode!");
     	app.use(compress());
     } else if (process.env.NODE_ENV === 'staging') {
@@ -34,7 +37,7 @@ module.exports = function(db) {
     app.use(bodyParser.json());
     app.use(methodOverride());
 
-    app.use(cookieParser())
+    app.use(cookieParser());
 
     app.use(session({
     	saveUninitialized: true,
