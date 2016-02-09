@@ -2,8 +2,13 @@ var Request = require('mongoose').model('Request');
 var Message = require('mongoose').model('Message');
 var User = require('mongoose').model('User');
 
-exports.createNewRequest = function(req, res, next) {
-    var message = new Message(req.body);
+
+exports.createNewRequest = function(io){
+    return function(req, res, next) {
+
+    var messageObject = req.body;
+    messageObject.authorId = req.user._id;
+    var message = new Message(messageObject);
 
     message.save(function(err) {
         if (err) {
@@ -15,13 +20,15 @@ exports.createNewRequest = function(req, res, next) {
                 language: req.user.targetLanguages[0] //this just uses the first language in the user's array. need to set this on client side if we want to let them choose
             };
             var request = new Request(newRequest);
-
             request.save(function(err) {
                 if (err) {
                     res.status(500);
                     return next(err);
                 } else {
-                    console.log(request);
+                    request.deepPopulate('message.authorId', function(error, socReq) {
+                      console.log(socReq);
+                      io.emit('newRequest', socReq);
+                    });
                     User.update({
                         _id: req.user._id
                     }, {
@@ -38,6 +45,7 @@ exports.createNewRequest = function(req, res, next) {
         }
     });
 };
+};
 
 
 exports.findRequestByKnownLanguage = function(req, res, next) {
@@ -48,14 +56,18 @@ exports.findRequestByKnownLanguage = function(req, res, next) {
         })
         .deepPopulate('message.authorId')
         .sort({
-            created: -1
+            "created" : -1
         })
         .exec(function(err, data) {
             if (err) {
                 console.log(err);
                 return next(err);
             } else {
-                res.json(data);
+                var responseObj = {
+                  nativeLanguages : req.user.nativeLanguages,
+                  requests : data
+                };
+                res.json(responseObj);
             }
         });
 };

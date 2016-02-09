@@ -43,9 +43,11 @@ module.exports = function(app) {
 
     app.get('/oauth/facebook/callback', passport.authenticate('facebook'), function(req, res) {
         var tokenCookie = jwt.sign(req.user.toObject(), config.jwtSecret);
-        res.cookie('token', tokenCookie, {
-            path: '/main/'
-        }).redirect('/main/');
+        if (req.user.nativeLanguages.length === 0 || req.user.targetLanguages.length === 0){
+          res.cookie('token', tokenCookie, {path: '/'}).redirect('/#/signup2/');
+        } else {
+          res.cookie('token', tokenCookie, {path: '/main/'}).redirect('/main/');
+        }
     });
 
 

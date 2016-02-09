@@ -2,9 +2,9 @@ var requests = require('../../app/controllers/requests.server.controller');
 var root = '/api/v1/';
 var authenticator = require('../../app/controllers/authenticator.server.controller');
 
-module.exports = function(app) {
+module.exports = function(app, io) {
     app.route(root + 'request')
-        .post(authenticator.getCurrent, requests.createNewRequest);
+        .post(authenticator.getCurrent, requests.createNewRequest(io));
 
     app.route(root + 'request/:requestId')
     		.get(authenticator.check, requests.showRequest)
