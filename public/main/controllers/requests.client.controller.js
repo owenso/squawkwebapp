@@ -1,8 +1,16 @@
-angular.module('main').controller('RequestsController', ['$scope', 'MainService', '$location', '$rootScope', '$cookies', function($scope, MainService, $location, $rootScope, $cookies) {
-    
+angular.module('main').controller('RequestsController', ['$scope', 'MainService', '$location', '$rootScope', '$cookies', 'socketio', function($scope, MainService, $location, $rootScope, $cookies, socketio) {
+
     $rootScope.currentUrl = $location.path();
 
     MainService.getAvaliableRequests();
+    
+    socketio.on('newRequest', function(msg){
+      for (var i = 0; i<MainService.nativeLanguages.length; i++){
+        if (MainService.nativeLanguages[i] == msg.language){
+            $rootScope.requests.unshift(msg);
+        }
+      }
+    });
 
     $scope.showNewRequest = function(type) {
         console.log('loading request modal');

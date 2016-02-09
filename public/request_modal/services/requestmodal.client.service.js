@@ -52,7 +52,6 @@ angular.module('requestModal').factory('RequestModalService', ['$http', '$cookie
         }
         var query = {
             filetype: fileExt,
-            userId: $cookies.get('currentId'),
             type: uploaded.type
         };
         var _this = this;

@@ -1,5 +1,5 @@
 var config = require('./config'),
-	express = require('express'),
+		express = require('express'),
     favicon = require('serve-favicon'),
     morgan = require('morgan'),
     compress = require('compression'),
@@ -9,10 +9,18 @@ var config = require('./config'),
     session = require('express-session'),
     flash = require('connect-flash'),
     passport = require('passport'),
-    MongoStore = require('connect-mongo')(session);
+    MongoStore = require('connect-mongo')(session),
+		http = require('http'),
+		socketio = require('socket.io');
+
+
 
 module.exports = function(db) {
     var app = express();
+
+		var server = http.createServer(app);
+
+		var io = socketio.listen(server);
 
     app.use(favicon('./public/img/favicons/favicon.ico'));
 
@@ -55,15 +63,17 @@ module.exports = function(db) {
     app.use(passport.initialize());
     app.use(passport.session());
 
+
+
     require('../app/routes/index.server.routes.js')(app);
     require('../app/routes/users.server.routes.js')(app);
     require('../app/routes/main.server.routes.js')(app);
     require('../app/routes/messages.server.routes.js')(app);
     require('../app/routes/conversation.server.routes.js')(app);
-    require('../app/routes/requests.server.routes.js')(app);
+    require('../app/routes/requests.server.routes.js')(app, io);
 
 
     app.use(express.static('./public'));
 
-    return app;
+    return server;
 };
