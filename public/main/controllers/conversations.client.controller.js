@@ -1,4 +1,4 @@
-angular.module('main').controller('ConversationsController', ['$scope', 'MainService', '$location', '$rootScope', '$http', function($scope, MainService, $location, $rootScope, $http) {
+angular.module('main').controller('ConversationsController', ['$scope', 'MainService', '$location', '$rootScope', '$http', 'socketio', function($scope, MainService, $location, $rootScope, $http, socketio) {
 
 $rootScope.currentUrl = $location.path();
 
@@ -13,4 +13,20 @@ if ($rootScope.viewRequestId) {
 }
 
 
+// socketio.on('newRequest', function(msg){
+//   for (var i = 0; i<MainService.nativeLanguages.length; i++){
+//     if (MainService.nativeLanguages[i] == msg.language){
+//         $rootScope.requests.unshift(msg);
+//     }
+//   }
+// });
+
+
+  socketio.on('connection', function(){
+    console.log('connected');
+  });
+
+  socketio.on('disconnect', function(){
+    console.log('disconnected');
+  });
 }]);
