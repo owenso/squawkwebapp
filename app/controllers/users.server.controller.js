@@ -129,6 +129,14 @@ exports.localSignIn = function (req, res) {
     } else {
         tokenResponse.hasSelectedLanguages = true;
     }
+    var date = new Date();
+    User.update({_id : req.user.id}, {lastSeen: date}, function(err, data){
+      if (err) {
+        console.log(err);
+      } else {
+        console.log (data);
+      }
+    });
     res.status(200).json(tokenResponse);
 };
 

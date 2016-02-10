@@ -61,17 +61,21 @@ var UserSchema = new Schema({
         enum: ['Admin', 'Owner', 'User']
     },
     requests: [{
-            type: Schema.Types.ObjectId, 
+            type: Schema.Types.ObjectId,
             ref: 'Request'
     }],
     filledRequests: [{
-            type: Schema.Types.ObjectId, 
+            type: Schema.Types.ObjectId,
             ref: 'Request'
     }],
     conversations: [{
-            type: Schema.Types.ObjectId, 
+            type: Schema.Types.ObjectId,
             ref: 'Conversation'
-    }]
+    }],
+    lastSeen: {
+        type: Date,
+        default: Date.now
+    },
 });
 
 UserSchema.virtual('fullName').get(function() {
