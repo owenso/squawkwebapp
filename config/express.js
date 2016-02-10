@@ -25,15 +25,19 @@ module.exports = function(db) {
     app.use(favicon('./public/img/favicons/favicon.ico'));
 
     if (process.env.NODE_ENV === 'development'){
+			//for development server
     	console.log("Running in development mode!");
     	app.use(morgan('dev'));
     } else if (process.env.NODE_ENV === 'local') {
+			//for local server
 			console.log("Running in local mode. ARE YOU HAPPY NOW, ANDY?!");
 			app.use(morgan('dev'));
 		} else if (process.env.NODE_ENV === 'production') {
+			//for production server
     	console.log("Running in production mode!");
     	app.use(compress());
     } else if (process.env.NODE_ENV === 'staging') {
+			//for staging server
         console.log("Running in staging mode!");
         app.use(compress());
     }
