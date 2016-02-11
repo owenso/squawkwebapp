@@ -7,17 +7,13 @@ var users = require('../../app/controllers/users.server.controller'),
 
 module.exports = function(app) {
     app.route(root + 'users')
-        //create
-        // .post(users.create)
-        //index
+    
         .get(authenticator.check, users.list);
 
     app.route(root + 'users/:userId')
         //show
         .get(authenticator.check, users.getUser);
-    //update
-    //.put(authenticator.currentUserOrAdmin, users.update)
-    //.delete(authenticator.currentUserOrAdmin, users.delete);
+
 
     app.route(root + 'currentuser')
         .get(authenticator.getCurrent, users.userWithRequests)
