@@ -15,18 +15,34 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      "./public/lib/angular/angular.js",
+      "./public/lib/angular-route/angular-route.js",
+      "./public/lib/angular-cookies/angular-cookies.js",
+      "./public/lib/angular-timer/dist/angular-timer.min.js",
+      "./public/lib/angular-modal-service/dst/angular-modal-service.min.js",
+      "./public/lib/ng-file-upload/ng-file-upload.min.js",
+      "./public/lib/ng-file-upload/ng-file-upload-shim.min.js",
+      "./public/lib/angular-svg-round-progressbar/build/roundProgress.min.js",
+      "./public/lib/moment/min/moment.min.js",
+      "./public/lib/moment/min/locales.min.js",
+      "./public/lib/angular-moment/angular-moment.min.js",
+      './public/main/*.js',
+      './public/main/**/*.js',
+      './public/users/*.js',
+      './public/users/**/*.js',
+      './public/request_modal/*.js',
+      './public/request_modal/**/*.js',
+      './public/application.js',
+      './test/unit/*.test.js'
     ],
-
 
     // list of files to exclude
-    exclude: [
-    ],
+    exclude: [],
 
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-    },
+    preprocessors: {},
 
 
     // test results reporter to use
@@ -54,7 +70,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome', 'PhantomJS'],
+    browsers: ['PhantomJS'],
 
 
     // Continuous Integration mode
