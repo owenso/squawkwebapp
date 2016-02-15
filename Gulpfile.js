@@ -13,7 +13,7 @@ var lib = require('bower-files')();
 var del = require('del');
 var cssnano = require('gulp-cssnano');
 
-var jsPaths = ['./public/main/*.js','./public/main/**/*.js','./public/users/*.js','./public/users/**/*.js','./public/request_modal/*.js','./public/request_modal/**/*.js','./public/application.js']
+var jsPaths = ['./public/main/*.js','./public/main/**/*.js','./public/users/*.js','./public/users/**/*.js','./public/request_modal/*.js','./public/request_modal/**/*.js','./public/application.js'];
 
 
 gulp.task('clean:js', function () {
@@ -38,7 +38,7 @@ gulp.task('lib', function () {
         .pipe(concat('lib.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('./public/js/build'))
-        .pipe(size())
+        .pipe(size());
 });
 
 gulp.task('js', function () {
@@ -49,15 +49,15 @@ gulp.task('js', function () {
         .pipe(concat('app.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('./public/js/build'))
-        .pipe(size())
-    })
+        .pipe(size());
+    });
 
 
 gulp.task('watch', function () {
     livereload.listen();
-    gulp.watch(jsPaths, ['js'])
-    gulp.watch(lib.ext('js').files, ['lib'])
+    gulp.watch(jsPaths, ['js']);
+    gulp.watch(lib.ext('js').files, ['lib']);
     gulp.watch('./public/scss/**/*.scss',['styles']);
-})
+});
 
 gulp.task('default',['clean:js', 'watch', 'lib', 'js', 'styles']);
