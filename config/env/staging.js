@@ -1,6 +1,7 @@
 module.exports = {
     urlRoot: 'https://squawk-staging.herokuapp.com/',
     db: process.env.DB, //no local fallback
+    jwtSecret:process.env.JWTSECRET,
     sessionSecret: process.env.SESSION_SECRET,
     facebook: {
         clientID: process.env.FACE_CLIENT_ID,
